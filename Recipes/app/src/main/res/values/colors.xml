@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="buttonTextColor">#000000</color>
+    <color name="activityMainTextColor">#FFFFFF</color>
+
+    <color name="colorPrimary">#FF0000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="mainBackground">#00FFFF</color>
+    <color name="drawerBackground">#FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+</resources>
