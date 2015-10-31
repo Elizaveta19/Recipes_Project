@@ -11,4 +11,8 @@
         <item name="colorControlNormal">@color/colorWhite</item>
     </style>
 
+    <style name="NavDrawerStyle" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
 </resources>

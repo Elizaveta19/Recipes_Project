@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Recipes</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="menu_item_home">Начальная страница</string>
+    <string name="menu_item_search">Поиск</string>
 
     <string name="application_title">Введите продукты, из которых Вы хотите приготовить блюдо, и нажмите "Найти"!</string>
     <string name="am_search_button">Найти рецепт</string>
