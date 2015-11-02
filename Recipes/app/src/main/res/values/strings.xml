@@ -11,4 +11,12 @@
     <string name="sa_search_title">Продукты</string>
     <string name="sa_search_hint">Ингредиент...</string>
     <string name="sa_search_calories_hint">Калорийность до...</string>
+
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string-array name="navigationDrawer">
+        <item>Home</item>
+        <item>Search</item>
+    </string-array>
 </resources>

@@ -5,13 +5,13 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="AppDefault" parent="Theme.AppCompat">
+    <style name="AppDefault" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@color/colorWhite</item>
     </style>
 
-    <style name="NavDrawerStyle" parent="Base.TextAppearance.AppCompat">
+    <style name="NavDrawerStyle" parent="Theme.AppCompat.Light">
         <item name="android:textColor">@color/colorBlack</item>
     </style>
 

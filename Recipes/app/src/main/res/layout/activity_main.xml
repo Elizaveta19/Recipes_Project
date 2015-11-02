@@ -103,16 +103,19 @@
         </LinearLayout>
     </LinearLayout>
 
-    <android.support.design.widget.NavigationView
+    <ListView
         android:id="@+id/navigation"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/drawerBackground"
-        app:menu="@menu/menu_navigation"
         app:headerLayout="@layout/navigation_header"
-        app:itemTextAppearance="@style/NavDrawerStyle"/>
-        <!--android:choiceMode="singleChoice"
+        android:background="@color/drawerBackground"
+        android:divider="@null"/>
+        <!--
+        android.support.design.widget.NavigationView
+        app:itemTextAppearance="@style/NavDrawerStyle"
+        app:menu="@menu/menu_navigation"
+        android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"/-->
 
