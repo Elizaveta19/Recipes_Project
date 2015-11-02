@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 
 import com.acer.recipes.R;
 
-public class SearchRecipesFragment extends Fragment {
+public class StartPageFragment extends Fragment {
 
-    private static final int LAYOUT = R.layout.activity_search_recipes;
+    private static final int LAYOUT = R.layout.start_page_layout;
     private View view;
 
     @Nullable
@@ -21,10 +21,10 @@ public class SearchRecipesFragment extends Fragment {
         return view;
     }
 
-    public static SearchRecipesFragment getFragment()
+    public static StartPageFragment getFragment()
     {
         Bundle args = new Bundle();
-        SearchRecipesFragment fragment = new SearchRecipesFragment();
+        StartPageFragment fragment = new StartPageFragment();
         fragment.setArguments(args);
 
         return fragment;

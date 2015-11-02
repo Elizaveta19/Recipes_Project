@@ -3,6 +3,7 @@
     <color name="colorPrimary">#02ADC1</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="drawerBackground">#E2E0E3</color>
+    <color name="mainBackground">#99F4FF</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
 </resources>

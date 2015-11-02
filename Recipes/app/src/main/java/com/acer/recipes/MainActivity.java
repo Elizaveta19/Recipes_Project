@@ -1,10 +1,6 @@
 package com.acer.recipes;
 
 import android.content.res.Configuration;
-import android.os.PersistableBundle;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,15 +11,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.Toast;
-import android.widget.Toolbar;
+
+import com.acer.recipes.fragments.SearchRecipesFragment;
+import com.acer.recipes.fragments.StartPageFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ViewPager viewPager;
+    private static final int HOME_ITEM = 0;
+    private static final int SEARCH_ITEM = 1;
 
     private static final int LAYOUT = R.layout.activity_main;
+    private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private DrawerLayout drawerLayout;
     private ListView listView;
     private String[] navigationItems;
@@ -35,15 +33,39 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.AppDefault);
         setContentView(LAYOUT);
 
+
         navigationItems = getResources().getStringArray(R.array.navigationDrawer);
         listView = (ListView) findViewById(R.id.navigation);
 
-        //listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navigationItems));
+        listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navigationItems));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), navigationItems[position] + " was selected", Toast.LENGTH_LONG).show();
+
+                switch (position)
+                {
+                    case HOME_ITEM:
+                    {
+                        StartPageFragment fragment = StartPageFragment.getFragment();
+                        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+                        drawerLayout.closeDrawer(listView);
+                        break;
+                    }
+
+                    case SEARCH_ITEM:
+                    {
+                        SearchRecipesFragment fragment = SearchRecipesFragment.getFragment();
+                        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+                        drawerLayout.closeDrawer(listView);
+                        break;
+                    }
+                }
+
                 selectItem(position);
             }
         });
@@ -97,39 +119,6 @@ public class MainActivity extends AppCompatActivity {
     public void setTitle(String title)
     {
         getSupportActionBar().setTitle(title);
-    }
-
-    private void initNavigationView() {
-
-
-        /*ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, "Open", "Close");
-        drawerLayout.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
-        {
-            @Override
-            public  boolean onNavigationItemSelected(MenuItem menuItem)
-            {
-                drawerLayout.closeDrawers();
-                switch (menuItem.getItemId()) {
-                    case R.id.homeItem:
-                        //show
-                }
-                return false;
-            }
-        });*/
-    }
-
-    private void initTabs()
-    {
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-       /* TabsPagerFragmentAdapter adapter = new TabsPagerFragmentAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(viewPager);*/
     }
 
     @Override
