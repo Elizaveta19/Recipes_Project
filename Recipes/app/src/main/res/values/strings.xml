@@ -7,17 +7,19 @@
 
     <string name="application_title">Введите продукты, из которых Вы хотите приготовить блюдо, и нажмите "Найти"!</string>
     <string name="am_search_button">Найти рецепт</string>
-    <string name="sa_search_button">Найти</string>
-    <string name="sa_search_title">Продукты</string>
-    <string name="sa_search_hint">Ингредиент...</string>
-    <string name="sa_search_calories_hint">Калорийность до...</string>
+    <string name="asr_search_button">Найти</string>
+    <string name="asr_title">Продукты</string>
+    <string name="asr_search_hint">Ингредиент...</string>
+    <string name="asr_search_calories_hint">Калорийность до...</string>
+
+    <string name="arr_title">Рецепты</string>
 
 
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
     <string-array name="navigationDrawer">
-        <item>Home</item>
-        <item>Search</item>
+        <item>Главная страница</item>
+        <item>Поиск рецептов</item>
     </string-array>
 </resources>

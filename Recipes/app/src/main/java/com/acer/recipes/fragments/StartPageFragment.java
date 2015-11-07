@@ -11,7 +11,7 @@ import com.acer.recipes.R;
 
 public class StartPageFragment extends Fragment {
 
-    private static final int LAYOUT = R.layout.start_page_layout;
+    private static final int LAYOUT = R.layout.activity_start_page;
     private View view;
 
     @Nullable

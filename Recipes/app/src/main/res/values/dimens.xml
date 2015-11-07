@@ -4,9 +4,10 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="navigation_drawer_width">240px</dimen>
-    <dimen name="main_font">25dp</dimen>
+    <dimen name="title_font">25dp</dimen>
     <dimen name="button_font">25dp</dimen>
-    <dimen name="sa_editText_width">400px</dimen>
+    <dimen name="asr_editText_width">400px</dimen>
+    <dimen name="main_font">20dp</dimen>
 
     <dimen name="separator">30px</dimen>
 </resources>
