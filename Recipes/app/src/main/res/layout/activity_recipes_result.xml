@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
+    android:background="@color/mainBackground"
     android:id="@+id/activity_recipes_result">
 
     <TextView
@@ -24,15 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="#FF00FF">
+            android:background="@drawable/shadow">
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/arr_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:textSize="@dimen/title_font"
                 android:textColor="@color/colorBlack"
-                android:text="Это блок"
                 android:layout_marginTop="@dimen/separator" />
         </LinearLayout>
     </ScrollView>
