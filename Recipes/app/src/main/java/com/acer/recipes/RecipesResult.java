@@ -29,8 +29,6 @@ public class RecipesResult extends Activity{
         mt.execute();
     }
 
-
-
     class MyTask extends AsyncTask<Void, Void, Void>
     {
 
