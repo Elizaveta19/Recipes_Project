@@ -22,11 +22,6 @@
         <activity android:name=".RecipesResult"
             android:label="RecipesResult">
         </activity>
-
-        <activity
-            android:name=".AllProductsActivity"
-            android:label="All Products" >
-        </activity>
     </application>
 
 </manifest>
