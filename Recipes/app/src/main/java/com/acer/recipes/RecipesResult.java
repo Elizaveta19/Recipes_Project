@@ -19,9 +19,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -35,45 +38,20 @@ public class RecipesResult extends AppCompatActivity {
     int port = 8888;
     String address = "192.168.1.35";
     String comment = null;
+    MyTask myTask;
 
     private static final int LAYOUT = R.layout.activity_recipes_result;
-    // private static final String ServerAddressDDNS = "healthrecipes.ddns.net:80";
-    private static final String ServerAddress = "192.168.1.35";
+    private static final String ServerAddressDDNS = "healthrecipes.ddns.net:80";
     private static final String phpAddress = "/get_details.php?product_id=3";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes_result);
-        Connect();
-        //TextView textView = (TextView) findViewById(R.id.arr_name);
-        //textView.setText(comment);
-    }
+        myTask = new MyTask();
+        myTask.execute();
 
-    void Connect() {
-        //открываю новый поток
-        Thread myThread = new Thread(new Runnable() {
-            @Override
-            //то что должно запускаться в новом потоке
-            public void run() {
-                try {
-                    // создаем объект который отображает вышеописанный IP-адрес.
-                    InetAddress ipAddress = InetAddress.getByName(address);
-                    // создаем сокет используя IP-адрес и порт сервера.
-                    client = new Socket(ipAddress, port);
-                    //переменная для получение данных
-                    BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                    //переменная для отправки данных
-                    PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-                    comment = ("Успешное подключение к " + address + ":" + port + "...");
-                } catch (IOException e) {
-                    comment = ("Не удалось подключится к " + address + ":" + port);
-                }
-                TextView textView = (TextView) findViewById(R.id.arr_name);
-                textView.setText(comment);
-            }
-        });
-        myThread.start(); //запуск нового потока
+        TextView textView = (TextView) findViewById(R.id.arr_name);
     }
 
     class MyTask extends AsyncTask<Void, Void, Void>
@@ -82,19 +60,30 @@ public class RecipesResult extends AppCompatActivity {
         String title;
         @Override
         protected Void doInBackground(Void... params) {
-            Document doc = null;
             try {
-                doc = Jsoup.connect("http://harrix.org").get();
-            }
-            catch (IOException e) {
-                Log.v("MyConnect", "Connect error :c");
+                // создаем объект который отображает вышеописанный IP-адрес.
+                InetAddress ipAddress = InetAddress.getByName(address);
+                // создаем сокет используя IP-адрес и порт сервера.
+                client = new Socket(ipAddress, port);//переменная для получение данных
+
+                // Берем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиентом.
+                InputStream sin = client.getInputStream();
+                OutputStream sout = client.getOutputStream();
+
+                // Конвертируем потоки в другой тип, чтоб легче обрабатывать текстовые сообщения.
+                DataInputStream in = new DataInputStream(sin);
+                DataOutputStream out = new DataOutputStream(sout);
+
+                String line = "aaa";
+                out.writeUTF(line); // отсылаем введенную строку текста серверу.
+                out.flush(); // заставляем поток закончить передачу данных.
+                String line2 = in.readUTF(); // ждем пока сервер отошлет строку текста.
+                comment = line2;
+
+            } catch (IOException e) {
+                comment = ("Не удалось подключится к " + address + ":" + port);
                 e.printStackTrace();
             }
-
-            if(doc != null)
-                title = doc.title();
-            else
-                title = "Ошибка";
 
             return null;
         }
@@ -104,7 +93,7 @@ public class RecipesResult extends AppCompatActivity {
         {
             TextView textView = (TextView) findViewById(R.id.arr_name);
             super.onPostExecute(result);
-            textView.setText(title);
+            textView.setText(comment);
         }
     }
 }
