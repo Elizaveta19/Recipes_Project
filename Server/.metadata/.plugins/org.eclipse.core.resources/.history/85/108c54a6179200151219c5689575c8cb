@@ -43,14 +43,14 @@ public class ServerMain extends Thread {
 	            String line = null;
 	            while(true) {
 	              line = in.readUTF(); // ожидаем пока клиент пришлет строку текста.
-	              System.out.println("Клиент передал мне эту строку : " + line);
+	              System.out.println("The client just sent me this line : " + line);
 	              String line2 = "bbb";
 	              out.writeUTF(line2); // отсылаем клиенту обратно ту самую строку текста.
 	              out.flush(); // заставляем поток закончить передачу данных.
 	            }
 		             
 		    } catch (IOException e) {
-		        System.err.println("Соединение № "+ n +". Ошибка при передачи клиенту: " + HostName);
+		        System.err.println("Соединение № "+ n +". Ошибка при передачи клиенту: " +HostName);
 		    } finally {
 		        try {
 		            socket.close();

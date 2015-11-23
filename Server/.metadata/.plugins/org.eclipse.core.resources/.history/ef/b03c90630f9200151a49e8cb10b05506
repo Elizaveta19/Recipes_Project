@@ -31,26 +31,40 @@ public class ServerMain extends Thread {
 		}
 
 		public void run() {
-		    try {		        	
-	        	// Ѕерем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиенту. 
-	            InputStream sin = socket.getInputStream();
-	            OutputStream sout = socket.getOutputStream();
+		    try {
+		        //while (true) {
+		            
+		        	
+		        	/*String str = in.readLine();
+		            if (str.equalsIgnoreCase("END")) {
+		                    break;
+		            }
+		            int a=1+3; //разного рода вычесление
+		            out.println("я получил ¬аши данные, вот то что ¬ы прислали: "+str);
+		            out.println("я выполнилась операцию: "+a);*/
+		        	
+		        	
+		        	// Ѕерем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиенту. 
+		            InputStream sin = socket.getInputStream();
+		            OutputStream sout = socket.getOutputStream();
 
-	            //  онвертируем потоки в другой тип, чтоб легче обрабатывать текстовые сообщени€.
-	            DataInputStream in = new DataInputStream(sin);
-	            DataOutputStream out = new DataOutputStream(sout);
+		            //  онвертируем потоки в другой тип, чтоб легче обрабатывать текстовые сообщени€.
+		            DataInputStream in = new DataInputStream(sin);
+		            DataOutputStream out = new DataOutputStream(sout);
 
-	            String line = null;
-	            while(true) {
-	              line = in.readUTF(); // ожидаем пока клиент пришлет строку текста.
-	              System.out.println(" лиент передал мне эту строку : " + line);
-	              String line2 = "bbb";
-	              out.writeUTF(line2); // отсылаем клиенту обратно ту самую строку текста.
-	              out.flush(); // заставл€ем поток закончить передачу данных.
-	            }
-		             
+		            String line = null;
+		            while(true) {
+		              line = in.readUTF(); // ожидаем пока клиент пришлет строку текста.
+		              System.out.println("The client just sent me this line : " + line);
+		              String line2 = "bbb";
+		              out.writeUTF(line2); // отсылаем клиенту обратно ту самую строку текста.
+		              out.flush(); // заставл€ем поток закончить передачу данных.
+		              System.exit(-1);
+		            }
+		              
+		       // }
 		    } catch (IOException e) {
-		        System.err.println("—оединение є "+ n +". ќшибка при передачи клиенту: " + HostName);
+		        System.err.println("—оединение є "+ n +". ќшибка при передачи клиенту: " +HostName);
 		    } finally {
 		        try {
 		            socket.close();
