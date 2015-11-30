@@ -19,12 +19,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -37,6 +39,7 @@ public class RecipesResult extends AppCompatActivity {
     Socket client = null;
     int port = 8888;
     String address = "192.168.1.35";
+    String address2 = "healthrecipes/index.php";
     String comment = null;
     MyTask myTask;
 
@@ -64,7 +67,7 @@ public class RecipesResult extends AppCompatActivity {
                 // создаем объект который отображает вышеописанный IP-адрес.
                 InetAddress ipAddress = InetAddress.getByName(address);
                 // создаем сокет используя IP-адрес и порт сервера.
-                client = new Socket(ipAddress, port);//переменная для получение данных
+                client = new Socket(address, port);//переменная для получение данных
 
                 // Берем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиентом.
                 InputStream sin = client.getInputStream();
@@ -74,15 +77,25 @@ public class RecipesResult extends AppCompatActivity {
                 DataInputStream in = new DataInputStream(sin);
                 DataOutputStream out = new DataOutputStream(sout);
 
-                String line = "aaa";
+                String line = "It's the Client";
                 out.writeUTF(line); // отсылаем введенную строку текста серверу.
                 out.flush(); // заставляем поток закончить передачу данных.
-                String line2 = in.readUTF(); // ждем пока сервер отошлет строку текста.
-                comment = line2;
+                /*String line2 = in.readUTF(); // ждем пока сервер отошлет строку текста.
+                comment = line2;*/
+                BufferedReader instr = new BufferedReader(new InputStreamReader(client.getInputStream()));
+
+                String str = "";
+                while((str = instr.readLine()) != null) {
+                    comment = str;
+                }
+
+
 
             } catch (IOException e) {
                 comment = ("Не удалось подключится к " + address + ":" + port);
-                e.printStackTrace();
+                for(StackTraceElement ste : e.getStackTrace())
+                    Log.v("Ошибка============", ste.toString());
+
             }
 
             return null;
