@@ -23,49 +23,26 @@
             android:textColor="@color/colorBlack"
             android:layout_marginTop="@dimen/separator" />
 
-        <EditText
-            android:id="@+id/et_product_1"
+        <LinearLayout
+            android:id="@+id/search_layout"
+            android:orientation="vertical"
             android:layout_width="@dimen/asr_editText_width"
             android:layout_height="wrap_content"
-            android:hint="@string/asr_search_hint"
-            android:layout_marginTop="@dimen/separator" />
+            android:gravity="center_horizontal"
+            android:layout_weight="1" >
+            <EditText
+                android:id="@+id/et_product"
+                android:layout_width="@dimen/asr_editText_width"
+                android:layout_height="wrap_content"
+                android:hint="@string/asr_search_hint"
+                android:layout_marginTop="@dimen/separator" />
 
-        <EditText
-            android:id="@+id/et_product_2"
-            android:layout_width="@dimen/asr_editText_width"
-            android:layout_height="wrap_content"
-            android:hint="@string/asr_search_hint" />
+            <ListView
+                android:id="@+id/products_listView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_product_3"
-            android:layout_width="@dimen/asr_editText_width"
-            android:layout_height="wrap_content"
-            android:hint="@string/asr_search_hint" />
-
-        <EditText
-            android:id="@+id/et_product_4"
-            android:layout_width="@dimen/asr_editText_width"
-            android:layout_height="wrap_content"
-            android:hint="@string/asr_search_hint" />
-
-        <EditText
-            android:id="@+id/et_product_5"
-            android:layout_width="@dimen/asr_editText_width"
-            android:layout_height="wrap_content"
-            android:hint="@string/asr_search_hint" />
-
-        <EditText
-            android:id="@+id/et_product_6"
-            android:layout_width="@dimen/asr_editText_width"
-            android:layout_height="wrap_content"
-            android:hint="@string/asr_search_hint" />
-
-        <EditText
-            android:id="@+id/et_caloriesLimit"
-            android:layout_width="@dimen/asr_editText_width"
-            android:layout_height="wrap_content"
-            android:hint="@string/asr_search_calories_hint"
-            android:layout_marginTop="@dimen/separator" />
     </LinearLayout>
 
     <Button
