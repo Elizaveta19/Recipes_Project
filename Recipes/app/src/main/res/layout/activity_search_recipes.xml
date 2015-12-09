@@ -36,11 +36,17 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/asr_search_hint"
                 android:layout_marginTop="@dimen/separator" />
+            <Button
+                android:id="@+id/sa_helpButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Help me..." />
 
             <ListView
                 android:id="@+id/products_listView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:entries="@array/navigationDrawer"/>
         </LinearLayout>
 
     </LinearLayout>

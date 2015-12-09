@@ -9,6 +9,7 @@ public class Constants {
     public static final String SERVER_ADDRESS = "192.168.1.35";
 
     public static final Map<String, Integer> COMMANDS = new HashMap<String, Integer>();
+    public static DbOpenHelper dbHelper;
 
     public Constants()
     {

@@ -24,7 +24,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     public static final String NAME = "name";
     public static final String CCAL = "ccal";
     public static final String CREATE_TABLE = "Create table " + TABLE_NAME + " ( " + ID
-            + " INTEGER PRIMARY KEY, " + NAME + " TEXT, " + CCAL + " REAL );";
+            + " INTEGER PRIMARY KEY, " + NAME + " TEXT, " + CCAL + " FLOAT );";
 
     public DbOpenHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -55,7 +55,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
             {
                 JSONObject jsonObject = jsonProducts.getJSONObject(i);
 
-                int  id_product = Integer.parseInt(jsonObject.getString("id_product").toString());
+                int id_product = Integer.parseInt(jsonObject.getString("id_product").toString());
                 String name = jsonObject.getString("name").toString();
                 float ccal = Float.parseFloat(jsonObject.getString("ccal").toString());
 

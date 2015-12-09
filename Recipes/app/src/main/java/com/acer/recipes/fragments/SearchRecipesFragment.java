@@ -46,36 +46,58 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
 
     private View view;
     Button sa_searchButton;
-    Socket client = null;
-    String comment = new String();
-    String inputFromServer = new String();
-    String outToServer = new String();
-    MyTask myTask;
+    Button sa_helpButton;
     EditText sa_editText;
-    public static final Constants myConst = new Constants();
     DbOpenHelper dbHelper;
-    ListView productsList;
-    ArrayList<Product> products;
+    ListView productsListView;
+
+    ArrayList<String> productsArrayList = new ArrayList<>();
+    ArrayAdapter<String> adapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         view = inflater.inflate(LAYOUT, container, false);
-        dbHelper = new DbOpenHelper(getContext());
+
+        dbHelper = new Constants().dbHelper;
         sa_editText = (EditText) view.findViewById(R.id.et_product);
         sa_searchButton = (Button) view.findViewById(R.id.sa_searchButton);
-        sa_searchButton.setOnClickListener(this);
+        sa_helpButton = (Button) view.findViewById(R.id.sa_helpButton);
 
-        myTask = new MyTask();
-        myTask.execute();
+
+        productsListView = (ListView) view.findViewById(R.id.products_listView);
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, productsArrayList);
+        productsListView.setAdapter(adapter);
+
+        sa_searchButton.setOnClickListener(this);
+        sa_helpButton.setOnClickListener(this);
 
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(getActivity(), RecipesResult.class);
-        startActivity(intent);
+
+        switch (v.getId()) {
+            case R.id.sa_helpButton: {
+                ArrayList<Product> productsArrayList_1 = dbHelper.getProducts("соль");
+                for(Product pr : productsArrayList_1)
+                {
+                    productsArrayList.add(pr.getName());
+                    adapter.notifyDataSetChanged();
+                }
+
+                //sa_editText.setText(productsArrayList_1.get(0).getName());
+
+                break;
+            }
+            case R.id.sa_searchButton: {
+                Intent intent = new Intent(getActivity(), RecipesResult.class);
+                startActivity(intent);
+                break;
+            }
+        }
     }
 
     public static SearchRecipesFragment getFragment()
@@ -85,73 +107,5 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
         fragment.setArguments(args);
 
         return fragment;
-    }
-
-    class MyTask extends AsyncTask<Void, Void, Void> {
-        String title;
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                // создаем объект который отображает вышеописанный IP-адрес.
-                InetAddress ipAddress = InetAddress.getByName(myConst.SERVER_ADDRESS);
-                // создаем сокет используя IP-адрес и порт сервера.
-                client = new Socket(myConst.SERVER_ADDRESS, myConst.PORT);//переменная для получение данных
-
-                // Берем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиентом.
-                InputStream sin = client.getInputStream();
-                OutputStream sout = client.getOutputStream();
-
-                // Конвертируем потоки в другой тип, чтоб легче обрабатывать текстовые сообщения.
-                DataInputStream in = new DataInputStream(sin);
-                DataOutputStream out = new DataOutputStream(sout);
-
-                JSONObject jsonOut = new JSONObject();
-                jsonOut.put("command", myConst.COMMANDS.get("getAllProducts"));
-                outToServer = jsonOut.toString();
-                out.writeUTF(outToServer); // отсылаем введенную строку текста серверу.
-                out.flush(); // заставляем поток закончить передачу данных.
-                BufferedReader instr = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
-                String str = null;
-                while ((str = instr.readLine()) != null) {
-                    inputFromServer += str;
-                }
-
-            } catch (IOException e) {
-                comment = ("Не удалось подключится к " + myConst.SERVER_ADDRESS + ":" + myConst.PORT);
-                for (StackTraceElement ste : e.getStackTrace())
-                    Log.v("Ошибка============", ste.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            try {
-                JSONObject reader = new JSONObject(inputFromServer);
-                JSONArray productsJSON = reader.getJSONArray("products");
-                dbHelper.addProducts(productsJSON);
-                products = dbHelper.getProducts("соль");
-
-            } catch (JSONException e) {
-                for (StackTraceElement ste : e.getStackTrace())
-                    Log.v("Ошибка============", ste.toString());
-            }
-            catch (Exception e)
-            {
-                for (StackTraceElement ste : e.getStackTrace())
-                    Log.v("Ошибка============", ste.toString());
-            }
-
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            productsList = (ListView) view.findViewById(R.id.products_listView);
-            sa_editText.setText(products.get(0).getName());
-            super.onPostExecute(result);
-        }
     }
 }
