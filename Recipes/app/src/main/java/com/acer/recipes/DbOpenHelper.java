@@ -90,4 +90,18 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         return productList;
     }
 
+    public Product getProductByName(String _name)
+    {
+        String selectQuery = "SELECT * FROM " + TABLE_NAME+ " WHERE name='" + _name + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst())
+        {
+            Product product = new Product(cursor.getInt(0), cursor.getString(1), cursor.getFloat(2));
+            return product;
+        }
+
+        return null;
+    }
+
 }

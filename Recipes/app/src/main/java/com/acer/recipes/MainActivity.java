@@ -150,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -160,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            /*try {
+            try {
                 // создаем объект который отображает вышеописанный IP-адрес.
                 InetAddress ipAddress = InetAddress.getByName(myConst.SERVER_ADDRESS);
                 // создаем сокет используя IP-адрес и порт сервера.
@@ -211,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.v("Ошибка============", ste.toString());
             }
 
-*/
             return null;
         }
 

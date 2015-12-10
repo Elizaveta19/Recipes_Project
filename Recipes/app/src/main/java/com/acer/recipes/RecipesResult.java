@@ -36,6 +36,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+
 import com.loopj.android.http.*;
 
 public class RecipesResult extends AppCompatActivity {
@@ -77,9 +79,11 @@ public class RecipesResult extends AppCompatActivity {
                 DataInputStream in = new DataInputStream(sin);
                 DataOutputStream out = new DataOutputStream(sout);
 
+                ArrayList<Integer> keysList = getIntent().getExtras().getIntegerArrayList("id_products");
+
                 JSONObject jsonOut = new JSONObject();
-                jsonOut.put("command", "1");
-                jsonOut.put("id", "3");
+                jsonOut.put("command", myConst.COMMANDS.get("getRecipes"));
+                jsonOut.put("id_products", keysList);
                 outToServer = jsonOut.toString();
                 //outToServer = "{\"command:\":\"1\", \"id\":\"3\"}";
                 //Log.v("Строка============", outToServer);
@@ -106,17 +110,18 @@ public class RecipesResult extends AppCompatActivity {
 
                 //String a = "{\"success\":1,\"product\":[{\"product_id\":\"3\",\"name\":\"Яблоко\",\"ccal\":\"53\"}]}";
                 JSONObject reader = new JSONObject(inputFromServer);
-                JSONArray product = reader.getJSONArray("product");
+                JSONArray product = reader.getJSONArray("recipe");
 
                 for(int i = 0; i < product.length(); i++)
                 {
                     JSONObject jsonObject = product.getJSONObject(i);
 
-                    int  id_product = Integer.parseInt(jsonObject.getString("id_product").toString());
-                    String name = jsonObject.getString("name").toString();
+                    String  title = jsonObject.getString("title").toString();
+                    String text = jsonObject.getString("text").toString();
                     int ccal = Integer.parseInt(jsonObject.getString("ccal").toString());
+                    String time = jsonObject.getString("time").toString();
 
-                    comment = String.valueOf(id_product) + "   "  + name + "   " + String.valueOf(ccal);
+                    comment = title + "   " + String.valueOf(ccal) + "   "  + time;
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
