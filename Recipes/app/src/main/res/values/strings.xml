@@ -11,6 +11,8 @@
     <string name="asr_title">Продукты</string>
     <string name="asr_search_hint">Ингредиент...</string>
     <string name="asr_search_calories_hint">Калорийность до...</string>
+    <string name="asr_clear">Очистить</string>
+    <string name="asr_show_list">Показать список</string>
 
     <string name="arr_title">Рецепты</string>
 

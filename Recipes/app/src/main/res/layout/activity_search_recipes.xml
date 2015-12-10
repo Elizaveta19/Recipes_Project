@@ -37,15 +37,16 @@
                 android:hint="@string/asr_search_hint"
                 android:layout_marginTop="@dimen/separator" />
 
-            <ListView
-                android:id="@+id/products_helper_listView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/sa_helpButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Показать продукты..." />
+                android:text="@string/asr_show_list" />
+            <ListView
+                android:id="@+id/products_helper_listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <ListView
                 android:id="@+id/products_listView"
                 android:layout_width="match_parent"
@@ -55,11 +56,24 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/sa_searchButton"
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/asr_search_button" />
+        android:gravity="bottom"
+        android:layout_weight="1" >
+        <Button
+            android:id="@+id/sa_clearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/asr_clear" />
+        <Button
+            android:id="@+id/sa_searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/asr_search_button" />
+    </LinearLayout>
 
 
 </LinearLayout>
