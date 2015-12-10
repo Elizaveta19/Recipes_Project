@@ -13,6 +13,7 @@
     <string name="asr_search_calories_hint">Калорийность до...</string>
     <string name="asr_clear">Очистить</string>
     <string name="asr_show_list">Показать список</string>
+    <string name="asr_cancel">Отмена</string>
 
     <string name="arr_title">Рецепты</string>
 

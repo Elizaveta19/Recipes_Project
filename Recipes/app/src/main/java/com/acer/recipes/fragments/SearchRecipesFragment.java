@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
     Button sa_searchButton;
     Button sa_helpButton;
     Button sa_clearButton;
+    Button sa_cancelButton;
     EditText sa_editText;
     DbOpenHelper dbHelper;
 
@@ -84,9 +86,10 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
 
         dbHelper = new Constants().dbHelper;
         sa_editText = (EditText) view.findViewById(R.id.et_product);
-        sa_searchButton = (Button) view.findViewById(R.id.sa_searchButton);
+        sa_cancelButton = (Button) view.findViewById(R.id.sa_cancelButton);
         sa_helpButton = (Button) view.findViewById(R.id.sa_helpButton);
         sa_clearButton = (Button) view.findViewById(R.id.sa_clearButton);
+        sa_searchButton = (Button) view.findViewById(R.id.sa_searchButton);
 
         //для вспомогательного списка для выбора продуктов
         productsHelperListView = (ListView) view.findViewById(R.id.products_helper_listView);
@@ -98,12 +101,12 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
         productsListView = (ListView) view.findViewById(R.id.products_listView);
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, productsArrayList);
         productsListView.setAdapter(adapter);
-        //productsListView.setOnItemLongClickListener(this);
         registerForContextMenu(productsListView);
 
         sa_helpButton.setOnClickListener(this);
         sa_searchButton.setOnClickListener(this);
         sa_clearButton.setOnClickListener(this);
+        sa_cancelButton.setOnClickListener(this);
 
         return view;
     }
@@ -112,7 +115,19 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.sa_cancelButton: {
+                productsHelperArrayList.clear();
+                helperAdapter.notifyDataSetChanged();
+                sa_editText.setText("");
+                sa_cancelButton.setVisibility(View.GONE);
+                sa_clearButton.setVisibility(View.VISIBLE);
+                sa_searchButton.setVisibility(View.VISIBLE);
+                break;
+            }
             case R.id.sa_helpButton: {
+                sa_cancelButton.setVisibility(View.VISIBLE);
+                sa_clearButton.setVisibility(View.GONE);
+                sa_searchButton.setVisibility(View.GONE);
                 productsHelperArrayList.clear();
                 ArrayList<Product> productsArrayList_1 = dbHelper.getProducts(sa_editText.getText().toString().trim());
                 for(Product pr : productsArrayList_1)
@@ -120,6 +135,7 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
                     productsHelperArrayList.add(pr.getName());
                     helperAdapter.notifyDataSetChanged();
                 }
+
                 break;
             }
             case R.id.sa_clearButton: {
@@ -138,6 +154,10 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        sa_cancelButton.setVisibility(View.GONE);
+        sa_clearButton.setVisibility(View.VISIBLE);
+        sa_searchButton.setVisibility(View.VISIBLE);
         sa_editText.setText("");
         String temp = productsHelperArrayList.get(position);
         Product pr = dbHelper.getProductByName(temp);
