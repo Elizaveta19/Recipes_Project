@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int HOME_ITEM = 0;
     private static final int SEARCH_ITEM = 1;
+    private static final int ALL_RECIPES_ITEM = 2;
 
     private static final int LAYOUT = R.layout.activity_main;
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
@@ -47,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private String[] navigationItems;
     private ActionBarDrawerToggle drawerLitener;
 
-    //DbOpenHelper dbHelper;
     private Socket client = null;
     private String comment = new String();
     private String inputFromServer = new String();
@@ -104,14 +106,17 @@ public class MainActivity extends AppCompatActivity {
             case SEARCH_ITEM:
                 fragment = SearchRecipesFragment.getFragment();
                 break;
+            case ALL_RECIPES_ITEM:
+                //fragment = RecipesResultFragment.getFragment();
+                break;
             default:
                 break;
         }
 
         if(fragment != null)
         {
-            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
             drawerLayout.closeDrawer(listView);
         }

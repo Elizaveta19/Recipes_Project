@@ -58,12 +58,15 @@
             android:layout_weight="1"
             />
 
-        <ImageView
-            android:id="@+id/myRecipes"
+        <TextView
+            android:id="@+id/allRecipes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/toast_2"
-            android:scaleType="centerCrop"
+            android:background="@color/mainBackground"
+            android:text="@string/asp_title_1"
+            android:textSize="@dimen/title_button_font"
+            android:textColor="@color/colorBlack"
+            android:gravity="center"
             android:layout_weight="1"
             android:onClick="onMyRecipesClick"
             />
@@ -77,11 +80,14 @@
         android:layout_weight="3"
         android:orientation="horizontal">
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/toast_3"
-            android:scaleType="centerCrop"
+            android:background="@color/mainBackground"
+            android:text="@string/asp_title_2"
+            android:textSize="@dimen/title_button_font"
+            android:textColor="@color/colorBlack"
+            android:gravity="center"
             android:layout_weight="1"
             />
 

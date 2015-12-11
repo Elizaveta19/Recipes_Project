@@ -1,61 +1,35 @@
 package com.acer.recipes.fragments;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.method.KeyListener;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.acer.recipes.Constants;
 import com.acer.recipes.DbOpenHelper;
 import com.acer.recipes.Product;
 import com.acer.recipes.R;
-import com.acer.recipes.RecipesResult;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 
 public class SearchRecipesFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final int LAYOUT = R.layout.activity_search_recipes;
+    private static final int CONTENT_FRAME_ID = R.id.content_frame;
 
     public static final int C_MENU_DELETE = 201;
 
@@ -111,6 +85,22 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
         return view;
     }
 
+    /*@Override
+    public void onDetach() {
+
+        Bundle args = new Bundle();
+        args.putIntegerArrayList("keysList", keysList);
+        super.onDetach();
+    }*/
+
+    public static SearchRecipesFragment getFragment()  {
+        Bundle args = new Bundle();
+        SearchRecipesFragment fragment = new SearchRecipesFragment();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -122,6 +112,9 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
                 sa_cancelButton.setVisibility(View.GONE);
                 sa_clearButton.setVisibility(View.VISIBLE);
                 sa_searchButton.setVisibility(View.VISIBLE);
+
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
             }
             case R.id.sa_helpButton: {
@@ -136,6 +129,8 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
                     helperAdapter.notifyDataSetChanged();
                 }
 
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
             }
             case R.id.sa_clearButton: {
@@ -144,11 +139,22 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
                 break;
             }
             case R.id.sa_searchButton: {
-                Intent intent = new Intent(getActivity(), RecipesResult.class);
-                intent.putExtra("id_products", keysList);
-                startActivity(intent);
+                Fragment fragment = new RecipesResultFragment();
+                Bundle args = new Bundle();
+                args.putIntegerArrayList("keysList", keysList);
+                fragment.setArguments(args);
+
+                if(fragment != null)
+                {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+                }
                 break;
+
             }
+            default:
+                break;
         }
     }
 
@@ -172,8 +178,7 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
         itemAtPosition = (String) productsListView.getItemAtPosition(acmi.position);
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -181,8 +186,7 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item)
-    {
+    public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case C_MENU_DELETE:
                 productsArrayList.remove(itemAtPosition);
@@ -191,14 +195,5 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
         }
 
         return super.onContextItemSelected(item);
-    }
-
-    public static SearchRecipesFragment getFragment()
-    {
-        Bundle args = new Bundle();
-        SearchRecipesFragment fragment = new SearchRecipesFragment();
-        fragment.setArguments(args);
-
-        return fragment;
     }
 }

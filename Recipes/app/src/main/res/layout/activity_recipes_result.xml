@@ -17,24 +17,12 @@
         android:textColor="@color/colorBlack"
         android:layout_marginTop="@dimen/separator" />
 
-    <ScrollView
+    <ListView
+        android:id="@+id/arr_recipes_listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/block_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/shadow">
-            <TextView
-                android:id="@+id/arr_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/title_font"
-                android:textColor="@color/colorBlack"
-                android:layout_marginTop="@dimen/separator" />
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
+    </ListView>
 
 </LinearLayout>

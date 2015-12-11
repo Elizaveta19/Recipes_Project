@@ -1,6 +1,5 @@
 package com.acer.recipes.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.acer.recipes.R;
-import com.acer.recipes.RecipesResult;
 
 public class StartPageFragment extends Fragment implements View.OnClickListener{
 
@@ -45,16 +43,15 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.spa_searchButton:
                 fragment = SearchRecipesFragment.getFragment();
+                if(fragment != null)
+                {
+                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+                }
                 break;
             default:
                 break;
-        }
-
-        if(fragment != null)
-        {
-            android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
         }
     }
 }

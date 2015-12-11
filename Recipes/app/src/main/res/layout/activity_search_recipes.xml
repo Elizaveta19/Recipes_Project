@@ -35,7 +35,7 @@
                 android:layout_width="@dimen/asr_editText_width"
                 android:layout_height="wrap_content"
                 android:hint="@string/asr_search_hint"
-                android:layout_marginTop="@dimen/separator" />
+                android:layout_marginTop="@dimen/separator"/>
 
             <LinearLayout
                 android:id="@+id/buttons_layout_1"
