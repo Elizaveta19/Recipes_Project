@@ -8,13 +8,18 @@ function get_recipes($id_products)
 
 	//echo phpversion(); 
 	$db = new DB_CONNECT();
-	$result = mysql_query("SELECT recipes.id_recipe, recipes.name as title, recipes.text, recipes.ccal, recipes.time, products.id_product, products.name FROM recipes INNER JOIN products_in_recipes as p_i_r INNER JOIN products ON
-							(recipes.id_recipe = p_i_r.id_recipe AND p_i_r.id_product = products.id_product)
+	$result = array();
+	$result = mysql_query("SELECT recipes.id_recipe, recipes.name as title, recipes.text, recipes.ccal, recipes.time, products.id_product, products.name
+							FROM recipes
+							INNER JOIN products_in_recipes as p_i_r
+							INNER JOIN products
+							ON (recipes.id_recipe = p_i_r.id_recipe AND p_i_r.id_product = products.id_product)
 							WHERE  products.id_product IN (".implode(',',$id_products).")");
 
 	if (!empty($result)) {
 		if (mysql_num_rows($result) > 0) {
-			
+
+			$response["recipe"] = array();
 			while ($res=mysql_fetch_array($result))
 			{
 				$recipe['id_recipe'] = $res['id_recipe'];
@@ -25,9 +30,10 @@ function get_recipes($id_products)
 				$recipe['time'] = $res['time'];
 				$response["success"] = 1;
 
-				$response["recipe"] = array();
+				//$response["recipe"] = array();
 				array_push($response["recipe"], $recipe);
 			}
+			$response["success"] = 1;
 			$response_1 = json_encode($response, JSON_UNESCAPED_UNICODE);
 
 		} else {

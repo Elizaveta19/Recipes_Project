@@ -25,6 +25,14 @@ class DB_Connect {
         
         return $con;
     }
+
+    function returnDB() {
+        require 'Config.php';
+
+        $db = mysql_select_db(DB_NAME) or die(mysql_error()) or die(mysql_error());
+
+        return $db;
+    }
     
     function close() {
         mysql_close();

@@ -27,13 +27,13 @@ while(true) {
     $input = socket_read($client, 1024);
 
     $rest = substr($input, 2);
-    $JsonInput = json_decode($rest, true); // преобразование строки в формате json в ассоциативный массив
-    $command = $JsonInput['command']; // искомый id
+    $JsonInput = json_decode($rest, true);
+    $command = $JsonInput['command'];
     switch ($command) {
-        case 1:// получить список продуктов весь
+        case 1: // вернуть список всех продуктов
             $output = get_all_products();
             break;
-        case 2: //выдать рецепты, содержащие введенные продукты
+        case 2: // вернуть рецепты по полученному списку ключей продуктов
             $id_products = json_decode($JsonInput['id_products'], true);
             $output = get_recipes($id_products);
             echo "\n";
