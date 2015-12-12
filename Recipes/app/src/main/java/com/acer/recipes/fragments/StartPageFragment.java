@@ -3,10 +3,13 @@ package com.acer.recipes.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.acer.recipes.R;
 
@@ -17,6 +20,8 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
     private View view;
 
     Button spa_searchButton;
+    TextView allRecipesButton;
+    TextView spa_searchButton2;
 
     @Nullable
     @Override
@@ -24,6 +29,10 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
         view = inflater.inflate(LAYOUT, container, false);
         spa_searchButton = (Button) view.findViewById(R.id.spa_searchButton);
         spa_searchButton.setOnClickListener(this);
+        allRecipesButton = (TextView) view.findViewById(R.id.allRecipes);
+        allRecipesButton.setOnClickListener(this);
+        spa_searchButton2 = (TextView) view.findViewById(R.id.spa_searchButton2);
+        spa_searchButton2.setOnClickListener(this);
 
         return view;
     }
@@ -45,11 +54,30 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                 fragment = SearchRecipesFragment.getFragment();
                 if(fragment != null)
                 {
-                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
-                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
                 }
                 break;
+            case R.id.allRecipes:
+                fragment = AllRecipesFragment.getFragment();
+                if(fragment != null)
+                {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+                }
+                break;
+            case R.id.spa_searchButton2:
+                fragment = SearchRecipesFragment.getFragment();
+                if(fragment != null)
+                {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+                }
+                break;
+
             default:
                 break;
         }

@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
+import com.acer.recipes.fragments.AllRecipesFragment;
 import com.acer.recipes.fragments.SearchRecipesFragment;
 import com.acer.recipes.fragments.StartPageFragment;
 
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = SearchRecipesFragment.getFragment();
                 break;
             case ALL_RECIPES_ITEM:
-                //fragment = RecipesResultFragment.getFragment();
+                fragment = AllRecipesFragment.getFragment();
                 break;
             default:
                 break;

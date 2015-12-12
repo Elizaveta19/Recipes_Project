@@ -1,6 +1,7 @@
 package com.acer.recipes.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -84,14 +85,6 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
 
         return view;
     }
-
-    /*@Override
-    public void onDetach() {
-
-        Bundle args = new Bundle();
-        args.putIntegerArrayList("keysList", keysList);
-        super.onDetach();
-    }*/
 
     public static SearchRecipesFragment getFragment()  {
         Bundle args = new Bundle();

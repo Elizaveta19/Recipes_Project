@@ -59,6 +59,13 @@
                 android:textColor="@color/colorBlack"
                 android:layout_marginTop="@dimen/separator"/>
 
+            <Button
+                android:id="@+id/rf_backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/rf_back"/>
+
         </LinearLayout>
     </ScrollView>
 

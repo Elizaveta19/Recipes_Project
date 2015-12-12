@@ -19,6 +19,7 @@
     <string name="asp_title_2">Поиск</string>
 
     <string name="arr_title">Рецепты</string>
+    <string name="rf_back">Назад к поиску</string>
 
 
     <string name="drawer_open">Open</string>
@@ -27,5 +28,6 @@
     <string-array name="navigationDrawer">
         <item>Главная страница</item>
         <item>Поиск рецептов</item>
+        <item>Все рецепты</item>
     </string-array>
 </resources>

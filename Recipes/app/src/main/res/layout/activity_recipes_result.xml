@@ -25,4 +25,18 @@
         android:layout_marginRight="25dp">
     </ListView>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="bottom"
+        android:layout_weight="1" >
+        <Button
+            android:id="@+id/arr_backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rf_back"/>
+    </LinearLayout>
+
 </LinearLayout>
