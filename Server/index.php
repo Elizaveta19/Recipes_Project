@@ -2,6 +2,7 @@
 include "get_product.php";
 include "get_all_products.php";
 include "get_recipes.php";
+include "get_all_recipes.php";
 
 // Set time limit to indefinite execution
 set_time_limit (0);
@@ -37,6 +38,10 @@ while(true) {
             $id_products = json_decode($JsonInput['id_products'], true);
             $output = get_recipes($id_products);
             echo "\n";
+            echo $output;
+            break;
+        case 3: // вернуть все рецепты из БД
+            $output = get_all_recipes();
             echo $output;
             break;
         default:

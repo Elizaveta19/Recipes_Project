@@ -1,6 +1,6 @@
 <?php
 
-function get_recipes($id_products)
+function get_all_recipes()
 {
 	$response = array();
 	$response_1 = "";
@@ -14,7 +14,6 @@ function get_recipes($id_products)
 							INNER JOIN products_in_recipes as p_i_r
 							INNER JOIN products
 							ON (recipes.id_recipe = p_i_r.id_recipe AND p_i_r.id_product = products.id_product)
-							WHERE  products.id_product IN (".implode(',',$id_products).")
 							GROUP BY recipes.id_recipe");
 
 	if (!empty($result)) {
