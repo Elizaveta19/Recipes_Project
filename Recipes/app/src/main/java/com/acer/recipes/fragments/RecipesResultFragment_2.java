@@ -1,14 +1,11 @@
 package com.acer.recipes.fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.acer.recipes.Constants;
 import com.acer.recipes.R;
@@ -39,7 +35,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RecipesResultFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener{
+public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener{
 
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private static final int LAYOUT = R.layout.activity_recipes_result;
@@ -54,10 +50,10 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
     public static final Constants myConst = new Constants();
     MyTask myTask;
 
-    ArrayList<Integer> keysList = new ArrayList<>();
     private ArrayList<Recipe> recipeArrayList = new ArrayList<>();
     ListView listView;
 
+    int ccal = 0;
     private ArrayList<HashMap<String, Object>> myRecipes;
     private static final String RECIPE_TITLE = "title";    // Главное название, большими буквами
     private static final String TIME = "time";  // Наименование, то что ниже главного
@@ -70,7 +66,7 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
         Bundle bundle = getArguments();
-        keysList = bundle.getIntegerArrayList("keysList");
+        ccal = bundle.getInt("ccal");
 
         listView = (ListView) view.findViewById(R.id.arr_recipes_listView);
         listView.setOnItemClickListener(this);
@@ -120,14 +116,6 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
         }
     }
 
-    public static RecipesResultFragment getFragment()  {
-        Bundle args = new Bundle();
-        RecipesResultFragment fragment = new RecipesResultFragment();
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
     class MyTask extends AsyncTask<Void, Void, Void>
     {
         String title;
@@ -148,8 +136,8 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
                 DataOutputStream out = new DataOutputStream(sout);
 
                 JSONObject jsonOut = new JSONObject();
-                jsonOut.put("command", myConst.COMMANDS.get("getRecipes"));
-                jsonOut.put("id_products", keysList);
+                jsonOut.put("command", myConst.COMMANDS.get("getRecipesByCcal"));
+                jsonOut.put("ccal", ccal);
                 outToServer = jsonOut.toString();
                 out.writeUTF(outToServer); // отсылаем введенную строку текста серверу.
                 out.flush(); // заставляем поток закончить передачу данных.

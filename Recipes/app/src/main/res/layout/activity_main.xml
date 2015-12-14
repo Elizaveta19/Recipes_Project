@@ -19,11 +19,5 @@
         android:background="@color/drawerBackground"
         android:divider="@null"
         android:choiceMode="singleChoice"/>
-        <!--
-        android.support.design.widget.NavigationView
-        app:itemTextAppearance="@style/NavDrawerStyle"
-        app:menu="@menu/menu_navigation"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"/-->
 
 </android.support.v4.widget.DrawerLayout>

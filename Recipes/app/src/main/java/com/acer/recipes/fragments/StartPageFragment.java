@@ -69,7 +69,7 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.spa_searchButton2:
-                fragment = SearchRecipesFragment.getFragment();
+                fragment = SearchRecipesFragment_2.getFragment();
                 if(fragment != null)
                 {
                     FragmentManager fragmentManager = getFragmentManager();

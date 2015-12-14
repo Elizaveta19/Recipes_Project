@@ -57,7 +57,7 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(LAYOUT, container, false);
+        view = inflater.inflate(LAYOUT, container,false);
 
         dbHelper = new Constants().dbHelper;
         sa_editText = (EditText) view.findViewById(R.id.et_product);
@@ -116,9 +116,15 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
                 sa_searchButton.setVisibility(View.GONE);
                 productsHelperArrayList.clear();
                 ArrayList<Product> productsArrayList_1 = dbHelper.getProducts(sa_editText.getText().toString().trim());
-                for(Product pr : productsArrayList_1)
+                if (productsArrayList_1.size() > 0) {
+                    for (Product pr : productsArrayList_1) {
+                        productsHelperArrayList.add(pr.getName());
+                        helperAdapter.notifyDataSetChanged();
+                    }
+                }
+                else
                 {
-                    productsHelperArrayList.add(pr.getName());
+                    productsHelperArrayList.add("");
                     helperAdapter.notifyDataSetChanged();
                 }
 

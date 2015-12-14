@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -34,7 +35,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AllRecipesFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class AllRecipesFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private static final int LAYOUT = R.layout.activity_recipes_result;
@@ -57,7 +58,7 @@ public class AllRecipesFragment extends Fragment implements AdapterView.OnItemCl
     private static final String TIME = "time";  // Наименование, то что ниже главного
     private static final String CCAL = "ccal";  // Наименование, то что ниже главного
 
-    //Button arr_backButton;
+    Button arr_backButton;
 
     @Nullable
     @Override
@@ -67,14 +68,13 @@ public class AllRecipesFragment extends Fragment implements AdapterView.OnItemCl
         listView = (ListView) view.findViewById(R.id.arr_recipes_listView);
         listView.setOnItemClickListener(this);
 
-        //arr_backButton = (Button) view.findViewById(R.id.arr_backButton);
-        //arr_backButton.setOnClickListener(this);
+        arr_backButton = (Button) view.findViewById(R.id.arr_backButton);
+        arr_backButton.setOnClickListener(this);
 
         myTask = new MyTask();
         myTask.execute();
         return view;
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -94,7 +94,7 @@ public class AllRecipesFragment extends Fragment implements AdapterView.OnItemCl
         }
     }
 
-    /*@Override
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.arr_backButton: {
@@ -110,7 +110,7 @@ public class AllRecipesFragment extends Fragment implements AdapterView.OnItemCl
             default:
                 break;
         }
-    }*/
+    }
 
     public static AllRecipesFragment getFragment()  {
         Bundle args = new Bundle();

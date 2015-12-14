@@ -15,6 +15,7 @@ public class Constants {
     {
         COMMANDS.put("getAllProducts", 1);
         COMMANDS.put("getRecipes", 2);
-        COMMANDS.put("getAllRecipes", 3);
+        COMMANDS.put("getRecipesByCcal", 3);
+        COMMANDS.put("getAllRecipes", 4);
     }
 }

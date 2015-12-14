@@ -1,12 +1,12 @@
 package com.acer.recipes;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,12 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ScrollView;
 
 import com.acer.recipes.fragments.AllRecipesFragment;
 import com.acer.recipes.fragments.SearchRecipesFragment;
+import com.acer.recipes.fragments.SearchRecipesFragment_2;
 import com.acer.recipes.fragments.StartPageFragment;
 
 import org.json.JSONArray;
@@ -42,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int HOME_ITEM = 0;
     private static final int SEARCH_ITEM = 1;
-    private static final int ALL_RECIPES_ITEM = 2;
+    private static final int SEARCH_ITEM_2 = 2;
+    private static final int ALL_RECIPES_ITEM = 3;
 
     private static final int LAYOUT = R.layout.activity_main;
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.navigation);
 
         listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navigationItems));
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         listView.setOnItemClickListener(new DrawerItemClickListener());
@@ -106,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case SEARCH_ITEM:
                 fragment = SearchRecipesFragment.getFragment();
+                break;
+            case SEARCH_ITEM_2:
+                fragment = SearchRecipesFragment_2.getFragment();
                 break;
             case ALL_RECIPES_ITEM:
                 fragment = AllRecipesFragment.getFragment();
@@ -204,7 +207,6 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject reader = new JSONObject(inputFromServer);
                 JSONArray productsJSON = reader.getJSONArray("products");
                 myConst.dbHelper.addProducts(productsJSON);
-                //productsArrayList = dbHelper.getProducts("соль");
 
             } catch (JSONException e) {
                 for (StackTraceElement ste : e.getStackTrace())
@@ -221,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            //sa_editText.setText(productsArrayList.get(0).getName());
             super.onPostExecute(result);
         }
     }

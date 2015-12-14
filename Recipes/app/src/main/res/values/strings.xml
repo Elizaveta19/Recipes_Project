@@ -9,6 +9,7 @@
     <string name="am_search_button">Найти рецепт</string>
     <string name="asr_search_button">Найти</string>
     <string name="asr_title">Продукты</string>
+    <string name="asr_title_2">Введите максимальную калорийность на 100г</string>
     <string name="asr_search_hint">Ингредиент...</string>
     <string name="asr_search_calories_hint">Калорийность до...</string>
     <string name="asr_clear">Очистить</string>
@@ -16,7 +17,7 @@
     <string name="asr_cancel">Отмена</string>
 
     <string name="asp_title_1">Все рецепты</string>
-    <string name="asp_title_2">Поиск</string>
+    <string name="asp_title_2">Поиск по калорийности</string>
 
     <string name="arr_title">Рецепты</string>
     <string name="rf_back">Назад к поиску</string>
@@ -28,6 +29,7 @@
     <string-array name="navigationDrawer">
         <item>Главная страница</item>
         <item>Поиск рецептов</item>
+        <item>Поиск по калорийности</item>
         <item>Все рецепты</item>
     </string-array>
 </resources>
