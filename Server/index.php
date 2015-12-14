@@ -3,6 +3,7 @@ include "get_product.php";
 include "get_all_products.php";
 include "get_recipes.php";
 include "get_all_recipes.php";
+include "get_recipes_by_ccal.php";
 
 // Set time limit to indefinite execution
 set_time_limit (0);
@@ -40,7 +41,13 @@ while(true) {
             echo "\n";
             echo $output;
             break;
-        case 3: // вернуть все рецепты из БД
+        case 3: // вернуть рецепты по калорийности
+            $ccal = $JsonInput['ccal'];
+            $output = get_recipes_by_ccal($ccal);
+            echo "\n";
+            echo $output;
+            break;
+        case 4: // вернуть все рецепты из БД
             $output = get_all_recipes();
             echo $output;
             break;
