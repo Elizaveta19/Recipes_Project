@@ -160,13 +160,16 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
                     inputFromServer += str;
                 }
 
-            } catch (IOException e) {
+                client.close();
+
+            }
+            catch (IOException e) {
                 comment = ("Не удалось подключится к " + myConst.SERVER_ADDRESS + ":" + myConst.SERVER_ADDRESS);
                 for(StackTraceElement ste : e.getStackTrace())
                     Log.v("Ошибка============", ste.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+           }
 
             try {
 
