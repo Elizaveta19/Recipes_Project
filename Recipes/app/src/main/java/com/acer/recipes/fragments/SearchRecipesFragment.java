@@ -1,6 +1,8 @@
 package com.acer.recipes.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -113,13 +115,24 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
         switch (v.getId()) {
 
              case R.id.sa_OkButton: {
-                 String newAdd = myAutoComplete.getText().toString();
+                 String newAdd = myAutoComplete.getText().toString().trim();
                  Product pr = dbHelper.getProductByName(newAdd);
-                 int s = pr.getId();
-                 keysList.add(s);
 
-                 productsArrayList.add(pr.getName());
-                 adapter.notifyDataSetChanged();
+                 if (pr != null) {
+                     int s = pr.getId();
+                     if (keysList.contains(s)) {
+                         productExistsMessage();
+                     }
+                     else {
+                         keysList.add(s);
+                         productsArrayList.add(pr.getName());
+                         adapter.notifyDataSetChanged();
+                     }
+                 }
+
+                 else {
+                     productNotFoundMessage();
+                 }
                  myAutoComplete.setText("");
                 break;
             }
@@ -146,6 +159,34 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    private void productExistsMessage(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Продукт уже есть в списке")
+                .setNegativeButton("ОК",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void productNotFoundMessage(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Продукта нет в базе данных")
+                .setMessage("Необходимо выбрать продукт из выпадающего списка.")
+                .setCancelable(false)
+                .setNegativeButton("ОК",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
