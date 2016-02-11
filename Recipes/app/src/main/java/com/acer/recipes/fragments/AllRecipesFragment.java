@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.acer.recipes.Constants;
+import com.acer.recipes.GetJson;
 import com.acer.recipes.R;
 import com.acer.recipes.Recipe;
 
@@ -24,14 +25,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -42,10 +47,8 @@ public class AllRecipesFragment extends Fragment implements AdapterView.OnItemCl
     private static final int ITEM_LAYOUT = R.layout.recipe_list_item;
     private View view;
 
-    Socket client = null;
     String comment = new String();
     String inputFromServer = new String();
-    String outToServer = new String();
 
     public static final Constants myConst = new Constants();
     MyTask myTask;
@@ -125,38 +128,32 @@ public class AllRecipesFragment extends Fragment implements AdapterView.OnItemCl
         String title;
         @Override
         protected Void doInBackground(Void... params) {
+            GetJson getJson = new GetJson();
             try {
-                // создаем объект который отображает вышеописанный IP-адрес.
-                InetAddress ipAddress = InetAddress.getByName(myConst.SERVER_ADDRESS);
-                // создаем сокет используя IP-адрес и порт сервера.
-                client = new Socket(myConst.SERVER_ADDRESS, myConst.PORT);//переменная для получение данных
+                URL fullUrl = new URL(myConst.GET_RECIPES_ADDRESS);
+                inputFromServer = getJson.getAllRecipes(fullUrl);
 
-                // Берем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиентом.
-                InputStream sin = client.getInputStream();
-                OutputStream sout = client.getOutputStream();
 
-                // Конвертируем потоки в другой тип, чтоб легче обрабатывать текстовые сообщения.
-                DataInputStream in = new DataInputStream(sin);
-                DataOutputStream out = new DataOutputStream(sout);
+                HttpURLConnection urlConnection = (HttpURLConnection) fullUrl.openConnection();
+                urlConnection.setDoInput(true);
 
-                JSONObject jsonOut = new JSONObject();
-                jsonOut.put("command", myConst.COMMANDS.get("getAllRecipes"));
-                outToServer = jsonOut.toString();
-                out.writeUTF(outToServer); // отсылаем введенную строку текста серверу.
-                out.flush(); // заставляем поток закончить передачу данных.
-                BufferedReader instr = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
-                String str = null;
-                while((str = instr.readLine()) != null) {
-                    inputFromServer += str;
+                try {
+                    InputStream sin = urlConnection.getInputStream();
+                    BufferedReader instr = new BufferedReader(new InputStreamReader(sin));
+                    String str = null;
+                    while ((str = instr.readLine()) != null) {
+                        inputFromServer += str;
+                    }
                 }
-
-            } catch (IOException e) {
-                comment = ("Не удалось подключится к " + myConst.SERVER_ADDRESS + ":" + myConst.SERVER_ADDRESS);
-                for(StackTraceElement ste : e.getStackTrace())
+                catch (IOException e) {
+                    comment = ("Не удалось подключится к " + myConst.SERVER_ADDRESS + ":" + myConst.SERVER_ADDRESS);
+                    for(StackTraceElement ste : e.getStackTrace())
+                        Log.v("Ошибка============", ste.toString());
+                }
+            }catch (IOException e) {
+                comment = ("Не удалось подключится к " + myConst.SERVER_ADDRESS);
+                for (StackTraceElement ste : e.getStackTrace())
                     Log.v("Ошибка============", ste.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
 
             try {

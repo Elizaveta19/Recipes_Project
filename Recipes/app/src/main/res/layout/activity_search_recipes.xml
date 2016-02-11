@@ -30,12 +30,19 @@
             android:layout_width="@dimen/asr_editText_width"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
-            <EditText
+            <!--EditText
                 android:id="@+id/et_product"
                 android:layout_width="@dimen/asr_editText_width"
                 android:layout_height="wrap_content"
                 android:hint="@string/asr_search_hint"
-                android:layout_marginTop="@dimen/separator"/>
+                android:layout_marginTop="@dimen/separator"/-->
+
+            <AutoCompleteTextView
+                android:id="@+id/autoText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:completionThreshold="1" />
+
 
             <LinearLayout
                 android:id="@+id/buttons_layout_1"
@@ -44,16 +51,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
                 <Button
-                    android:id="@+id/sa_cancelButton"
+                    android:id="@+id/sa_OkButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/asr_cancel"
-                    android:visibility="gone"/>
-                <Button
-                    android:id="@+id/sa_helpButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/asr_show_list" />
+                    android:text="@string/asr_add_to_list" />
+
             </LinearLayout>
             <ListView
                 android:id="@+id/products_helper_listView"

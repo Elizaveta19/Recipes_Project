@@ -28,14 +28,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.URL;
+import java.nio.Buffer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private String[] navigationItems;
     private ActionBarDrawerToggle drawerLitener;
 
-    private Socket client = null;
     private String comment = new String();
     private String inputFromServer = new String();
     private String outToServer = new String();
@@ -88,8 +92,7 @@ public class MainActivity extends AppCompatActivity {
         myTask.execute();
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener
-    {
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             displayView(position);
@@ -127,8 +130,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if(drawerLitener.onOptionsItemSelected(item))
             return true;
 
@@ -164,45 +166,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class MyTask extends AsyncTask<Void, Void, Void> {
-        String title;
+       // String title;
+       // JSONArray jsonArray;
 
         @Override
         protected Void doInBackground(Void... params) {
+            GetJson getJson = new GetJson();
             try {
-                // создаем объект который отображает вышеописанный IP-адрес.
-                InetAddress ipAddress = InetAddress.getByName(myConst.SERVER_ADDRESS);
-                // создаем сокет используя IP-адрес и порт сервера.
-                client = new Socket(myConst.SERVER_ADDRESS, myConst.PORT);//переменная для получение данных
-
-                // Берем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиентом.
-                InputStream sin = client.getInputStream();
-                OutputStream sout = client.getOutputStream();
-
-                // Конвертируем потоки в другой тип, чтоб легче обрабатывать текстовые сообщения.
-                DataInputStream in = new DataInputStream(sin);
-                DataOutputStream out = new DataOutputStream(sout);
-
-                JSONObject jsonOut = new JSONObject();
-                jsonOut.put("command", myConst.COMMANDS.get("getAllProducts"));
-                outToServer = jsonOut.toString();
-                out.writeUTF(outToServer); // отсылаем введенную строку текста серверу.
-                out.flush(); // заставляем поток закончить передачу данных.
-                BufferedReader instr = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
-                String str = null;
-                while ((str = instr.readLine()) != null) {
-                    inputFromServer += str;
-                }
-
-            } catch (IOException e) {
-                comment = ("Не удалось подключится к " + myConst.SERVER_ADDRESS + ":" + myConst.PORT);
+                URL fullUrl = new URL(myConst.GET_PRODUCTS_ADDRESS);
+                inputFromServer = getJson.getAllProducts(fullUrl);
+                putProducts();
+            }catch (Exception e) {
                 for (StackTraceElement ste : e.getStackTrace())
                     Log.v("Ошибка============", ste.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
 
+        protected void putProducts() {
             try {
                 JSONObject reader = new JSONObject(inputFromServer);
                 JSONArray productsJSON = reader.getJSONArray("products");
@@ -212,18 +198,6 @@ public class MainActivity extends AppCompatActivity {
                 for (StackTraceElement ste : e.getStackTrace())
                     Log.v("Ошибка============", ste.toString());
             }
-            catch (Exception e)
-            {
-                for (StackTraceElement ste : e.getStackTrace())
-                    Log.v("Ошибка============", ste.toString());
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
         }
     }
 }
