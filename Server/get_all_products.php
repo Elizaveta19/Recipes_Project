@@ -5,9 +5,8 @@
     require_once dirname(__FILE__) . './DbConnect.php';
 
     $db = new DB_CONNECT();
-function get_all_products()
-{
-    $result = mysql_query("SELECT * FROM products") or die(mysql_error());
+	
+	$result = mysql_query("SELECT * FROM products") or die(mysql_error());
 
     if (mysql_num_rows($result) > 0) {
         $response["products"] = array();
@@ -29,7 +28,7 @@ function get_all_products()
 
         echo $response_1 = json_encode($response);
     }
+	
+	print ($response_1);
 
-    return $response_1;
-}
 ?>
