@@ -8,28 +8,31 @@ public class Recipe implements Parcelable{
     private String title;
     private String ingredients;
     private String text;
-    private float ccal;
-    private String time;
+    private int ccal;
+    private int totalWeight;
+    private String imgUrl;
 
-    public Recipe(int _id, String _title, String _ingredients, String _text, float _ccal, String _time)
+    public Recipe(int _id, String _title, String _ingredients, String _text, int _ccal, int _totalWeight, String _imgUrl)
     {
         id = _id;
         title = _title;
         ingredients = _ingredients;
         text = _text;
         ccal = _ccal;
-        time = _time;
+        totalWeight = _totalWeight;
+        imgUrl = _imgUrl;
     }
 
     public Recipe(Parcel in) {
-        String[] data = new String[6];
+        String[] data = new String[7];
         in.readStringArray(data);
         id = Integer.parseInt(data[0]);
         title = data[1];
         ingredients = data[2];
         text = data[3];
-        ccal = Float.parseFloat(data[4]);
-        time = data[5];
+        ccal = Integer.parseInt(data[4]);
+        totalWeight = Integer.parseInt(data[5]);
+        imgUrl = data[6];
     }
 
     public int getId() { return id; }
@@ -40,9 +43,11 @@ public class Recipe implements Parcelable{
 
     public String getText() { return text;  }
 
-    public float getCcal(){ return ccal; }
+    public int getCcal(){ return ccal; }
 
-    public String getTime() { return time; }
+    public int getTotalWeight() { return totalWeight; }
+
+    public String getImgUrl() { return imgUrl; }
 
     @Override
     public int describeContents() {
@@ -51,7 +56,7 @@ public class Recipe implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(new String[] {String.valueOf(id), title, ingredients, text, String.valueOf(ccal), time });
+        dest.writeStringArray(new String[] {String.valueOf(id), title, ingredients, text, String.valueOf(ccal), String.valueOf(totalWeight), imgUrl });
     }
 
     public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>(){

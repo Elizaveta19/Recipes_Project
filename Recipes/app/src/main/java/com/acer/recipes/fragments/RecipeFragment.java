@@ -54,7 +54,7 @@ public class RecipeFragment extends Fragment implements View.OnClickListener{
         rf_backButton.setOnClickListener(this);
 
         textView1.setText(recipe.getTitle());
-        textView2.setText("Время приготовления: " + recipe.getTime());
+        //textView2.setText("Время приготовления: " + recipe.getTime());
         textView3.setText("Калорийность на 100 гр: " + String.valueOf(recipe.getCcal()) + " ккал");
         textView4.setText("Ингредиенты: \n" + recipe.getIngredients());
         textView5.setText("Рецепт приготовления: \n" + recipe.getText());

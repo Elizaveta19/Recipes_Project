@@ -27,20 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.net.URL;
-import java.nio.Buffer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -87,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState == null)
             displayView(HOME_ITEM);
 
+        SSLCertificateHandler.nuke();
 
         myTask = new MyTask();
         myTask.execute();
@@ -171,10 +159,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            GetJson getJson = new GetJson();
+            JsonManager jsonManager = new JsonManager();
             try {
                 URL fullUrl = new URL(myConst.GET_PRODUCTS_ADDRESS);
-                inputFromServer = getJson.getAllProducts(fullUrl);
+                inputFromServer = jsonManager.getAllProducts(fullUrl);
                 putProducts();
             }catch (Exception e) {
                 for (StackTraceElement ste : e.getStackTrace())

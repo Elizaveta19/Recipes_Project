@@ -4,22 +4,24 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
-public class GetJson {
+import javax.net.ssl.HttpsURLConnection;
+
+public class JsonManager {
     final String LOG_TAG = "myLogs";
-    public String getAllProducts(URL fullUrl)
-    {
+    public String getAllProducts(URL fullUrl) {
         try {
             StringBuffer result = new StringBuffer();
             try {
-                HttpURLConnection urlConnection = (HttpURLConnection) fullUrl.openConnection();
+                HttpsURLConnection urlConnection = (HttpsURLConnection) fullUrl.openConnection();
                 try {
                     BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                     String st = "";
@@ -52,12 +54,11 @@ public class GetJson {
         }
     }
 
-    public String getAllRecipes(URL fullUrl)
-    {
+    public String getAllRecipes(URL fullUrl) {
         try {
             StringBuffer result = new StringBuffer();
             try {
-                HttpURLConnection urlConnection = (HttpURLConnection) fullUrl.openConnection();
+                HttpsURLConnection urlConnection = (HttpsURLConnection) fullUrl.openConnection();
                 try {
                     BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                     String st = "";
@@ -90,22 +91,31 @@ public class GetJson {
         }
     }
 
-    private JSONArray ConvertEntityToJsonArray(StringBuffer result)
+    public void putRecipes(String inputFromServer, ArrayList<Recipe> recipeArrayList)
     {
-        JSONArray jsonArray = null;
-        if(result!= null)
+        try
         {
-            try {
-                Log.d("my5", result.toString());
-                String Response = result.toString();
-                jsonArray = new JSONArray(Response);
-            }
-            catch (JSONException e )
-            {
-                Log.d("my4", e.getMessage());
-                e.printStackTrace();
+            JSONObject reader = new JSONObject(inputFromServer);
+            JSONArray recipe = reader.getJSONArray("hits");
+
+            for (int i = 0; i < recipe.length(); i++) {
+                JSONObject jsonObject = recipe.getJSONObject(i);
+                JSONObject jsonRecipeObject = jsonObject.getJSONObject("recipe");
+
+                String title = jsonRecipeObject.getString("label").toString();
+                String imgUrl = jsonRecipeObject.getString("image").toString();
+                int ccal = (int) Double.parseDouble(jsonRecipeObject.getString("calories").toString());
+                int totalWeight = (int) Double.parseDouble(jsonRecipeObject.getString("totalWeight").toString());
+
+                int id = 1;
+
+                recipeArrayList.add(new Recipe(id, title, "", "", ccal, totalWeight, imgUrl));
             }
         }
-        return  jsonArray;
+        catch(JSONException e){
+            e.printStackTrace();
+            for (StackTraceElement ste : e.getStackTrace())
+                Log.v("Ошибка============", ste.toString());
+        }
     }
 }

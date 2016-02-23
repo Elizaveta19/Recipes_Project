@@ -16,7 +16,7 @@ import com.acer.recipes.R;
 public class StartPageFragment extends Fragment implements View.OnClickListener{
 
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
-    private static final int LAYOUT = R.layout.activity_start_page;
+    private static final int LAYOUT = R.layout.start_page;
     private View view;
 
     Button spa_searchButton;

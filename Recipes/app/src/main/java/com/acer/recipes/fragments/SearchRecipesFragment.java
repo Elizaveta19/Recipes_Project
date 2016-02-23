@@ -1,9 +1,7 @@
 package com.acer.recipes.fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,14 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.acer.recipes.Constants;
 import com.acer.recipes.DbOpenHelper;
@@ -35,7 +30,7 @@ import java.util.ArrayList;
 
 public class SearchRecipesFragment extends Fragment implements View.OnClickListener, TextWatcher {
 
-    private static final int LAYOUT = R.layout.activity_search_recipes;
+    private static final int LAYOUT = R.layout.search_recipes;
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
 
     public static final int C_MENU_DELETE = 201;
