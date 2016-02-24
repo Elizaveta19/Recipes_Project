@@ -1,5 +1,6 @@
 package com.acer.recipes.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -52,7 +53,7 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv.setLayoutManager(llm);
 
-        adapter = new RVAdapter(recipeArrayList);
+        adapter = new RVAdapter(getContext(), getActivity(), recipeArrayList);
 
         myTask = new MyTask();
         myTask.execute();
@@ -62,7 +63,7 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Recipe[] recipeArray = new Recipe[recipeArrayList.size()];
+        /*Recipe[] recipeArray = new Recipe[recipeArrayList.size()];
         Recipe recipe = recipeArrayList.get(position);
         Fragment fragment = new RecipeFragment();
         Bundle args = new Bundle();
@@ -73,7 +74,7 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
-        }
+        }*/
     }
 
     @Override

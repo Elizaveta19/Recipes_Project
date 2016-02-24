@@ -7,17 +7,17 @@ public class Recipe implements Parcelable{
     private int id;
     private String title;
     private String ingredients;
-    private String text;
+    private String recipeUrl;
     private int ccal;
     private int totalWeight;
     private String imgUrl;
 
-    public Recipe(int _id, String _title, String _ingredients, String _text, int _ccal, int _totalWeight, String _imgUrl)
+    public Recipe(int _id, String _title, String _ingredients, String _recipeUrl, int _ccal, int _totalWeight, String _imgUrl)
     {
         id = _id;
         title = _title;
         ingredients = _ingredients;
-        text = _text;
+        recipeUrl = _recipeUrl;
         ccal = _ccal;
         totalWeight = _totalWeight;
         imgUrl = _imgUrl;
@@ -29,7 +29,7 @@ public class Recipe implements Parcelable{
         id = Integer.parseInt(data[0]);
         title = data[1];
         ingredients = data[2];
-        text = data[3];
+        recipeUrl = data[3];
         ccal = Integer.parseInt(data[4]);
         totalWeight = Integer.parseInt(data[5]);
         imgUrl = data[6];
@@ -41,7 +41,7 @@ public class Recipe implements Parcelable{
 
     public String getIngredients() { return ingredients; }
 
-    public String getText() { return text;  }
+    public String getRecipeUrl() { return recipeUrl;  }
 
     public int getCcal(){ return ccal; }
 
@@ -56,7 +56,7 @@ public class Recipe implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(new String[] {String.valueOf(id), title, ingredients, text, String.valueOf(ccal), String.valueOf(totalWeight), imgUrl });
+        dest.writeStringArray(new String[] {String.valueOf(id), title, ingredients, recipeUrl, String.valueOf(ccal), String.valueOf(totalWeight), imgUrl });
     }
 
     public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>(){

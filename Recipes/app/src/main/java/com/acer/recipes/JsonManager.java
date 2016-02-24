@@ -104,12 +104,13 @@ public class JsonManager {
 
                 String title = jsonRecipeObject.getString("label").toString();
                 String imgUrl = jsonRecipeObject.getString("image").toString();
+                String recipeUrl = jsonRecipeObject.getString("url").toString();
                 int ccal = (int) Double.parseDouble(jsonRecipeObject.getString("calories").toString());
                 int totalWeight = (int) Double.parseDouble(jsonRecipeObject.getString("totalWeight").toString());
 
                 int id = 1;
 
-                recipeArrayList.add(new Recipe(id, title, "", "", ccal, totalWeight, imgUrl));
+                recipeArrayList.add(new Recipe(id, title, "", recipeUrl, ccal, totalWeight, imgUrl));
             }
         }
         catch(JSONException e){

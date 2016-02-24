@@ -77,7 +77,7 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv.setLayoutManager(llm);
 
-        adapter = new RVAdapter(recipeArrayList);
+        adapter = new RVAdapter(getContext(), getActivity(), recipeArrayList);
 
         myTask = new MyTask();
         myTask.execute();
@@ -88,7 +88,7 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Recipe[] recipeArray = new Recipe[recipeArrayList.size()];
+        /*Recipe[] recipeArray = new Recipe[recipeArrayList.size()];
         Recipe recipe = recipeArrayList.get(position);
         Fragment fragment = new RecipeFragment();
         Bundle args = new Bundle();
@@ -100,7 +100,7 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
-        }
+        }*/
     }
 
     @Override

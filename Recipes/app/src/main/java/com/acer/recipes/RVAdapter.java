@@ -1,5 +1,13 @@
 package com.acer.recipes;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,28 +17,38 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.acer.recipes.fragments.RecipeFragment;
+import com.acer.recipes.fragments.RecipesResultFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder>{
+public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> {//implements View.OnClickListener{
 
+    private final LayoutInflater inflater;
+    private final Activity mActivity;
+    Context currentContext;
     ArrayList<Recipe> recipes;
-    public RVAdapter(ArrayList<Recipe> recipes){
+
+    public RVAdapter(Context context, Activity mActivity, ArrayList<Recipe> recipes){
+        inflater = LayoutInflater.from(context);
         this.recipes = recipes;
+        this.mActivity = mActivity;
     }
 
     @Override
     public RecipeViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view, viewGroup, false);
         RecipeViewHolder pvh = new RecipeViewHolder(v);
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(viewGroup.getContext()));
+        currentContext = viewGroup.getContext();
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(currentContext));
+
         return pvh;
     }
 
     @Override
-    public void onBindViewHolder(RecipeViewHolder recipeViewHolder, int position) {
+    public void onBindViewHolder(final RecipeViewHolder recipeViewHolder, final int position) {
 
         try {
             ImageLoader imageLoader = ImageLoader.getInstance();
@@ -45,6 +63,19 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder>{
         recipeViewHolder.recipeTitle.setText(recipes.get(position).getTitle());
         recipeViewHolder.recipeTotalWeight.setText("Total Weight:" + Integer.toString(recipes.get(position).getTotalWeight()));
         recipeViewHolder.recipeCcal.setText("Calories: " + Integer.toString(recipes.get(position).getCcal()));
+
+        recipeViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, RecipeFragment.class);
+                //bundle.putSerializable("user", fragment.user);
+                /*Bundle bundle = new Bundle();
+                bundle.putString("recipeUrl", recipes.get(position).getRecipeUrl());
+                intent.putExtras(bundle);*/
+                intent.putExtra("recipeUrl", recipes.get(position).getRecipeUrl());
+                mActivity.startActivity(intent);
+            }
+        });
         //recipeViewHolder.recipePhoto.setImageURI(Uri.parse(recipes.get(position).getImgUrl()));
     }
 
@@ -62,6 +93,20 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder>{
         this.recipes = recipes;
         notifyDataSetChanged();
     }
+
+    /*@Override
+    public void onClick(View v) {
+
+        Intent likeWindow = new Intent(currentContext, RecipeFragment.class);
+        Bundle bundle = new Bundle();
+        //bundle.putSerializable("user", fragment.user);
+        bundle.putString("url",recipes.get(position).getRecipeUrl());
+        likeWindow.putExtras(bundle);
+        currentContext.startActivity(likeWindow);
+
+        //int itemPosition = mRecyclerView.getChildPosition(view);
+        //String item = mList.get(itemPosition);
+    }*/
 
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
