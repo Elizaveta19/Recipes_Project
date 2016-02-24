@@ -20,9 +20,6 @@ import com.acer.recipes.R;
 import com.acer.recipes.RVAdapter;
 import com.acer.recipes.Recipe;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;

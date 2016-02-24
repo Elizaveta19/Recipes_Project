@@ -22,12 +22,14 @@ import com.acer.recipes.fragments.AllRecipesFragment;
 import com.acer.recipes.fragments.SearchRecipesFragment;
 import com.acer.recipes.fragments.SearchRecipesFragment_2;
 import com.acer.recipes.fragments.StartPageFragment;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,20 +1,17 @@
 package com.acer.recipes;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import java.util.ArrayList;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder>{
@@ -28,17 +25,27 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder>{
     public RecipeViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view, viewGroup, false);
         RecipeViewHolder pvh = new RecipeViewHolder(v);
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(viewGroup.getContext()));
         return pvh;
     }
 
     @Override
     public void onBindViewHolder(RecipeViewHolder recipeViewHolder, int position) {
 
+        try {
+            ImageLoader imageLoader = ImageLoader.getInstance();
+            imageLoader.displayImage(recipes.get(position).getImgUrl(), recipeViewHolder.recipePhoto);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            for (StackTraceElement ste : e.getStackTrace())
+                Log.v("Ошибка============", ste.toString());
+        }
 
         recipeViewHolder.recipeTitle.setText(recipes.get(position).getTitle());
         recipeViewHolder.recipeTotalWeight.setText("Total Weight:" + Integer.toString(recipes.get(position).getTotalWeight()));
         recipeViewHolder.recipeCcal.setText("Calories: " + Integer.toString(recipes.get(position).getCcal()));
-        recipeViewHolder.recipePhoto.setImageURI(Uri.parse(recipes.get(position).getImgUrl()));
+        //recipeViewHolder.recipePhoto.setImageURI(Uri.parse(recipes.get(position).getImgUrl()));
     }
 
     @Override
