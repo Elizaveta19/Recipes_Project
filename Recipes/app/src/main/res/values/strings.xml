@@ -8,7 +8,7 @@
     <string name="application_title">Введите продукты, из которых Вы хотите приготовить блюдо, и нажмите "Найти"!</string>
     <string name="am_search_button">Search a recipe</string>
     <string name="asr_search_button">Search</string>
-    <string name="asr_title">Продукты</string>
+    <string name="asr_title">Pruducts</string>
     <string name="asr_title_2">Введите максимальную калорийность на 100г</string>
     <string name="asr_search_hint">Ингредиент...</string>
     <string name="asr_search_calories_hint">Калорийность до...</string>

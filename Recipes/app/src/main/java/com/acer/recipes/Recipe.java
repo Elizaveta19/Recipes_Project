@@ -3,16 +3,19 @@ package com.acer.recipes;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Recipe implements Parcelable{
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Recipe  implements Serializable{
     private int id;
     private String title;
-    private String ingredients;
+    private ArrayList<String> ingredients;
     private String recipeUrl;
     private int ccal;
     private int totalWeight;
     private String imgUrl;
 
-    public Recipe(int _id, String _title, String _ingredients, String _recipeUrl, int _ccal, int _totalWeight, String _imgUrl)
+    public Recipe(int _id, String _title, ArrayList<String> _ingredients, String _recipeUrl, int _ccal, int _totalWeight, String _imgUrl)
     {
         id = _id;
         title = _title;
@@ -23,7 +26,7 @@ public class Recipe implements Parcelable{
         imgUrl = _imgUrl;
     }
 
-    public Recipe(Parcel in) {
+    /*public Recipe(Parcel in) {
         String[] data = new String[7];
         in.readStringArray(data);
         id = Integer.parseInt(data[0]);
@@ -33,15 +36,15 @@ public class Recipe implements Parcelable{
         ccal = Integer.parseInt(data[4]);
         totalWeight = Integer.parseInt(data[5]);
         imgUrl = data[6];
-    }
+    }*/
 
     public int getId() { return id; }
 
     public String getTitle(){ return title; }
 
-    public String getIngredients() { return ingredients; }
+    public ArrayList<String> getIngredients() { return ingredients; }
 
-    public String getRecipeUrl() { return recipeUrl;  }
+    public String getUrl() { return recipeUrl;  }
 
     public int getCcal(){ return ccal; }
 
@@ -49,14 +52,14 @@ public class Recipe implements Parcelable{
 
     public String getImgUrl() { return imgUrl; }
 
-    @Override
+    /*@Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(new String[] {String.valueOf(id), title, ingredients, recipeUrl, String.valueOf(ccal), String.valueOf(totalWeight), imgUrl });
+        dest.writeStringArray(new String[] {String.valueOf(id), title, String.valueOf(ingredients), recipeUrl, String.valueOf(ccal), String.valueOf(totalWeight), imgUrl });
     }
 
     public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>(){
@@ -69,5 +72,5 @@ public class Recipe implements Parcelable{
         public Recipe[] newArray(int size){
             return new Recipe[size];
         }
-    };
+    };*/
 }

@@ -25,7 +25,7 @@ import com.acer.recipes.Recipe;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class RecipesResultFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class RecipesResultFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private static final int LAYOUT = R.layout.recipes_result;
@@ -39,7 +39,6 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
     public static final Constants myConst = new Constants();
     MyTask myTask;
 
-    //ArrayList<Integer> keysList = new ArrayList<>();
     private ArrayList<Recipe> recipeArrayList = new ArrayList<>();
 
     @Nullable
@@ -75,23 +74,6 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
         }*/
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.arr_backButton: {
-                Fragment fragment = SearchRecipesFragment.getFragment();
-                if (fragment != null) {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
-                }
-                break;
-            }
-            default:
-                break;
-        }
     }
 
     public static RecipesResultFragment getFragment() {

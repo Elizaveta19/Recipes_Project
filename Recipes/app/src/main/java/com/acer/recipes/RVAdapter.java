@@ -2,12 +2,7 @@ package com.acer.recipes;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.acer.recipes.fragments.RecipeFragment;
-import com.acer.recipes.fragments.RecipesResultFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -30,6 +24,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
     private final Activity mActivity;
     Context currentContext;
     ArrayList<Recipe> recipes;
+    ImageLoader imageLoader;
 
     public RVAdapter(Context context, Activity mActivity, ArrayList<Recipe> recipes){
         inflater = LayoutInflater.from(context);
@@ -42,7 +37,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view, viewGroup, false);
         RecipeViewHolder pvh = new RecipeViewHolder(v);
         currentContext = viewGroup.getContext();
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(currentContext));
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(currentContext));
 
         return pvh;
     }
@@ -51,8 +47,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
     public void onBindViewHolder(final RecipeViewHolder recipeViewHolder, final int position) {
 
         try {
-            ImageLoader imageLoader = ImageLoader.getInstance();
-            imageLoader.displayImage(recipes.get(position).getImgUrl(), recipeViewHolder.recipePhoto);
+            //if (recipeViewHolder.recipePhoto.getDrawable()==null){
+                imageLoader.displayImage(recipes.get(position).getImgUrl(), recipeViewHolder.recipePhoto);
+           // }
+
         }
         catch(Exception e){
             e.printStackTrace();
@@ -68,11 +66,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, RecipeFragment.class);
-                //bundle.putSerializable("user", fragment.user);
-                /*Bundle bundle = new Bundle();
-                bundle.putString("recipeUrl", recipes.get(position).getRecipeUrl());
-                intent.putExtras(bundle);*/
-                intent.putExtra("recipeUrl", recipes.get(position).getRecipeUrl());
+                intent.putExtra("recipe", recipes.get(position));
                 mActivity.startActivity(intent);
             }
         });

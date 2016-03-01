@@ -1,94 +1,100 @@
 package com.acer.recipes.fragments;
 
-import android.content.Intent;
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
+import android.app.Notification;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.acer.recipes.R;
 import com.acer.recipes.Recipe;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.acer.recipes.RecipeFragments.SlidingTabLayout;
+import com.acer.recipes.TabsPagerAdapter;
 
 
-public class RecipeFragment extends AppCompatActivity implements View.OnClickListener{//extends Fragment implements View.OnClickListener{
+public class RecipeFragment extends FragmentActivity implements ActionBar.TabListener, TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 
     private static final int LAYOUT = R.layout.recipe_fragment;
-    private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private View view;
 
     Recipe recipe;
-
-    private TextView textView1;
-    private TextView textView2;
-    private TextView textView3;
-    private TextView textView4;
-    private TextView textView5;
-
-    Button rf_backButton;
+    ViewPager mViewPager;
+    private TabHost mTabHost;
+    ActionBar actionBar;
+    SlidingTabLayout tabs;
+    CharSequence Titles[]={"Ingredients", "Nutrition", "Directions"};
+    int Numboftabs = 3;
 
     @Nullable
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppDefault);
         setContentView(LAYOUT);
 
-        //Bundle bundle = getArguments();
-        //recipe = savedInstanceState.getParcelable("recipe");
-        //С помощью ключевого HashMap добавляем название (то что большими буквами), и описание (маленькими)
 
-        Intent iin= getIntent();
-        Bundle b = iin.getExtras();
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mViewPager.setAdapter(new TabsPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs));
 
-       // String recipeUrl =(String) b.get("recipeUrl");
+        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
-        String recipeUrl = getIntent().getStringExtra("recipeUrl");
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.colorPrimary);
+            }
+        });
 
-        textView1 = (TextView) findViewById(R.id.textView1);
-        textView2 = (TextView) findViewById(R.id.textView2);
-        textView3 = (TextView) findViewById(R.id.textView3);
-        textView4 = (TextView) findViewById(R.id.textView4);
-        textView5 = (TextView) findViewById(R.id.textView5);
+        tabs.setViewPager(mViewPager);
 
-        rf_backButton = (Button) findViewById(R.id.rf_backButton);
-        //rf_backButton.setOnClickListener(this);
 
-        //textView1.setText(recipe.getTitle());
-        //textView2.setText("Время приготовления: " + recipe.getTime());
-        textView3.setText("Ссылка на сайт-источник: " + recipeUrl);//recipe.getRecipeUrl());
-        //textView4.setText("Ингредиенты: \n" + recipe.getIngredients());
-        //textView5.setText("Рецепт приготовления: \n" + recipe.getText());
+        Recipe recipe = (Recipe) getIntent().getSerializableExtra("recipe");
+        TextView tv = (TextView) findViewById(R.id.recipe_title);
+        tv.setText(recipe.getTitle());
+    }
+
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        int pos = this.mViewPager.getCurrentItem();
+        this.mTabHost.setCurrentTab(pos);
+    }
+    @Override
+    public void onPageSelected(int position) {
+
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.rf_backButton: {
+    public void onPageScrollStateChanged(int state) {
 
-                /*Fragment fragment = SearchRecipesFragment.getFragment();
-                if(fragment != null)
-                {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
-                }*/
-                break;
-            }
-            default:
-                break;
-            }
+    }
+
+    @Override
+    public void onTabChanged(String tabId) {
+        int pos = this.mTabHost.getCurrentTab();
+        this.mViewPager.setCurrentItem(pos);
+
+    }
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
     }
 }

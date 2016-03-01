@@ -103,6 +103,13 @@ public class JsonManager {
                 JSONObject jsonRecipeObject = jsonObject.getJSONObject("recipe");
 
                 String title = jsonRecipeObject.getString("label").toString();
+                JSONArray ingredientsJSON = jsonRecipeObject.getJSONArray("ingredientLines");
+                ArrayList<String> ingredients = new ArrayList<>();
+                for(int j = 0; j < ingredientsJSON.length(); j++)
+                {
+                    ingredients.add(ingredientsJSON.getString(j));
+                }
+
                 String imgUrl = jsonRecipeObject.getString("image").toString();
                 String recipeUrl = jsonRecipeObject.getString("url").toString();
                 int ccal = (int) Double.parseDouble(jsonRecipeObject.getString("calories").toString());
@@ -110,7 +117,7 @@ public class JsonManager {
 
                 int id = 1;
 
-                recipeArrayList.add(new Recipe(id, title, "", recipeUrl, ccal, totalWeight, imgUrl));
+                recipeArrayList.add(new Recipe(id, title, ingredients, recipeUrl, ccal, totalWeight, imgUrl));
             }
         }
         catch(JSONException e){
