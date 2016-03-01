@@ -23,7 +23,7 @@ public class NutritionFragment  extends Fragment {
 
         TextView tv = (TextView) view.findViewById(R.id.recipe_fragment_calories);
         Recipe recipe = (Recipe) getActivity().getIntent().getSerializableExtra("recipe");
-                
+
         tv.setText("Calories: "  + Integer.toString(recipe.getStandartCalories()));
 
         return view;

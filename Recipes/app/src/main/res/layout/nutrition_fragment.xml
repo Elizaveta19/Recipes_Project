@@ -1,15 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/recipe_fragment_calories"
-        android:layout_width="wrap_content"
+
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/recipe_font"
-        android:textColor="@color/colorBlack"/>
+        android:orientation="horizontal"
+        android:stretchColumns="*" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/recipe_font"
+            android:textColor="@color/colorBlack"
+            android:padding="18dip"
+            android:text="Nutrition Facts"
+            android:background="@color/mainTableBackground"/>
+
+        <TextView
+            android:text="Amount per serving"
+            android:background="@color/titleTableBackground"
+            android:textColor="#000000"
+            android:paddingBottom="@dimen/table_cell"
+            android:paddingTop="@dimen/table_cell"
+            android:paddingLeft="15dip"/>
+
+        <TextView
+            android:id="@+id/recipe_fragment_calories"
+            android:background="@color/mainTableBackground"
+            android:textColor="@color/colorBlack"
+            android:paddingBottom="@dimen/table_cell"
+            android:paddingTop="@dimen/table_cell"
+            android:paddingLeft="@dimen/table_padding"
+            />
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:background="@color/tableLeftSeparatorBackground"
+                android:textColor="#000000"
+                android:padding="@dimen/table_cell"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="% Daily Value*"
+                android:background="@color/tableRightSeparatorBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_padding"/>
+
+        </TableRow>
+
+        <!-- FAT -->
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:id="@+id/total_fat"
+                android:text="Total Fat"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:textStyle="bold"
+                android:paddingLeft="@dimen/table_padding"/>
+
+            <TextView
+                android:id="@+id/fat_dialy_percent"
+                android:text="%%%"
+                android:textColor="@color/colorBlack"
+                android:background="@color/mainRightTableBackground"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_padding"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+            <TextView
+                android:text="Saturated"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_sub_item_padding"/>
+            <TextView
+                android:id="@+id/Saturated"
+                android:textColor="@color/colorBlack"
+                android:background="@color/mainRightTableBackground"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_padding"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+            <TextView
+                android:text="Trans"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_sub_item_padding"/>
+            <TextView
+                android:id="@+id/trans"
+                android:textColor="@color/colorBlack"
+                android:background="@color/mainRightTableBackground"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_padding"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+            <TextView
+                android:text="Monounsaturated"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_sub_item_padding"/>
+            <TextView
+                android:id="@+id/Monounsaturated"
+                android:textColor="@color/colorBlack"
+                android:background="@color/mainRightTableBackground"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_padding"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+            <TextView
+                android:text="Polyunsaturated"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_sub_item_padding"/>
+            <TextView
+                android:id="@+id/Polyunsaturated"
+                android:textColor="@color/colorBlack"
+                android:background="@color/mainRightTableBackground"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_padding"/>
+        </TableRow>
+        <!-- //FAT-->
+
+        <!-- Carbs -->
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:id="@+id/total_carb"
+                android:text="Total Carbohydrate"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:textStyle="bold"
+                android:paddingLeft="@dimen/table_padding"/>
+
+            <TextView
+                android:id="@+id/carbs_dialy_percent"
+                android:text="%%%"
+                android:textColor="@color/colorBlack"
+                android:background="@color/mainRightTableBackground"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_padding"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+            <TextView
+                android:text="Carbs"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_sub_item_padding"/>
+            <TextView
+                android:id="@+id/carbs"
+                android:textColor="@color/colorBlack"
+                android:background="@color/mainRightTableBackground"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_padding"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+            <TextView
+                android:text="Fiber"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_sub_item_padding"/>
+            <TextView
+                android:id="@+id/fiber"
+                android:textColor="@color/colorBlack"
+                android:background="@color/mainRightTableBackground"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_padding"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+            <TextView
+                android:text="Sugars"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_sub_item_padding"/>
+            <TextView
+                android:id="@+id/sugar"
+                android:textColor="@color/colorBlack"
+                android:background="@color/mainRightTableBackground"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_padding"/>
+        </TableRow>
+
+        <!-- //Carbs -->
+
+        <!-- PROTEINS -->
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:id="@+id/total_protein"
+                android:text="Total Protein"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:textStyle="bold"
+                android:paddingLeft="@dimen/table_padding"/>
+
+            <TextView
+                android:id="@+id/protein_dialy_percent"
+                android:text="%%%"
+                android:textColor="@color/colorBlack"
+                android:background="@color/mainRightTableBackground"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_padding"/>
+
+        </TableRow>
+
+        <!-- //PROTEINS -->
 
 
+    </TableLayout>
 
-</LinearLayout>
+</ScrollView>

@@ -7,4 +7,10 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey">#AAAAAA</color>
     <color name="colorBlack">#000000</color>
+
+    <color name="titleTableBackground">#C0C0C0</color>
+    <color name="mainTableBackground">#ECECEC</color>
+    <color name="mainRightTableBackground">#D9D9D9</color>
+    <color name="tableLeftSeparatorBackground">#E7E7E7</color>
+    <color name="tableRightSeparatorBackground">#D5D5D5</color>
 </resources>

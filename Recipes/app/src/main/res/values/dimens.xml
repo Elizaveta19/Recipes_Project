@@ -13,4 +13,8 @@
 
     <dimen name="separator">30px</dimen>
     <dimen name="separator_item_recipe">10px</dimen>
+
+    <dimen name="table_cell">5dip</dimen>
+    <dimen name="table_padding">15dip</dimen>
+    <dimen name="table_sub_item_padding">25dip</dimen>
 </resources>

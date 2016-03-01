@@ -37,6 +37,7 @@ public class RecipeFragment extends FragmentActivity implements ActionBar.TabLis
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppDefault);
         setContentView(LAYOUT);
+        setTitle("Recipes");
 
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
