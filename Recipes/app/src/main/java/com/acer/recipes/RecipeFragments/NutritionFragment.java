@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.acer.recipes.R;
+import com.acer.recipes.Recipe;
 
 public class NutritionFragment  extends Fragment {
 
@@ -18,6 +20,12 @@ public class NutritionFragment  extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
+
+        TextView tv = (TextView) view.findViewById(R.id.recipe_fragment_calories);
+        Recipe recipe = (Recipe) getActivity().getIntent().getSerializableExtra("recipe");
+                
+        tv.setText("Calories: "  + Integer.toString(recipe.getStandartCalories()));
+
         return view;
     }
 
