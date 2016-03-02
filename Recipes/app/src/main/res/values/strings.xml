@@ -9,10 +9,10 @@
     <string name="application_title">Enter product you want to eat and click "Search"!</string>
     <string name="am_search_button">Search a recipe</string>
     <string name="asr_search_button">Search</string>
-    <string name="asr_title">Pruducts</string>
+    <string name="asr_title">Specific search</string>
     <string name="asr_title_2">Введите максимальную калорийность на 100г</string>
-    <string name="asr_search_hint">Ингредиент...</string>
-    <string name="asr_search_calories_hint">Калорийность до...</string>
+    <string name="asr_search_hint">Ingredient...</string>
+    <string name="asr_search_calories_hint">Max calories...</string>
     <string name="asr_clear">Clear</string>
     <string name="asr_add_to_list">Add</string>
     <string name="asr_cancel">Cancel</string>

@@ -30,21 +30,22 @@
             android:layout_width="@dimen/asr_editText_width"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
-            <!--EditText
+            <EditText
                 android:id="@+id/et_product"
                 android:layout_width="@dimen/asr_editText_width"
                 android:layout_height="wrap_content"
                 android:hint="@string/asr_search_hint"
-                android:layout_marginTop="@dimen/separator"/-->
+                android:layout_marginTop="@dimen/separator"/>
 
-            <AutoCompleteTextView
-                android:id="@+id/autoText"
-                android:layout_width="fill_parent"
+            <EditText
+                android:inputType="number"
+                android:id="@+id/et_max_calories"
+                android:layout_width="@dimen/asr_editText_width"
                 android:layout_height="wrap_content"
-                android:completionThreshold="1" />
+                android:hint="@string/asr_search_calories_hint"
+                android:layout_marginTop="@dimen/separator"/>
 
-
-            <LinearLayout
+            <!--LinearLayout
                 android:id="@+id/buttons_layout_1"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
@@ -66,7 +67,7 @@
             <ListView
                 android:id="@+id/products_listView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"/-->
 
         </LinearLayout>
 
@@ -80,11 +81,11 @@
         android:layout_gravity="center"
         android:gravity="bottom"
         android:layout_weight="1" >
-        <Button
+        <!--Button
             android:id="@+id/sa_clearButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/asr_clear" />
+            android:text="@string/asr_clear" /-->
         <Button
             android:id="@+id/sa_searchButton"
             android:layout_width="wrap_content"

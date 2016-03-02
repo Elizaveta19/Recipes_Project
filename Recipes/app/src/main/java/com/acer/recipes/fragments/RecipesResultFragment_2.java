@@ -98,7 +98,9 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
                 {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
                 break;
             }

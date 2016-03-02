@@ -56,7 +56,9 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                 {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
                 break;
             case R.id.allRecipes:
@@ -65,7 +67,9 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                 {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
                 break;
             case R.id.spa_searchButton2:
@@ -74,7 +78,9 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                 {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
                 break;
 

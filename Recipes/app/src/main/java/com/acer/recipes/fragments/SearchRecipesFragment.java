@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.acer.recipes.Constants;
@@ -33,26 +34,10 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
     private static final int LAYOUT = R.layout.search_recipes;
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
 
-    public static final int C_MENU_DELETE = 201;
-
     private View view;
-    DbOpenHelper dbHelper;
-
-    AutoCompleteTextView myAutoComplete;
-    ArrayList<String> autoCompleteArrayList_string = new ArrayList<>();
-    ArrayList<Product> autoCompleteArrayList_product;
-    ArrayAdapter<String> autoCompleteAdapter_string;
-
-    Button sa_OkButton;
     Button sa_searchButton;
-    Button sa_clearButton;
-
-    ListView productsListView;
-    ArrayList<String> productsArrayList = new ArrayList<>();
-    ArrayAdapter<String> adapter;
-    static String itemAtPosition = new String();
-
-    ArrayList<Integer> keysList = new ArrayList<>();
+    EditText et_product;
+    EditText et_max_calories;
 
     @Nullable
     @Override
@@ -60,41 +45,15 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
 
         view = inflater.inflate(LAYOUT, container,false);
 
-        dbHelper = new Constants().dbHelper;
-        sa_clearButton = (Button) view.findViewById(R.id.sa_clearButton);
+        et_product = (EditText) view.findViewById(R.id.et_product);
+        et_max_calories = (EditText) view.findViewById(R.id.et_max_calories);
         sa_searchButton = (Button) view.findViewById(R.id.sa_searchButton);
-
-        myAutoComplete = (AutoCompleteTextView) view.findViewById(R.id.autoText);
-
-        prepareMyList();
-        myAutoComplete.addTextChangedListener(this);
-
-        autoCompleteAdapter_string = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, autoCompleteArrayList_string);
-        myAutoComplete.setAdapter(autoCompleteAdapter_string);
-
-        sa_OkButton = (Button) view.findViewById(R.id.sa_OkButton);
-        sa_OkButton.setOnClickListener(this);
-
-        //выбранный писок продуктов
-        productsListView = (ListView) view.findViewById(R.id.products_listView);
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, productsArrayList);
-        productsListView.setAdapter(adapter);
-        registerForContextMenu(productsListView);
-
         sa_searchButton.setOnClickListener(this);
-        sa_clearButton.setOnClickListener(this);
 
         return view;
     }
 
-    private void prepareMyList() {
-        // put all products to the AutoComplete
-        autoCompleteArrayList_string.clear();
-        autoCompleteArrayList_product = dbHelper.getProducts("");
-        for (Product pr : autoCompleteArrayList_product) {
-            autoCompleteArrayList_string.add(pr.getName());
-       }
-    }
+
 
     public static SearchRecipesFragment getFragment()  {
         Bundle args = new Bundle();
@@ -108,45 +67,20 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
-
-             case R.id.sa_OkButton: {
-                 String newAdd = myAutoComplete.getText().toString().trim();
-                 Product pr = dbHelper.getProductByName(newAdd);
-
-                 if (pr != null) {
-                     int s = pr.getId();
-                     if (keysList.contains(s)) {
-                         productExistsMessage();
-                     }
-                     else {
-                         keysList.add(s);
-                         productsArrayList.add(pr.getName());
-                         adapter.notifyDataSetChanged();
-                     }
-                 }
-
-                 else {
-                     productNotFoundMessage();
-                 }
-                 myAutoComplete.setText("");
-                break;
-            }
-            case R.id.sa_clearButton: {
-                productsArrayList.clear();
-                adapter.notifyDataSetChanged();
-                break;
-            }
             case R.id.sa_searchButton: {
                 Fragment fragment = new RecipesResultFragment();
                 Bundle args = new Bundle();
-                args.putIntegerArrayList("keysList", keysList);
+                args.putString("query", et_product.getText().toString());
+                args.putInt("maxCalories", Integer.parseInt(et_max_calories.getText().toString()));
                 fragment.setArguments(args);
 
                 if(fragment != null)
                 {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
                 break;
 
@@ -182,26 +116,6 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
                         });
         AlertDialog alert = builder.create();
         alert.show();
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        itemAtPosition = (String) productsListView.getItemAtPosition(acmi.position);
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(Menu.NONE, C_MENU_DELETE, menu.NONE, "Удалить");
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case C_MENU_DELETE:
-                productsArrayList.remove(itemAtPosition);
-                adapter.notifyDataSetChanged();
-                break;
-        }
-
-        return super.onContextItemSelected(item);
     }
 
     @Override

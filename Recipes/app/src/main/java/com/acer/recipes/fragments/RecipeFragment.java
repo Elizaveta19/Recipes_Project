@@ -5,10 +5,16 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -20,18 +26,16 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 
-public class RecipeFragment extends FragmentActivity implements ActionBar.TabListener, TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
+public class RecipeFragment extends FragmentActivity implements View.OnClickListener, TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 
     private static final int LAYOUT = R.layout.recipe_fragment;
     private View view;
 
-    Recipe recipe;
     ViewPager mViewPager;
     private TabHost mTabHost;
-    ActionBar actionBar;
     SlidingTabLayout tabs;
     CharSequence Titles[]={"Ingredients", "Nutrition", "Directions"};
-    int Numboftabs = 3;
+    int NumberOfTabs = 3;
 
     @Nullable
     @Override
@@ -42,7 +46,7 @@ public class RecipeFragment extends FragmentActivity implements ActionBar.TabLis
         setContentView(LAYOUT);
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
-        mViewPager.setAdapter(new TabsPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs));
+        mViewPager.setAdapter(new TabsPagerAdapter(getSupportFragmentManager(), Titles, NumberOfTabs));
 
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
@@ -61,14 +65,18 @@ public class RecipeFragment extends FragmentActivity implements ActionBar.TabLis
         tv.setText(recipe.getTitle());
 
         ImageView recipeHeader = (ImageView) findViewById(R.id.recipe_header);
+        ImageView backButton = (ImageView) findViewById(R.id.back_to_results);
+        backButton.setOnClickListener(this);
 
 
         try {
-            ImageLoader imageLoader;
-            imageLoader = ImageLoader.getInstance();
+            ImageLoader imageLoader = ImageLoader.getInstance();
             imageLoader.init(ImageLoaderConfiguration.createDefault(getBaseContext()));
-            imageLoader.displayImage(recipe.getImgUrl(), recipeHeader);
+            LinearLayout LL = (LinearLayout) findViewById(R.id.recipe_title_layout);
 
+            //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(150, LL.getHeight());
+            //recipeHeader.setLayoutParams(params);
+            imageLoader.displayImage(recipe.getImgUrl(), recipeHeader);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -77,7 +85,6 @@ public class RecipeFragment extends FragmentActivity implements ActionBar.TabLis
         }
 
     }
-
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -102,17 +109,7 @@ public class RecipeFragment extends FragmentActivity implements ActionBar.TabLis
     }
 
     @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
+    public void onClick(View v) {
+        super.onBackPressed();
     }
 }

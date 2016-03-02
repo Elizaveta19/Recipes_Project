@@ -32,7 +32,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final int HOME_ITEM = 0;
     private static final int SEARCH_ITEM = 1;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private String outToServer = new String();
     public static final Constants myConst = new Constants();
     private MyTask myTask;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,34 +88,38 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getString(R.string.action_search));
-        searchView.setOnQueryTextListener(this);
+        searchView.setSubmitButtonEnabled(true);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Fragment fragment = RecipesResultFragment.getFragment();
+                Bundle args = new Bundle();
+                args.putString("query", query.trim());
+                fragment.setArguments(args);
+                if(fragment != null)
+                {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+                searchItem.collapseActionView();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-
-        Fragment fragment = RecipesResultFragment.getFragment();
-        Bundle args = new Bundle();
-        args.putString("query", query.trim());
-        fragment.setArguments(args);
-        if(fragment != null)
-        {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
-            drawerLayout.closeDrawer(listView);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
@@ -148,7 +153,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+            fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
             drawerLayout.closeDrawer(listView);
         }
     }

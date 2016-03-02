@@ -33,6 +33,7 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
     RVAdapter adapter;
     RecyclerView rv;
     String query = "";
+    String maxCalories = "";
 
     public static final Constants myConst = new Constants();
     MyTask myTask;
@@ -45,6 +46,7 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
         view = inflater.inflate(LAYOUT, container, false);
         Bundle bundle = getArguments();
         query = bundle.getString("query");
+        maxCalories = String.valueOf(bundle.getInt("maxCalories"));
 
         rv = (RecyclerView) view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -89,6 +91,7 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
         protected Void doInBackground(Void... params) {
             JsonManager jsonManager = new JsonManager();
             try {
+                // + "&calories=lte%" + maxCalories
                 URL fullUrl = new URL(myConst.GET_RECIPES_ADDRESS + query + "&app_id=71ced4a7&app_key=504976f01085e918bbc08f7a1b5e2f59");
                 inputFromServer = jsonManager.getAllRecipes(fullUrl);
                 jsonManager.putRecipes(inputFromServer, recipeArrayList);
