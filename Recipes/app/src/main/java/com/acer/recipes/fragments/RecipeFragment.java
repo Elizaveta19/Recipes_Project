@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -15,6 +17,8 @@ import com.acer.recipes.R;
 import com.acer.recipes.Recipe;
 import com.acer.recipes.RecipeFragments.SlidingTabLayout;
 import com.acer.recipes.TabsPagerAdapter;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 
 public class RecipeFragment extends FragmentActivity implements ActionBar.TabListener, TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
@@ -53,10 +57,26 @@ public class RecipeFragment extends FragmentActivity implements ActionBar.TabLis
 
         tabs.setViewPager(mViewPager);
 
-
         Recipe recipe = (Recipe) getIntent().getSerializableExtra("recipe");
         TextView tv = (TextView) findViewById(R.id.recipe_title);
         tv.setText(recipe.getTitle());
+
+        ImageView recipeHeader = (ImageView) findViewById(R.id.recipe_header);
+
+
+        try {
+            ImageLoader imageLoader;
+            imageLoader = ImageLoader.getInstance();
+            imageLoader.init(ImageLoaderConfiguration.createDefault(getBaseContext()));
+            imageLoader.displayImage(recipe.getImgUrl(), recipeHeader);
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            for (StackTraceElement ste : e.getStackTrace())
+                Log.v("Ошибка============", ste.toString());
+        }
+
     }
 
 

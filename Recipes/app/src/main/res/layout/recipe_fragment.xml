@@ -7,20 +7,42 @@
     android:gravity="center_horizontal"
     android:background="@color/mainBackground"
     android:id="@+id/recipe_layout">
-
-    <include
-        android:id="@+id/tool_bar"
-        layout="@layout/tool_bar"
-        android:layout_height="wrap_content"
+    <FrameLayout
         android:layout_width="match_parent"
-        />
-
-    <TextView
-        android:id="@+id/recipe_title"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorBlack"
-        android:textSize="30dp"/>
+        >
+        <ImageView
+            android:id="@+id/recipe_header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recipe_header"
+            android:scaleType="centerCrop"
+            />
+
+        <ImageView
+            android:id="@+id/recipe_header2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recipe_header"
+            android:background="@color/colorBlack"
+            android:alpha="0.5"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/recipe_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:textSize="30dp"/>
+        </LinearLayout>
+    </FrameLayout>
+
+
 
     <com.acer.recipes.RecipeFragments.SlidingTabLayout
         android:id="@+id/tabs"

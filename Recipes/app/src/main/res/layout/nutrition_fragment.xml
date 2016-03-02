@@ -2,7 +2,9 @@
 <ScrollView
 xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/mainTableBackground"
+    >
 
 
     <TableLayout
@@ -10,7 +12,8 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:stretchColumns="*" >
+        android:stretchColumns="*"
+        android:background="@color/mainTableBackground">
 
         <TextView
             android:layout_width="wrap_content"
@@ -18,8 +21,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:textSize="@dimen/recipe_font"
             android:textColor="@color/colorBlack"
             android:padding="18dip"
-            android:text="Nutrition Facts"
-            android:background="@color/mainTableBackground"/>
+            android:text="Nutrition Facts"            />
 
         <TextView
             android:text="Amount per 100g"
@@ -175,7 +177,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/carbs_dialy_percent"
                 android:text="%"
                 android:textColor="@color/colorBlack"
-                android:background="@color/mainRightTableBackground"
+                android:background="@color/tableRightSeparatorBackground"
                 android:padding="@dimen/table_cell"
                 android:paddingLeft="@dimen/table_padding"/>
 
@@ -256,7 +258,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/protein_dialy_percent"
                 android:text="%"
                 android:textColor="@color/colorBlack"
-                android:background="@color/mainRightTableBackground"
+                android:background="@color/tableRightSeparatorBackground"
                 android:padding="@dimen/table_cell"
                 android:paddingLeft="@dimen/table_padding"/>
 
