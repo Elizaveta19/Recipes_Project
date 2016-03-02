@@ -5,11 +5,13 @@ import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,20 +20,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.acer.recipes.fragments.AllRecipesFragment;
-import com.acer.recipes.fragments.SearchRecipesFragment;
-import com.acer.recipes.fragments.SearchRecipesFragment_2;
-import com.acer.recipes.fragments.StartPageFragment;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.acer.recipes.Fragments.AllRecipesFragment;
+import com.acer.recipes.Fragments.RecipesResultFragment;
+import com.acer.recipes.Fragments.SearchRecipesFragment;
+import com.acer.recipes.Fragments.SearchRecipesFragment_2;
+import com.acer.recipes.Fragments.StartPageFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private static final int HOME_ITEM = 0;
     private static final int SEARCH_ITEM = 1;
@@ -80,6 +81,39 @@ public class MainActivity extends AppCompatActivity {
 
         myTask = new MyTask();
         myTask.execute();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint(getString(R.string.action_search));
+        searchView.setOnQueryTextListener(this);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        Fragment fragment = RecipesResultFragment.getFragment();
+        Bundle args = new Bundle();
+        args.putString("query", query.trim());
+        fragment.setArguments(args);
+        if(fragment != null)
+        {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
+            drawerLayout.closeDrawer(listView);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -147,12 +181,6 @@ public class MainActivity extends AppCompatActivity {
     public void setTitle(String title)
     {
         getSupportActionBar().setTitle(title);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     class MyTask extends AsyncTask<Void, Void, Void> {

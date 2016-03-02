@@ -1,4 +1,4 @@
-package com.acer.recipes.fragments;
+package com.acer.recipes.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.acer.recipes.fragments;
+package com.acer.recipes.Fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.acer.recipes.Constants;
@@ -22,15 +21,6 @@ import com.acer.recipes.R;
 import com.acer.recipes.RVAdapter;
 import com.acer.recipes.Recipe;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;

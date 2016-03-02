@@ -11,7 +11,7 @@
     <dimen name="asr_editText_width">400px</dimen>
     <dimen name="main_font">20dp</dimen>
 
-    <dimen name="separator">30px</dimen>
+    <dimen name="separator">15px</dimen>
     <dimen name="separator_item_recipe">10px</dimen>
 
     <dimen name="table_cell">5dip</dimen>

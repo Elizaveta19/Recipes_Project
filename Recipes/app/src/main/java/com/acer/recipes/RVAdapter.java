@@ -9,10 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.acer.recipes.fragments.RecipeFragment;
+import com.acer.recipes.Fragments.RecipeFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -115,6 +116,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
             recipeTotalWeight = (TextView)itemView.findViewById(R.id.recipe_total_weight);
             recipeCcal = (TextView)itemView.findViewById(R.id.recipe_ccal);
             recipePhoto = (ImageView)itemView.findViewById(R.id.recipe_photo);
+
         }
     }
 }

@@ -1,8 +1,7 @@
-package com.acer.recipes.fragments;
+package com.acer.recipes.Fragments;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.app.Notification;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;

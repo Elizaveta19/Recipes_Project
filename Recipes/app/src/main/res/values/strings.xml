@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Recipes</string>
     <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
 
     <string name="menu_item_home">Home</string>
     <string name="menu_item_search">Search</string>
 
-    <string name="application_title">Введите продукты, из которых Вы хотите приготовить блюдо, и нажмите "Найти"!</string>
+    <string name="application_title">Enter product you want to eat and click "Search"!</string>
     <string name="am_search_button">Search a recipe</string>
     <string name="asr_search_button">Search</string>
     <string name="asr_title">Pruducts</string>
