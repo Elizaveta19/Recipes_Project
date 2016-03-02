@@ -22,7 +22,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:background="@color/mainTableBackground"/>
 
         <TextView
-            android:text="Amount per serving"
+            android:text="Amount per 100g"
             android:background="@color/titleTableBackground"
             android:textColor="#000000"
             android:paddingBottom="@dimen/table_cell"
@@ -66,7 +66,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 
             <TextView
                 android:id="@+id/total_fat"
-                android:text="Total Fat"
+                android:text="Total Fat "
                 android:background="@color/mainTableBackground"
                 android:textColor="@color/colorBlack"
                 android:padding="@dimen/table_cell"
@@ -75,7 +75,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 
             <TextView
                 android:id="@+id/fat_dialy_percent"
-                android:text="%%%"
+                android:text="%"
                 android:textColor="@color/colorBlack"
                 android:background="@color/mainRightTableBackground"
                 android:padding="@dimen/table_cell"
@@ -88,13 +88,13 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="match_parent"
             android:gravity="center_horizontal" >
             <TextView
-                android:text="Saturated"
+                android:text="Saturated "
+                android:id="@+id/saturated"
                 android:background="@color/mainTableBackground"
                 android:textColor="@color/colorBlack"
                 android:padding="@dimen/table_cell"
                 android:paddingLeft="@dimen/table_sub_item_padding"/>
             <TextView
-                android:id="@+id/Saturated"
                 android:textColor="@color/colorBlack"
                 android:background="@color/mainRightTableBackground"
                 android:padding="@dimen/table_cell"
@@ -106,13 +106,13 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="match_parent"
             android:gravity="center_horizontal" >
             <TextView
-                android:text="Trans"
-                android:background="@color/mainTableBackground"
-                android:textColor="@color/colorBlack"
-                android:padding="@dimen/table_cell"
-                android:paddingLeft="@dimen/table_sub_item_padding"/>
-            <TextView
+                android:text="Trans "
                 android:id="@+id/trans"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_sub_item_padding"/>
+            <TextView
                 android:textColor="@color/colorBlack"
                 android:background="@color/mainRightTableBackground"
                 android:padding="@dimen/table_cell"
@@ -124,13 +124,13 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="match_parent"
             android:gravity="center_horizontal" >
             <TextView
-                android:text="Monounsaturated"
+                android:text="Monounsaturated "
+                android:id="@+id/monounsaturated"
                 android:background="@color/mainTableBackground"
                 android:textColor="@color/colorBlack"
                 android:padding="@dimen/table_cell"
                 android:paddingLeft="@dimen/table_sub_item_padding"/>
             <TextView
-                android:id="@+id/Monounsaturated"
                 android:textColor="@color/colorBlack"
                 android:background="@color/mainRightTableBackground"
                 android:padding="@dimen/table_cell"
@@ -142,13 +142,13 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="match_parent"
             android:gravity="center_horizontal" >
             <TextView
-                android:text="Polyunsaturated"
+                android:text="Polyunsaturated "
+                android:id="@+id/polyunsaturated"
                 android:background="@color/mainTableBackground"
                 android:textColor="@color/colorBlack"
                 android:padding="@dimen/table_cell"
                 android:paddingLeft="@dimen/table_sub_item_padding"/>
             <TextView
-                android:id="@+id/Polyunsaturated"
                 android:textColor="@color/colorBlack"
                 android:background="@color/mainRightTableBackground"
                 android:padding="@dimen/table_cell"
@@ -164,7 +164,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 
             <TextView
                 android:id="@+id/total_carb"
-                android:text="Total Carbohydrate"
+                android:text="Total Carbohydrate "
                 android:background="@color/mainTableBackground"
                 android:textColor="@color/colorBlack"
                 android:padding="@dimen/table_cell"
@@ -173,7 +173,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 
             <TextView
                 android:id="@+id/carbs_dialy_percent"
-                android:text="%%%"
+                android:text="%"
                 android:textColor="@color/colorBlack"
                 android:background="@color/mainRightTableBackground"
                 android:padding="@dimen/table_cell"
@@ -186,13 +186,13 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="match_parent"
             android:gravity="center_horizontal" >
             <TextView
-                android:text="Carbs"
+                android:text="Carbs "
+                android:id="@+id/carbs_net"
                 android:background="@color/mainTableBackground"
                 android:textColor="@color/colorBlack"
                 android:padding="@dimen/table_cell"
                 android:paddingLeft="@dimen/table_sub_item_padding"/>
             <TextView
-                android:id="@+id/carbs"
                 android:textColor="@color/colorBlack"
                 android:background="@color/mainRightTableBackground"
                 android:padding="@dimen/table_cell"
@@ -204,13 +204,13 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="match_parent"
             android:gravity="center_horizontal" >
             <TextView
-                android:text="Fiber"
-                android:background="@color/mainTableBackground"
-                android:textColor="@color/colorBlack"
-                android:padding="@dimen/table_cell"
-                android:paddingLeft="@dimen/table_sub_item_padding"/>
-            <TextView
+                android:text="Fiber "
                 android:id="@+id/fiber"
+                android:background="@color/mainTableBackground"
+                android:textColor="@color/colorBlack"
+                android:padding="@dimen/table_cell"
+                android:paddingLeft="@dimen/table_sub_item_padding"/>
+            <TextView
                 android:textColor="@color/colorBlack"
                 android:background="@color/mainRightTableBackground"
                 android:padding="@dimen/table_cell"
@@ -222,13 +222,13 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="match_parent"
             android:gravity="center_horizontal" >
             <TextView
-                android:text="Sugars"
+                android:text="Sugars "
+                android:id="@+id/sugars"
                 android:background="@color/mainTableBackground"
                 android:textColor="@color/colorBlack"
                 android:padding="@dimen/table_cell"
                 android:paddingLeft="@dimen/table_sub_item_padding"/>
             <TextView
-                android:id="@+id/sugar"
                 android:textColor="@color/colorBlack"
                 android:background="@color/mainRightTableBackground"
                 android:padding="@dimen/table_cell"
@@ -245,7 +245,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 
             <TextView
                 android:id="@+id/total_protein"
-                android:text="Total Protein"
+                android:text="Total Protein "
                 android:background="@color/mainTableBackground"
                 android:textColor="@color/colorBlack"
                 android:padding="@dimen/table_cell"
@@ -254,7 +254,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 
             <TextView
                 android:id="@+id/protein_dialy_percent"
-                android:text="%%%"
+                android:text="%"
                 android:textColor="@color/colorBlack"
                 android:background="@color/mainRightTableBackground"
                 android:padding="@dimen/table_cell"

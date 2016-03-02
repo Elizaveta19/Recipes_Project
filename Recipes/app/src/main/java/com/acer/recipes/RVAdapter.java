@@ -60,7 +60,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
 
         recipeViewHolder.recipeTitle.setText(recipes.get(position).getTitle());
         recipeViewHolder.recipeTotalWeight.setText("Total Weight:" + Integer.toString(recipes.get(position).getTotalWeight()));
-        recipeViewHolder.recipeCcal.setText("Calories: " + Integer.toString(recipes.get(position).getStandartCalories()));
+        recipeViewHolder.recipeCcal.setText("Calories: " + Integer.toString(recipes.get(position).getCalories()));
 
         recipeViewHolder.cv.setOnClickListener(new View.OnClickListener() {
             @Override

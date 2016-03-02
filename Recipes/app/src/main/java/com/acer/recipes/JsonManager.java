@@ -2,6 +2,10 @@ package com.acer.recipes;
 
 import android.util.Log;
 
+import com.acer.recipes.RecipeNutrition.Carbs;
+import com.acer.recipes.RecipeNutrition.Fat;
+import com.acer.recipes.RecipeNutrition.Protein;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +18,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import static com.acer.recipes.Recipe.*;
 
 public class JsonManager {
     final String LOG_TAG = "myLogs";
@@ -115,9 +121,35 @@ public class JsonManager {
                 int ccal = (int) Double.parseDouble(jsonRecipeObject.getString("calories").toString());
                 int totalWeight = (int) Double.parseDouble(jsonRecipeObject.getString("totalWeight").toString());
 
+                JSONArray digestJSON = jsonRecipeObject.getJSONArray("digest");
+                JSONObject fatItemJSON = digestJSON.getJSONObject(0);
+                int totalFat = fatItemJSON.getInt("total");
+                int dailyFat = fatItemJSON.getInt("daily");
+
+                JSONArray fatSubJSON = fatItemJSON.getJSONArray("sub");
+                int saturated = fatSubJSON.getJSONObject(0).getInt("total");
+                int trans = fatSubJSON.getJSONObject(1).getInt("total");
+                int mono = fatSubJSON.getJSONObject(2).getInt("total");
+                int poly = fatSubJSON.getJSONObject(3).getInt("total");
+                Fat fat = new Fat(totalWeight, totalFat, dailyFat, saturated, trans, mono, poly);
+
+                JSONObject carbsItemJSON = digestJSON.getJSONObject(1);
+                int totalCarbs = carbsItemJSON.getInt("total");
+                int dailyCarbs = carbsItemJSON.getInt("daily");
+                JSONArray carbsSubJSON = carbsItemJSON.getJSONArray("sub");
+                int carbsNet = carbsSubJSON.getJSONObject(0).getInt("total");
+                int fiber = carbsSubJSON.getJSONObject(1).getInt("total");
+                int sugar = carbsSubJSON.getJSONObject(2).getInt("total");
+                Carbs carbs = new Carbs(totalWeight, totalCarbs, dailyCarbs, carbsNet, fiber, sugar);
+
+                JSONObject proteinItemJSON = digestJSON.getJSONObject(2);
+                int totalProtein = proteinItemJSON.getInt("total");
+                int dailyProtein = proteinItemJSON.getInt("daily");
+                Protein protein = new Protein(totalWeight, totalProtein, dailyProtein);
+
                 int id = 1;
 
-                recipeArrayList.add(new Recipe(id, title, ingredients, recipeUrl, ccal, totalWeight, imgUrl));
+                recipeArrayList.add(new Recipe(id, title, ingredients, recipeUrl, ccal, totalWeight, imgUrl, fat, carbs, protein));
             }
         }
         catch(JSONException e){

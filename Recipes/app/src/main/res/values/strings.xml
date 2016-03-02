@@ -26,6 +26,8 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
+    <string name="measure"> g</string>
+
     <string-array name="navigationDrawer">
         <item>Home</item>
         <item>Recipe search</item>
