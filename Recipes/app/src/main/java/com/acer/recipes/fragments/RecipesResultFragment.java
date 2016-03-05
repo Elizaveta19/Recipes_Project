@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.TextView;
 
 import com.acer.recipes.Constants;
 import com.acer.recipes.JsonManager;
@@ -30,12 +29,11 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
     private View view;
 
     String inputFromServer = new String();
-    String comment = new String();
+    String outToServer = new String();
     RVAdapter adapter;
     RecyclerView rv;
     String query = "";
-
-    //TextView errorTextView;
+    String maxCalories = "";
 
     public static final Constants myConst = new Constants();
     MyTask myTask;
@@ -47,11 +45,9 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
         Bundle bundle = getArguments();
-        //errorTextView = (TextView) view.findViewById(R.id.error_text_view);
         query = bundle.getString("query");
-        if(query == null) {
-            comment = "You haven't entered a product. Please, check again.";
-        }
+        maxCalories = String.valueOf(bundle.getInt("maxCalories"));
+
         rv = (RecyclerView) view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv.setLayoutManager(llm);
@@ -95,12 +91,10 @@ public class RecipesResultFragment extends Fragment implements AdapterView.OnIte
         protected Void doInBackground(Void... params) {
             JsonManager jsonManager = new JsonManager();
             try {
-                URL fullUrl = new URL(myConst.GET_RECIPES_ADDRESS + query);
+                // + "&calories=lte%" + maxCalories
+                URL fullUrl = new URL(myConst.GET_RECIPES_ADDRESS + query + "&app_id=71ced4a7&app_key=504976f01085e918bbc08f7a1b5e2f59");
                 inputFromServer = jsonManager.getAllRecipes(fullUrl);
                 jsonManager.putRecipes(inputFromServer, recipeArrayList);
-                /*if (recipeArrayList.isEmpty()) {
-                    errorTextView.setText(comment);
-                }*/
             } catch (Exception e) {
                 for (StackTraceElement ste : e.getStackTrace())
                     Log.v("Ошибка============", ste.toString());
