@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.acer.recipes.Fragments.RecipeFragment;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -44,7 +45,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
         return pvh;
     }
 
-    @Override
+            @Override
     public void onBindViewHolder(final RecipeViewHolder recipeViewHolder, final int position) {
 
         try {

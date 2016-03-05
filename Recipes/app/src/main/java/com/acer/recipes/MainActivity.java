@@ -23,21 +23,20 @@ import android.widget.ListView;
 import com.acer.recipes.Fragments.AllRecipesFragment;
 import com.acer.recipes.Fragments.RecipesResultFragment;
 import com.acer.recipes.Fragments.SearchRecipesFragment;
-import com.acer.recipes.Fragments.SearchRecipesFragment_2;
 import com.acer.recipes.Fragments.StartPageFragment;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final int HOME_ITEM = 0;
     private static final int SEARCH_ITEM = 1;
-    private static final int SEARCH_ITEM_2 = 2;
-    private static final int ALL_RECIPES_ITEM = 3;
+    private static final int ALL_RECIPES_ITEM = 2;
 
     private static final int LAYOUT = R.layout.activity_main;
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
@@ -79,10 +78,30 @@ public class MainActivity extends AppCompatActivity {
             displayView(HOME_ITEM);
 
         SSLCertificateHandler.nuke();
+        initImageLoader();
 
         myTask = new MyTask();
         myTask.execute();
     }
+
+    private void initImageLoader() {
+        DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
+                //.showImageOnLoading(R.drawable.sad)
+                //.showImageForEmptyUri(R.drawable.sad)
+                //.showImageOnFail(R.drawable.sad)
+                .cacheInMemory(true)
+                .cacheOnDisk(false)
+                .considerExifParams(true)
+                .build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .writeDebugLogs()
+                .defaultDisplayImageOptions(displayOptions)
+                .build();
+
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.init(config);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle args = new Bundle();
                 args.putString("query", query.trim());
                 fragment.setArguments(args);
-                if(fragment != null)
-                {
+                if (fragment != null) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
@@ -120,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -138,9 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case SEARCH_ITEM:
                 fragment = SearchRecipesFragment.getFragment();
-                break;
-            case SEARCH_ITEM_2:
-                fragment = SearchRecipesFragment_2.getFragment();
                 break;
             case ALL_RECIPES_ITEM:
                 fragment = AllRecipesFragment.getFragment();
@@ -198,9 +212,9 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             JsonManager jsonManager = new JsonManager();
             try {
-                URL fullUrl = new URL(myConst.GET_PRODUCTS_ADDRESS);
+                /*URL fullUrl = new URL(myConst.GET_PRODUCTS_ADDRESS);
                 inputFromServer = jsonManager.getAllProducts(fullUrl);
-                putProducts();
+                putProducts();*/
             }catch (Exception e) {
                 for (StackTraceElement ste : e.getStackTrace())
                     Log.v("Ошибка============", ste.toString());

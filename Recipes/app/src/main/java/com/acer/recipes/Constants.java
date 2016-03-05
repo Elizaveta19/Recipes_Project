@@ -5,15 +5,11 @@ import java.util.InputMismatchException;
 import java.util.Map;
 
 public class Constants {
-    //public static final int PORT = 8888;
-    public static final String SERVER_ADDRESS = "http://192.168.1.35/";
-    public static final String GET_PRODUCTS_ADDRESS = SERVER_ADDRESS + "get_all_products.php";
-    //public static final String GET_RECIPES_ADDRESS = SERVER_ADDRESS + "get_recipes.php";
-    //&app_id=71ced4a7&app_key=504976f01085e918bbc08f7a1b5e2f59"
-    public static final String GET_RECIPES_ADDRESS = "https://api.edamam.com/search?q=";
-    public static final String GET_RECIPES_BY_CCAL_ADDRESS = SERVER_ADDRESS + "get_recipes_by_ccal.php";
+    private static final String AppId_AppKey = "app_id=71ced4a7&app_key=504976f01085e918bbc08f7a1b5e2f59";
+    public static final String SERVER_ADDRESS = "https://api.edamam.com/search?";
+    public static final String GET_RECIPES_ADDRESS = SERVER_ADDRESS + AppId_AppKey + "&q=";
+    public static final String GET_RECIPES_BY_CCAL_ADDRESS = SERVER_ADDRESS + AppId_AppKey + "&calories=gte%200,%20lte%20";
 
-    public static final Map<String, Integer> COMMANDS = new HashMap<String, Integer>();
     public static DbOpenHelper dbHelper;
 
 }
