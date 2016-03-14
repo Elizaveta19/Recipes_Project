@@ -116,8 +116,9 @@ public class JsonManager {
                     ingredients.add(ingredientsJSON.getString(j));
                 }
 
+                String uri = jsonRecipeObject.getString("uri").toString();
                 String imgUrl = jsonRecipeObject.getString("image").toString();
-                String recipeUrl = jsonRecipeObject.getString("url").toString();
+                String sourceUrl = jsonRecipeObject.getString("url").toString();
                 int ccal = (int) Double.parseDouble(jsonRecipeObject.getString("calories").toString());
                 int totalWeight = (int) Double.parseDouble(jsonRecipeObject.getString("totalWeight").toString());
 
@@ -147,9 +148,7 @@ public class JsonManager {
                 int dailyProtein = proteinItemJSON.getInt("daily");
                 Protein protein = new Protein(totalWeight, totalProtein, dailyProtein);
 
-                int id = 1;
-
-                recipeArrayList.add(new Recipe(id, title, ingredients, recipeUrl, ccal, totalWeight, imgUrl, fat, carbs, protein));
+                recipeArrayList.add(new Recipe(uri, title, ingredients, sourceUrl, ccal, totalWeight, imgUrl, fat, carbs, protein));
             }
         }
         catch(JSONException e){

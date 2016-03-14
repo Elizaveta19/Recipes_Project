@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.acer.recipes.Constants;
+import com.acer.recipes.DbHelper;
 import com.acer.recipes.DbOpenHelper;
 import com.acer.recipes.R;
 
@@ -23,7 +24,6 @@ public class SearchRecipesFragment_2 extends Fragment implements View.OnClickLis
     private View view;
     Button sa_searchButton;
     EditText sa_editText;
-    DbOpenHelper dbHelper;
     int ccal = 0;
 
     @Nullable
@@ -32,7 +32,6 @@ public class SearchRecipesFragment_2 extends Fragment implements View.OnClickLis
 
         view = inflater.inflate(LAYOUT, container,false);
 
-        dbHelper = new Constants().dbHelper;
         sa_editText = (EditText) view.findViewById(R.id.et_product_2);
         sa_searchButton = (Button) view.findViewById(R.id.sa_searchButton_2);
 

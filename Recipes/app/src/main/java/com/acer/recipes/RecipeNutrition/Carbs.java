@@ -9,6 +9,8 @@ public class Carbs implements Serializable {
     int filber;
     int sugars;
 
+    public Carbs(){}
+
     public Carbs (int _totalWeight, int _total, int _daily, int _carbsNet, int _filber, int _sugars)
     {
         double totalTemp = (double) _total / (double) _totalWeight * 100;

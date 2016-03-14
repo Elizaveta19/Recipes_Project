@@ -66,6 +66,16 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
         recipeViewHolder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Constants myConst = new Constants();
+                try {
+                    myConst.dbHelper.addRecipe(recipes.get(position));
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                    for (StackTraceElement ste : e.getStackTrace())
+                        Log.v("Ошибка============", ste.toString());
+                }
                 Intent intent = new Intent(mActivity, RecipeFragment.class);
                 intent.putExtra("recipe", recipes.get(position));
                 mActivity.startActivity(intent);

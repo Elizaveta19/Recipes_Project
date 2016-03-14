@@ -33,6 +33,6 @@
         <item>Home</item>
         <item>Recipe search</item>
         <item>Search by calories</item>
-        <item>All recipes</item>
+        <item>Favorites</item>
     </string-array>
 </resources>

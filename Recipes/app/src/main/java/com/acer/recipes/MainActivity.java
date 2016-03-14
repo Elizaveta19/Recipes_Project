@@ -18,9 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.acer.recipes.Fragments.AllRecipesFragment;
+import com.acer.recipes.Fragments.FavoritesFragment;
 import com.acer.recipes.Fragments.RecipesResultFragment;
 import com.acer.recipes.Fragments.SearchRecipesFragment;
 import com.acer.recipes.Fragments.SearchRecipesFragment_2;
@@ -30,6 +32,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int HOME_ITEM = 0;
     private static final int SEARCH_ITEM = 1;
     private static final int SEARCH_ITEM_2 = 2;
-    private static final int ALL_RECIPES_ITEM = 3;
+    private static final int FAVORITES_RECIPES_ITEM = 3;
 
     private static final int LAYOUT = R.layout.activity_main;
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
@@ -50,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     private String inputFromServer = new String();
     private String outToServer = new String();
     public static final Constants myConst = new Constants();
-    private MyTask myTask;
     SearchView searchView;
 
     @Override
@@ -58,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppDefault);
         setContentView(LAYOUT);
-        myConst.dbHelper = new DbOpenHelper(this);
+        myConst.dbHelper = new DbHelper(this);
 
         navigationItems = getResources().getStringArray(R.array.navigationDrawer);
         listView = (ListView) findViewById(R.id.navigation);
@@ -79,9 +86,6 @@ public class MainActivity extends AppCompatActivity {
             displayView(HOME_ITEM);
 
         SSLCertificateHandler.nuke();
-
-        myTask = new MyTask();
-        myTask.execute();
     }
 
     @Override
@@ -142,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
             case SEARCH_ITEM_2:
                 fragment = SearchRecipesFragment_2.getFragment();
                 break;
-            case ALL_RECIPES_ITEM:
-                fragment = AllRecipesFragment.getFragment();
+            case FAVORITES_RECIPES_ITEM:
+                fragment = FavoritesFragment.getFragment();
                 break;
             default:
                 break;
@@ -190,39 +194,4 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
     }
 
-    class MyTask extends AsyncTask<Void, Void, Void> {
-       // String title;
-       // JSONArray jsonArray;
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            JsonManager jsonManager = new JsonManager();
-            try {
-                URL fullUrl = new URL(myConst.GET_PRODUCTS_ADDRESS);
-                inputFromServer = jsonManager.getAllProducts(fullUrl);
-                putProducts();
-            }catch (Exception e) {
-                for (StackTraceElement ste : e.getStackTrace())
-                    Log.v("Ошибка============", ste.toString());
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-        }
-
-        protected void putProducts() {
-            try {
-                JSONObject reader = new JSONObject(inputFromServer);
-                JSONArray productsJSON = reader.getJSONArray("products");
-                myConst.dbHelper.addProducts(productsJSON);
-
-            } catch (JSONException e) {
-                for (StackTraceElement ste : e.getStackTrace())
-                    Log.v("Ошибка============", ste.toString());
-            }
-        }
-    }
 }

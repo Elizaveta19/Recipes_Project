@@ -68,7 +68,7 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
 
         switch (v.getId()) {
             case R.id.sa_searchButton: {
-                Fragment fragment = new RecipesResultFragment();
+                Fragment fragment = RecipesResultFragment_2.getFragment();
                 Bundle args = new Bundle();
                 args.putString("query", et_product.getText().toString());
                 args.putInt("maxCalories", Integer.parseInt(et_max_calories.getText().toString()));

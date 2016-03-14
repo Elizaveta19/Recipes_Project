@@ -26,28 +26,22 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener{
+public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnItemClickListener{
 
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private static final int LAYOUT = R.layout.recipes_result;
     private View view;
 
-    Socket client = null;
     String comment = new String();
     String inputFromServer = new String();
-    String outToServer = new String();
 
     public static final Constants myConst = new Constants();
     MyTask myTask;
 
     private ArrayList<Recipe> recipeArrayList = new ArrayList<>();
     ListView listView;
-
-    int ccal = 0;
-    private ArrayList<HashMap<String, Object>> myRecipes;
-    private static final String RECIPE_TITLE = "title";    // Главное название, большими буквами
-    private static final String TIME = "time";  // Наименование, то что ниже главного
-    private static final String CCAL = "ccal";  // Наименование, то что ниже главного
+    String query = "";
+    String maxCalories = "";
 
     RVAdapter adapter;
     RecyclerView rv;
@@ -57,7 +51,8 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
         Bundle bundle = getArguments();
-        ccal = bundle.getInt("ccal");
+        query = bundle.getString("query");
+        maxCalories = String.valueOf(bundle.getInt("maxCalories"));
 
         rv = (RecyclerView) view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -89,24 +84,12 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
         }*/
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.arr_backButton: {
-                Fragment fragment = SearchRecipesFragment.getFragment();
-                if(fragment != null)
-                {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
-                break;
-            }
-            default:
-                break;
-        }
+    public static RecipesResultFragment_2 getFragment() {
+        Bundle args = new Bundle();
+        RecipesResultFragment_2 fragment = new RecipesResultFragment_2();
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     class MyTask extends AsyncTask<Void, Void, Void>
@@ -116,7 +99,7 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
         protected Void doInBackground(Void... params) {
             JsonManager jsonManager = new JsonManager();
             try {
-                URL fullUrl = new URL(myConst.GET_RECIPES_ADDRESS);
+                URL fullUrl = new URL(myConst.GET_RECIPES_BY_CCAL_ADDRESS + maxCalories + "&q=" + query);
                 inputFromServer = jsonManager.getAllRecipes(fullUrl);
                 jsonManager.putRecipes(inputFromServer, recipeArrayList);
             } catch (Exception e) {

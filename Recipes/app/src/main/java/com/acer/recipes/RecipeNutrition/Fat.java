@@ -10,6 +10,8 @@ public class Fat implements Serializable {
     int monounsaturated;
     int polyunsaturated;
 
+    public Fat(){}
+
     public Fat (int _totalWeight, int _total, int _daily, int _saturated, int _trans, int _monounsaturated, int _polyunsaturated)
     {
         double totalTemp = (double) _total / (double) _totalWeight * 100;

@@ -11,10 +11,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Recipe  implements Serializable{
-    private int id;
+    private String id;
     private String title;
     private ArrayList<String> ingredients;
-    private String recipeUrl;
+    private String sourceUrl;
     private int calories;
     private int totalWeight;
     private String imgUrl;
@@ -24,12 +24,12 @@ public class Recipe  implements Serializable{
     private Protein protein;
 
 
-    public Recipe(int _id, String _title, ArrayList<String> _ingredients, String _recipeUrl, int _calories, int _totalWeight, String _imgUrl, Fat _fat, Carbs _carbs, Protein _protein)
+    public Recipe(String _id, String _title, ArrayList<String> _ingredients, String _sourceUrl, int _calories, int _totalWeight, String _imgUrl, Fat _fat, Carbs _carbs, Protein _protein)
     {
         id = _id;
         title = _title;
         ingredients = _ingredients;
-        recipeUrl = _recipeUrl;
+        sourceUrl = _sourceUrl;
         totalWeight = _totalWeight;
         imgUrl = _imgUrl;
 
@@ -41,13 +41,13 @@ public class Recipe  implements Serializable{
         protein = _protein;
     }
 
-    public int getId() { return id; }
+    public String getId() { return id; }
 
     public String getTitle(){ return title; }
 
     public ArrayList<String> getIngredients() { return ingredients; }
 
-    public String getUrl() { return recipeUrl;  }
+    public String getUrl() { return sourceUrl;  }
 
     public int getCalories(){ return calories; }
 
