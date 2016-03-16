@@ -112,16 +112,17 @@ public class DbHelper extends SQLiteOpenHelper {
                 ArrayList<String> ingredientsList = new ArrayList<String>();
                 if(ingredientCursor.moveToFirst()) {
                     do {
-                        ingredientsList.add(recipeCursor.getString(2));
+                        ingredientsList.add(ingredientCursor.getString(2));
                     } while (ingredientCursor.moveToNext());
                 }
-
-
-                Recipe recipe = new Recipe(recipeCursor.getString(0), recipeCursor.getString(1), ingredientsList, recipeCursor.getString(2), recipeCursor.getInt(3), recipeCursor.getInt(4), recipeCursor.getString(5), new Fat(), new Carbs(), new Protein());
+                int cal = recipeCursor.getInt(3);
+                Recipe recipe = new Recipe(recipeCursor.getString(0), recipeCursor.getString(1), ingredientsList, recipeCursor.getString(2), cal, recipeCursor.getInt(4), recipeCursor.getString(5), new Fat(), new Carbs(), new Protein(), true);
                 recipesList.add(recipe);
+                ingredientCursor.close();
             }while (recipeCursor.moveToNext());
 
         }
+        recipeCursor.close();
 
         return recipesList;
     }

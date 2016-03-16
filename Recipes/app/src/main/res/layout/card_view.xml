@@ -33,6 +33,14 @@
                 android:layout_alignParentTop="true"
                 android:scaleType="centerCrop"
                 />
+            <CheckBox
+                android:id="@+id/favorite_button"
+                style="@style/customCheckBoxStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="right"/>
 
 
             <LinearLayout

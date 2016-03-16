@@ -148,7 +148,7 @@ public class JsonManager {
                 int dailyProtein = proteinItemJSON.getInt("daily");
                 Protein protein = new Protein(totalWeight, totalProtein, dailyProtein);
 
-                recipeArrayList.add(new Recipe(uri, title, ingredients, sourceUrl, ccal, totalWeight, imgUrl, fat, carbs, protein));
+                recipeArrayList.add(new Recipe(uri, title, ingredients, sourceUrl, ccal, totalWeight, imgUrl, fat, carbs, protein, false));
             }
         }
         catch(JSONException e){

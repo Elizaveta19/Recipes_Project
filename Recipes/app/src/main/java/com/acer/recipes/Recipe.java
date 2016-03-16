@@ -23,8 +23,10 @@ public class Recipe  implements Serializable{
     private Carbs carbs;
     private Protein protein;
 
+    private boolean favorite;
 
-    public Recipe(String _id, String _title, ArrayList<String> _ingredients, String _sourceUrl, int _calories, int _totalWeight, String _imgUrl, Fat _fat, Carbs _carbs, Protein _protein)
+
+    public Recipe(String _id, String _title, ArrayList<String> _ingredients, String _sourceUrl, int _calories, int _totalWeight, String _imgUrl, Fat _fat, Carbs _carbs, Protein _protein, boolean _isFavorite)
     {
         id = _id;
         title = _title;
@@ -33,12 +35,15 @@ public class Recipe  implements Serializable{
         totalWeight = _totalWeight;
         imgUrl = _imgUrl;
 
-        double caloriesTemp = (double) _calories / (double) _totalWeight * 100;
-        calories = (int) Math.round(caloriesTemp);
+        //double caloriesTemp = (double) _calories / (double) _totalWeight * 100;
+        //calories = (int) Math.round(caloriesTemp);
+        calories = _calories;
 
         fat = _fat;
         carbs = _carbs;
         protein = _protein;
+
+        favorite = _isFavorite;
     }
 
     public String getId() { return id; }
@@ -49,7 +54,13 @@ public class Recipe  implements Serializable{
 
     public String getUrl() { return sourceUrl;  }
 
-    public int getCalories(){ return calories; }
+    public int getCalories(){
+        return calories; }
+
+    public int getStandartCalories(){
+        double caloriesTemp = (double) calories / (double) totalWeight * 100;
+        int standartCalories = (int) Math.round(caloriesTemp);
+        return standartCalories; }
 
     public int getTotalWeight() { return totalWeight; }
 
@@ -58,4 +69,12 @@ public class Recipe  implements Serializable{
     public Fat getFat() { return fat;}
     public Carbs getCarbs() { return carbs; }
     public Protein getProtein() { return protein; }
+
+    public void setFavorite() {
+        favorite = true;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
 }

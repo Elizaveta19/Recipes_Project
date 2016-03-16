@@ -9,10 +9,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@color/colorWhite</item>
+        <!--item name="colorAccent">@android:color/holo_orange_light</item-->
+        <!--item name="android:theme">@style/customCheckBoxStyle</item-->
     </style>
 
     <style name="NavDrawerStyle" parent="Theme.AppCompat.Light">
         <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="customCheckBoxStyle" parent="@android:style/Widget.CompoundButton.Star">
+        <item name="colorPrimary">@android:color/holo_orange_light</item>
     </style>
 
 </resources>

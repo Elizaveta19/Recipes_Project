@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,13 +63,15 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
 
         recipeViewHolder.recipeTitle.setText(recipes.get(position).getTitle());
         recipeViewHolder.recipeTotalWeight.setText("Total Weight:" + Integer.toString(recipes.get(position).getTotalWeight()));
-        recipeViewHolder.recipeCcal.setText("Calories: " + Integer.toString(recipes.get(position).getCalories()));
+        recipeViewHolder.recipeCcal.setText("Calories: " + Integer.toString(recipes.get(position).getStandartCalories()));
+        recipeViewHolder.favorite.setChecked(recipes.get(position).isFavorite());
 
-        recipeViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+        recipeViewHolder.favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Constants myConst = new Constants();
                 try {
+                    recipes.get(position).setFavorite();
                     myConst.dbHelper.addRecipe(recipes.get(position));
                 }
                 catch (Exception e)
@@ -76,6 +80,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
                     for (StackTraceElement ste : e.getStackTrace())
                         Log.v("Ошибка============", ste.toString());
                 }
+            }
+        });
+
+        recipeViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(mActivity, RecipeFragment.class);
                 intent.putExtra("recipe", recipes.get(position));
                 mActivity.startActivity(intent);
@@ -119,6 +129,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
         TextView recipeTotalWeight;
         TextView recipeCcal;
         ImageView recipePhoto;
+        CheckBox favorite;
         RecipeViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
@@ -126,6 +137,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
             recipeTotalWeight = (TextView)itemView.findViewById(R.id.recipe_total_weight);
             recipeCcal = (TextView)itemView.findViewById(R.id.recipe_ccal);
             recipePhoto = (ImageView)itemView.findViewById(R.id.recipe_photo);
+            favorite = (CheckBox) itemView.findViewById(R.id.favorite_button);
 
         }
     }
