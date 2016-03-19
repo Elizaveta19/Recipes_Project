@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.acer.recipes.Fragments.RecipeFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,22 +49,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
     @Override
     public void onBindViewHolder(final RecipeViewHolder recipeViewHolder, final int position) {
 
-        try {
-            //if (recipeViewHolder.recipePhoto.getDrawable()==null){
-                imageLoader.displayImage(recipes.get(position).getImgUrl(), recipeViewHolder.recipePhoto);
-           // }
-
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            for (StackTraceElement ste : e.getStackTrace())
-                Log.v("Ошибка============", ste.toString());
-        }
-
         recipeViewHolder.recipeTitle.setText(recipes.get(position).getTitle());
         recipeViewHolder.recipeTotalWeight.setText("Total Weight:" + Integer.toString(recipes.get(position).getTotalWeight()));
         recipeViewHolder.recipeCcal.setText("Calories: " + Integer.toString(recipes.get(position).getStandartCalories()));
         recipeViewHolder.favorite.setChecked(recipes.get(position).isFavorite());
+        Picasso.with(currentContext).load(recipes.get(position).getImgUrl()).into(recipeViewHolder.recipePhoto);
 
         recipeViewHolder.favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -91,7 +80,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
                 mActivity.startActivity(intent);
             }
         });
-        //recipeViewHolder.recipePhoto.setImageURI(Uri.parse(recipes.get(position).getImgUrl()));
     }
 
     @Override

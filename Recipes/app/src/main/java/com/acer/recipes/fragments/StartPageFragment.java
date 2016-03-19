@@ -72,17 +72,6 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                     fragmentTransaction.commit();
                 }
                 break;
-            case R.id.spa_searchButton2:
-                fragment = SearchRecipesFragment_2.getFragment();
-                if(fragment != null)
-                {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
-                break;
 
             default:
                 break;

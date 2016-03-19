@@ -1,4 +1,4 @@
-package com.acer.recipes;
+package com.acer.recipes.Helpers;
 
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;

@@ -1,4 +1,4 @@
-package com.acer.recipes;
+package com.acer.recipes.RecipeFragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -1,8 +1,6 @@
 package com.acer.recipes;
 
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Map;
+import com.acer.recipes.Helpers.DbHelper;
 
 public class Constants {
     public static final String SERVER_ADDRESS = "https://api.edamam.com/search?";

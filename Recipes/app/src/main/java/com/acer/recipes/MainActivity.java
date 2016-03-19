@@ -1,7 +1,6 @@
 package com.acer.recipes;
 
 import android.content.res.Configuration;
-import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,40 +11,25 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
-import com.acer.recipes.Fragments.AllRecipesFragment;
 import com.acer.recipes.Fragments.FavoritesFragment;
 import com.acer.recipes.Fragments.RecipesResultFragment;
 import com.acer.recipes.Fragments.SearchRecipesFragment;
-import com.acer.recipes.Fragments.SearchRecipesFragment_2;
 import com.acer.recipes.Fragments.StartPageFragment;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
+import com.acer.recipes.Helpers.DbHelper;
+import com.acer.recipes.Helpers.SSLCertificateHandler;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int HOME_ITEM = 0;
     private static final int SEARCH_ITEM = 1;
-    private static final int SEARCH_ITEM_2 = 2;
-    private static final int FAVORITES_RECIPES_ITEM = 3;
+    private static final int FAVORITES_RECIPES_ITEM = 2;
 
     private static final int LAYOUT = R.layout.activity_main;
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
@@ -142,9 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case SEARCH_ITEM:
                 fragment = SearchRecipesFragment.getFragment();
-                break;
-            case SEARCH_ITEM_2:
-                fragment = SearchRecipesFragment_2.getFragment();
                 break;
             case FAVORITES_RECIPES_ITEM:
                 fragment = FavoritesFragment.getFragment();

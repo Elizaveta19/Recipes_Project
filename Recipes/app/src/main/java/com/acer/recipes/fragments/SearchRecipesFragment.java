@@ -9,25 +9,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
-import com.acer.recipes.Constants;
-import com.acer.recipes.DbOpenHelper;
-import com.acer.recipes.Product;
 import com.acer.recipes.R;
-
-import java.util.ArrayList;
 
 public class SearchRecipesFragment extends Fragment implements View.OnClickListener, TextWatcher {
 

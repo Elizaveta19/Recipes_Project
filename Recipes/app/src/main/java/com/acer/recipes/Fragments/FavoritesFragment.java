@@ -1,26 +1,20 @@
 package com.acer.recipes.Fragments;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.acer.recipes.Constants;
-import com.acer.recipes.DbHelper;
-import com.acer.recipes.JsonManager;
+import com.acer.recipes.Helpers.DbHelper;
 import com.acer.recipes.R;
 import com.acer.recipes.RVAdapter;
 import com.acer.recipes.Recipe;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 public class FavoritesFragment extends Fragment {

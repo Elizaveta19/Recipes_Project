@@ -1,4 +1,4 @@
-package com.acer.recipes;
+package com.acer.recipes.Helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.acer.recipes.Product;
+import com.acer.recipes.Recipe;
 import com.acer.recipes.RecipeNutrition.Carbs;
 import com.acer.recipes.RecipeNutrition.Fat;
 import com.acer.recipes.RecipeNutrition.Protein;
@@ -127,7 +129,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return recipesList;
     }
 
-    public Product getProductByName(String _name)
+    /*public Product getProductByName(String _name)
     {
         String selectQuery = "SELECT * FROM " + RECIPE_TABLE_NAME+ " WHERE name='" + _name + "'";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -139,6 +141,6 @@ public class DbHelper extends SQLiteOpenHelper {
         }
 
         return null;
-    }
+    }*/
 
 }

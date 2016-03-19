@@ -1,7 +1,8 @@
-package com.acer.recipes;
+package com.acer.recipes.Helpers;
 
 import android.util.Log;
 
+import com.acer.recipes.Recipe;
 import com.acer.recipes.RecipeNutrition.Carbs;
 import com.acer.recipes.RecipeNutrition.Fat;
 import com.acer.recipes.RecipeNutrition.Protein;

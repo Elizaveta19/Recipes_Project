@@ -4,8 +4,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,15 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.acer.recipes.Constants;
-import com.acer.recipes.JsonManager;
+import com.acer.recipes.Helpers.JsonManager;
 import com.acer.recipes.R;
 import com.acer.recipes.RVAdapter;
 import com.acer.recipes.Recipe;
 
-import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnItemClickListener{
 

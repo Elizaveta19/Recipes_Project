@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.acer.recipes.Constants;
-import com.acer.recipes.JsonManager;
+import com.acer.recipes.Helpers.JsonManager;
 import com.acer.recipes.R;
 import com.acer.recipes.RVAdapter;
 import com.acer.recipes.Recipe;
