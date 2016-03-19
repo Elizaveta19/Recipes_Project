@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState == null)
             displayView(HOME_ITEM);
 
-        SSLCertificateHandler.nuke();
+        //SSLCertificateHandler.nuke();
     }
 
     @Override

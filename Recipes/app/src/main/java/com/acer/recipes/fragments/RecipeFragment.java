@@ -15,8 +15,7 @@ import com.acer.recipes.R;
 import com.acer.recipes.Recipe;
 import com.acer.recipes.RecipeFragments.SlidingTabLayout;
 import com.acer.recipes.RecipeFragments.TabsPagerAdapter;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.squareup.picasso.Picasso;
 
 
 public class RecipeFragment extends FragmentActivity implements View.OnClickListener, TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
@@ -55,28 +54,13 @@ public class RecipeFragment extends FragmentActivity implements View.OnClickList
 
         Recipe recipe = (Recipe) getIntent().getSerializableExtra("recipe");
         TextView tv = (TextView) findViewById(R.id.recipe_title);
-        tv.setText(recipe.getTitle());
-
         ImageView recipeHeader = (ImageView) findViewById(R.id.recipe_header);
         ImageView backButton = (ImageView) findViewById(R.id.back_to_results);
+
+        tv.setText(recipe.getTitle());
+        Picasso.with(this).load(recipe.getImgUrl()).into(recipeHeader);
+
         backButton.setOnClickListener(this);
-
-
-        try {
-            ImageLoader imageLoader = ImageLoader.getInstance();
-            imageLoader.init(ImageLoaderConfiguration.createDefault(getBaseContext()));
-            LinearLayout LL = (LinearLayout) findViewById(R.id.recipe_title_layout);
-
-            //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(150, LL.getHeight());
-            //recipeHeader.setLayoutParams(params);
-            imageLoader.displayImage(recipe.getImgUrl(), recipeHeader);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            for (StackTraceElement ste : e.getStackTrace())
-                Log.v("Ошибка============", ste.toString());
-        }
-
     }
 
     @Override

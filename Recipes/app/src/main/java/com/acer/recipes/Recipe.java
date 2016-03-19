@@ -74,6 +74,10 @@ public class Recipe  implements Serializable{
         favorite = true;
     }
 
+    public void unsetFavorite() {
+        favorite = false;
+    }
+
     public boolean isFavorite() {
         return favorite;
     }

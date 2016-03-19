@@ -29,6 +29,8 @@
 
     <string name="measure"> g</string>
 
+    <string name="error_message">Sorry, no recipe was found. Check your query and Internet connection and try again.</string>
+
     <string-array name="navigationDrawer">
         <item>Home</item>
         <item>Recipe search</item>

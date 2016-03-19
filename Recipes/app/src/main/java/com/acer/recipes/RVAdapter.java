@@ -15,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.acer.recipes.Fragments.RecipeFragment;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,7 +25,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
     private final Activity mActivity;
     Context currentContext;
     ArrayList<Recipe> recipes;
-    ImageLoader imageLoader;
 
     public RVAdapter(Context context, Activity mActivity, ArrayList<Recipe> recipes){
         inflater = LayoutInflater.from(context);
@@ -40,8 +37,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view, viewGroup, false);
         RecipeViewHolder pvh = new RecipeViewHolder(v);
         currentContext = viewGroup.getContext();
-        imageLoader = ImageLoader.getInstance();
-        imageLoader.init(ImageLoaderConfiguration.createDefault(currentContext));
 
         return pvh;
     }
@@ -60,8 +55,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Constants myConst = new Constants();
                 try {
-                    recipes.get(position).setFavorite();
-                    myConst.dbHelper.addRecipe(recipes.get(position));
+                    if(isChecked) {
+                        recipes.get(position).setFavorite();
+                        myConst.dbHelper.addRecipe(recipes.get(position));
+                    }
+                    else {
+                        recipes.get(position).unsetFavorite();
+                        myConst.dbHelper.deleteRecipe(recipes.get(position));
+                    }
                 }
                 catch (Exception e)
                 {

@@ -25,7 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AllRecipesFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class AllRecipesFragment extends Fragment {
 
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private static final int LAYOUT = R.layout.recipes_result;
@@ -62,44 +62,6 @@ public class AllRecipesFragment extends Fragment implements AdapterView.OnItemCl
         myTask = new MyTask();
         myTask.execute();
         return view;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        /*Recipe[] recipeArray = new Recipe[recipeArrayList.size()];
-        Recipe recipe = recipeArrayList.get(position);
-        Fragment fragment = new RecipeFragment();
-        Bundle args = new Bundle();
-        args.putParcelable("recipe", recipe);
-        fragment.setArguments(args);
-
-        if(fragment != null)
-        {
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
-        }*/
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.arr_backButton: {
-                Fragment fragment = SearchRecipesFragment.getFragment();
-                if(fragment != null)
-                {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
-                break;
-            }
-            default:
-                break;
-        }
     }
 
     public static AllRecipesFragment getFragment()  {

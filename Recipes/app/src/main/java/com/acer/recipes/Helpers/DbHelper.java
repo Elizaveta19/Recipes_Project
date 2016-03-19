@@ -100,6 +100,19 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
+    public void deleteRecipe(Recipe recipe)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] whereArgs = new String[] { String.valueOf(recipe.getId())};
+        db.delete(RECIPE_TABLE_NAME, ID + "=?", whereArgs);
+
+        ContentValues values_2 = new ContentValues();
+        db.delete(INGREDIENTS_TABLE_NAME, ID_RECIPE + "=?", whereArgs);
+
+        db.close();
+
+    }
+
     public ArrayList<Recipe> getAllRecipes()
     {
         ArrayList<Recipe> recipesList = new ArrayList<Recipe>();
