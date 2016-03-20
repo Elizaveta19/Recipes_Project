@@ -1,5 +1,6 @@
 package com.acer.recipes.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,9 +40,6 @@ public class RecipesResultFragment extends Fragment implements SwipeRefreshLayou
     String query = "";
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    LinearLayout errorLayout;
-
-
     public static final Constants myConst = new Constants();
     MyTask myTask;
 
@@ -55,7 +53,6 @@ public class RecipesResultFragment extends Fragment implements SwipeRefreshLayou
         query = bundle.getString("query");
         outToServer = myConst.GET_RECIPES_ADDRESS + query;
 
-        //errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         rv = (RecyclerView) view.findViewById(R.id.rv);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
@@ -113,13 +110,16 @@ public class RecipesResultFragment extends Fragment implements SwipeRefreshLayou
         @Override
         protected void onPostExecute(Void result)
         {
-            /*if (recipeArrayList.isEmpty()){
-            errorLayout.setVisibility(View.VISIBLE);
+
+            LinearLayout errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
+            if (recipeArrayList.isEmpty()){
+                errorLayout.setVisibility(View.VISIBLE);
             }
             else {
                 errorLayout.setVisibility(View.GONE);
-            }*/
+            }
 
+            view.findViewById(R.id.loading_panel).setVisibility(View.GONE);
             rv.setAdapter(adapter);
             super.onPostExecute(result);
         }

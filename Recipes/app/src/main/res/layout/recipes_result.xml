@@ -17,9 +17,38 @@
         android:textColor="@color/colorBlack"
         android:layout_marginTop="@dimen/separator" />
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ProgressBar
+        android:id="@+id/loading_panel"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true" />
+
+    <LinearLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingLeft="@dimen/separator"
+        android:paddingRight="@dimen/separator">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/sad"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/main_font"
+            android:textColor="@color/colorBlack"
+            android:text="@string/error_message"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/recipe_swipe_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
@@ -28,32 +57,13 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context="com.shppandroid1.app.MainActivity">
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rv"/>
-
-            <!--LinearLayout
-                android:id="@+id/error_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/sad"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/main_font"
-                    android:textColor="@color/colorBlack"
-                    android:text="@string/error_message"/>
-            </LinearLayout-->
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

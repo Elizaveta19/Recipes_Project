@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.acer.recipes.Constants;
 import com.acer.recipes.Helpers.DbHelper;
@@ -38,6 +39,7 @@ public class FavoritesFragment extends Fragment {
         myConst.dbHelper = new DbHelper(getContext());
         recipeArrayList = myConst.dbHelper.getAllRecipes();
 
+        view.findViewById(R.id.loading_panel).setVisibility(View.GONE);
 
         rv = (RecyclerView) view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());

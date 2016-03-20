@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.acer.recipes.Fragments.AllRecipesFragment;
 import com.acer.recipes.Fragments.FavoritesFragment;
 import com.acer.recipes.Fragments.RecipesResultFragment;
 import com.acer.recipes.Fragments.SearchRecipesFragment;
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         switch (position)
         {
             case HOME_ITEM:
-                fragment = StartPageFragment.getFragment();
+                fragment = AllRecipesFragment.getFragment();
                 break;
             case SEARCH_ITEM:
                 fragment = SearchRecipesFragment.getFragment();

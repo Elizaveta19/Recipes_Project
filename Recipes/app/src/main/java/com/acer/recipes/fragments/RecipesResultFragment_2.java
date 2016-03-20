@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.acer.recipes.Constants;
@@ -22,7 +23,7 @@ import com.acer.recipes.Recipe;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnItemClickListener{
+public class RecipesResultFragment_2 extends Fragment {
 
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private static final int LAYOUT = R.layout.recipes_result;
@@ -35,7 +36,7 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
     MyTask myTask;
 
     private ArrayList<Recipe> recipeArrayList = new ArrayList<>();
-    ListView listView;
+    String outToServer = new String();
     String query = "";
     String maxCalories = "";
 
@@ -49,6 +50,9 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
         Bundle bundle = getArguments();
         query = bundle.getString("query");
         maxCalories = String.valueOf(bundle.getInt("maxCalories"));
+        outToServer = myConst.GET_RECIPES_BY_CCAL_ADDRESS + maxCalories + "&q=" + query;
+
+        view.findViewById(R.id.loading_panel).setVisibility(View.GONE);
 
         rv = (RecyclerView) view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -59,25 +63,6 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
         myTask = new MyTask();
         myTask.execute();
         return view;
-    }
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        /*Recipe[] recipeArray = new Recipe[recipeArrayList.size()];
-        Recipe recipe = recipeArrayList.get(position);
-        Fragment fragment = new RecipeFragment();
-        Bundle args = new Bundle();
-        args.putParcelable("recipe", recipe);
-        fragment.setArguments(args);
-
-        if(fragment != null)
-        {
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(CONTENT_FRAME_ID, fragment).commit();
-        }*/
     }
 
     public static RecipesResultFragment_2 getFragment() {
@@ -95,7 +80,7 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
         protected Void doInBackground(Void... params) {
             JsonManager jsonManager = new JsonManager();
             try {
-                URL fullUrl = new URL(myConst.GET_RECIPES_BY_CCAL_ADDRESS + maxCalories + "&q=" + query);
+                URL fullUrl = new URL(outToServer);
                 inputFromServer = jsonManager.getAllRecipes(fullUrl);
                 jsonManager.putRecipes(inputFromServer, recipeArrayList);
             } catch (Exception e) {
@@ -108,6 +93,14 @@ public class RecipesResultFragment_2 extends Fragment implements AdapterView.OnI
         @Override
         protected void onPostExecute(Void result)
         {
+            LinearLayout errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
+            if (recipeArrayList.isEmpty()){
+                errorLayout.setVisibility(View.VISIBLE);
+            }
+            else {
+                errorLayout.setVisibility(View.GONE);
+            }
+
             rv.setAdapter(adapter);
             super.onPostExecute(result);
         }
