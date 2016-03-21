@@ -49,8 +49,6 @@ public class JsonManager {
                 Log.d("my2", e.getMessage());
                 e.printStackTrace();
             }
-            //JSONArray jArray =  ConvertEntityToJsonArray(result);
-            //return  jArray;
             return result.toString();
         }
         catch (IOException e)
