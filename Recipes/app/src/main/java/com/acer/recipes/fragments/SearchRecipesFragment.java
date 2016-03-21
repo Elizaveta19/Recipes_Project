@@ -1,7 +1,6 @@
 package com.acer.recipes.Fragments;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,11 +8,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.acer.recipes.R;
 
@@ -41,8 +43,6 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
         return view;
     }
 
-
-
     public static SearchRecipesFragment getFragment()  {
         Bundle args = new Bundle();
         SearchRecipesFragment fragment = new SearchRecipesFragment();
@@ -56,10 +56,20 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
 
         switch (v.getId()) {
             case R.id.sa_searchButton: {
-                Fragment fragment = RecipesResultFragment_2.getFragment();
+                Fragment fragment = RecipesWithCaloriesResultFragment.getFragment();
                 Bundle args = new Bundle();
-                args.putString("query", et_product.getText().toString().trim());
-                args.putInt("maxCalories", Integer.parseInt(et_max_calories.getText().toString()));
+                if(!et_product.getText().toString().trim().equals("")) {
+                    args.putString("query", et_product.getText().toString().trim());
+                }
+                else {
+                    noProductMessage();
+                }
+                if(!et_max_calories.getText().toString().trim().equals("")) {
+                    args.putInt("maxCalories", Integer.parseInt(et_max_calories.getText().toString()));
+                }
+                else {
+                    noCCalMessage();
+                }
                 fragment.setArguments(args);
 
                 if(fragment != null)
@@ -70,6 +80,9 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(sa_searchButton.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
                 break;
 
             }
@@ -78,32 +91,18 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    private void productExistsMessage(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Продукт уже есть в списке")
-                .setNegativeButton("ОК",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alert = builder.create();
-        alert.show();
+    private void noProductMessage(){
+        String noProductMessage = "You have not entered any product.";
+        Toast toast = Toast.makeText(getContext(), noProductMessage, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
-    private void productNotFoundMessage(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Продукта нет в базе данных")
-                .setMessage("Необходимо выбрать продукт из выпадающего списка.")
-                .setCancelable(false)
-                .setNegativeButton("ОК",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alert = builder.create();
-        alert.show();
+    private void noCCalMessage(){
+        String noCCalMessage = "You have not entered max calories.";
+        Toast toast = Toast.makeText(getContext(), noCCalMessage, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     @Override

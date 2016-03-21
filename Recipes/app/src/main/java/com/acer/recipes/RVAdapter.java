@@ -44,11 +44,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
     @Override
     public void onBindViewHolder(final RecipeViewHolder recipeViewHolder, final int position) {
 
+        Picasso.with(currentContext).load(recipes.get(position).getImgUrl()).into(recipeViewHolder.recipePhoto);
         recipeViewHolder.recipeTitle.setText(recipes.get(position).getTitle());
         recipeViewHolder.recipeTotalWeight.setText("Total Weight:" + Integer.toString(recipes.get(position).getTotalWeight()));
         recipeViewHolder.recipeCcal.setText("Calories: " + Integer.toString(recipes.get(position).getStandartCalories()));
         recipeViewHolder.favorite.setChecked(recipes.get(position).isFavorite());
-        Picasso.with(currentContext).load(recipes.get(position).getImgUrl()).into(recipeViewHolder.recipePhoto);
 
         recipeViewHolder.favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

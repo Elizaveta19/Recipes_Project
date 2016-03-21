@@ -7,7 +7,7 @@ public class Constants {
     private static final String AppId_App_key = "app_id=71ced4a7&app_key=504976f01085e918bbc08f7a1b5e2f59";
     public static final String GET_RECIPES_ADDRESS = SERVER_ADDRESS + AppId_App_key + "&q=";
     public static final String GET_ALL_RECIPES = SERVER_ADDRESS + AppId_App_key + "&q=all";
-    public static final String GET_RECIPES_BY_CCAL_ADDRESS = SERVER_ADDRESS + AppId_App_key + "&calories=gte%200,lte%20";
+    public static final String PREFIX_CCAL_ADDRESS = "&calories=gte%200,%20lte%20";
 
     public static DbHelper dbHelper;
 
