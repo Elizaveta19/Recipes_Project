@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 public class RecipesResultFragment_2 extends Fragment {
 
-    private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private static final int LAYOUT = R.layout.recipes_result;
     private View view;
 

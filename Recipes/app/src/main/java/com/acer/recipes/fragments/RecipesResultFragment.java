@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -29,12 +31,12 @@ import java.util.ArrayList;
 
 public class RecipesResultFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private static final int LAYOUT = R.layout.recipes_result;
     private View view;
 
     String inputFromServer = new String();
     String outToServer = new String();
+    String outToServerFromTo = new String();
     RVAdapter adapter;
     RecyclerView rv;
     String query = "";
@@ -42,6 +44,8 @@ public class RecipesResultFragment extends Fragment implements SwipeRefreshLayou
 
     public static final Constants myConst = new Constants();
     MyTask myTask;
+    LinearLayoutManager llm;
+    int positionStart = 0;
 
     private ArrayList<Recipe> recipeArrayList = new ArrayList<>();
 
@@ -52,6 +56,7 @@ public class RecipesResultFragment extends Fragment implements SwipeRefreshLayou
         Bundle bundle = getArguments();
         query = bundle.getString("query");
         outToServer = myConst.GET_RECIPES_ADDRESS + query;
+        outToServerFromTo = outToServer;
 
         rv = (RecyclerView) view.findViewById(R.id.rv);
 
@@ -59,8 +64,32 @@ public class RecipesResultFragment extends Fragment implements SwipeRefreshLayou
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         adapter = new RVAdapter(getContext(), getActivity(), recipeArrayList);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm = new LinearLayoutManager(getContext());
         rv.setLayoutManager(llm);
+        rv.setAdapter(adapter);
+
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged (RecyclerView recyclerView, int newState){
+                super.onScrollStateChanged(recyclerView, newState);
+
+                int lastVisiblePosition = llm.findLastVisibleItemPosition();
+                int itemCount = llm.getItemCount();
+                int visibleCount = llm.getChildCount();
+                 if((lastVisiblePosition == itemCount-1)&& (visibleCount < 3)){
+                     try {
+                         outToServerFromTo = outToServer + "&from=" + (recipeArrayList.size()+1) + "&to=" + (recipeArrayList.size() + 11);
+                         positionStart = recipeArrayList.size();
+                         myTask = new MyTask();
+                         myTask.execute();
+                     } catch (Exception e) {
+                         for (StackTraceElement ste : e.getStackTrace())
+                             Log.v("Ошибка============", ste.toString());
+                     }
+                 }
+            }
+        });
 
         myTask = new MyTask();
         myTask.execute();
@@ -97,7 +126,7 @@ public class RecipesResultFragment extends Fragment implements SwipeRefreshLayou
         protected Void doInBackground(Void... params) {
             JsonManager jsonManager = new JsonManager();
             try {
-                URL fullUrl = new URL(outToServer);
+                URL fullUrl = new URL(outToServerFromTo);
                 inputFromServer = jsonManager.getAllRecipes(fullUrl);
                 jsonManager.putRecipes(inputFromServer, recipeArrayList);
             } catch (Exception e) {
@@ -120,7 +149,7 @@ public class RecipesResultFragment extends Fragment implements SwipeRefreshLayou
             }
 
             view.findViewById(R.id.loading_panel).setVisibility(View.GONE);
-            rv.setAdapter(adapter);
+            adapter.notifyItemRangeInserted(positionStart, 10);
             super.onPostExecute(result);
         }
     }

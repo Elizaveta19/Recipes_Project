@@ -8,14 +8,14 @@
     android:background="@color/mainBackground"
     android:id="@+id/activity_recipes_result">
 
-    <TextView
+    <!--TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/arr_title"
         android:textSize="@dimen/title_font"
         android:textColor="@color/colorBlack"
-        android:layout_marginTop="@dimen/separator" />
+        android:layout_marginTop="@dimen/separator" /-->
 
     <ProgressBar
         android:id="@+id/loading_panel"

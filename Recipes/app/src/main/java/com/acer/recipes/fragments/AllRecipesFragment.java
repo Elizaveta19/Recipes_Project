@@ -30,7 +30,6 @@ import java.util.HashMap;
 
 public class AllRecipesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private static final int LAYOUT = R.layout.recipes_result;
     private View view;
 

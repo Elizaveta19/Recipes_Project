@@ -22,9 +22,7 @@ import com.acer.recipes.Fragments.AllRecipesFragment;
 import com.acer.recipes.Fragments.FavoritesFragment;
 import com.acer.recipes.Fragments.RecipesResultFragment;
 import com.acer.recipes.Fragments.SearchRecipesFragment;
-import com.acer.recipes.Fragments.StartPageFragment;
 import com.acer.recipes.Helpers.DbHelper;
-import com.acer.recipes.Helpers.SSLCertificateHandler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(savedInstanceState == null)
             displayView(HOME_ITEM);
-
-        //SSLCertificateHandler.nuke();
     }
 
     @Override
@@ -80,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getString(R.string.action_search));
-        searchView.setSubmitButtonEnabled(true);
+        //searchView.setSubmitButtonEnabled(true);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
