@@ -1,5 +1,5 @@
 # Recipes_Project
-Android App
+Android App using edamam API.
 
 ![Picture](https://cloud.githubusercontent.com/assets/13637942/13917440/c9c259b8-ef71-11e5-9322-39bf366ca550.png)
 ![Picture](https://cloud.githubusercontent.com/assets/13637942/13917448/d37c1f3e-ef71-11e5-8c89-c82031ad2e59.png)
