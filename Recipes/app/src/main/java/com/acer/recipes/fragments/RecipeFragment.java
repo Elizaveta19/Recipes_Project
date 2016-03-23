@@ -6,16 +6,21 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.acer.recipes.Constants;
 import com.acer.recipes.R;
 import com.acer.recipes.Recipe;
 import com.acer.recipes.RecipeFragments.SlidingTabLayout;
 import com.acer.recipes.RecipeFragments.TabsPagerAdapter;
 import com.squareup.picasso.Picasso;
+
+import java.util.zip.CheckedInputStream;
 
 
 public class RecipeFragment extends FragmentActivity implements View.OnClickListener, TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
@@ -52,7 +57,7 @@ public class RecipeFragment extends FragmentActivity implements View.OnClickList
 
         tabs.setViewPager(mViewPager);
 
-        Recipe recipe = (Recipe) getIntent().getSerializableExtra("recipe");
+        final Recipe recipe = (Recipe) getIntent().getSerializableExtra("recipe");
         TextView tv = (TextView) findViewById(R.id.recipe_title);
         ImageView recipeHeader = (ImageView) findViewById(R.id.recipe_header);
         ImageView backButton = (ImageView) findViewById(R.id.back_to_results);
@@ -61,6 +66,28 @@ public class RecipeFragment extends FragmentActivity implements View.OnClickList
         Picasso.with(this).load(recipe.getImgUrl()).into(recipeHeader);
 
         backButton.setOnClickListener(this);
+
+        CheckBox checkBox = (CheckBox) findViewById(R.id.favorite_button_recipe_fragment);
+        checkBox.setChecked(recipe.isFavorite());
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Constants myConst = new Constants();
+                try {
+                    if (isChecked) {
+                        recipe.setFavorite();
+                        myConst.dbHelper.addRecipe(recipe);
+                    } else {
+                        recipe.unsetFavorite();
+                        myConst.dbHelper.deleteRecipe(recipe);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    for (StackTraceElement ste : e.getStackTrace())
+                        Log.v("Ошибка============", ste.toString());
+                }
+            }
+        });
     }
 
     @Override

@@ -23,6 +23,17 @@
             android:background="@color/colorBlack"
             android:alpha="0.5"/>
 
+        <CheckBox
+            android:id="@+id/favorite_button_recipe_fragment"
+            style="@style/customCheckBoxStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right"
+            android:scaleX="1.2"
+            android:scaleY="1.2"/>
+
         <LinearLayout
             android:id="@+id/recipe_title_layout"
             android:layout_width="match_parent"

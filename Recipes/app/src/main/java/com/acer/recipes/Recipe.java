@@ -17,6 +17,7 @@ public class Recipe  implements Serializable{
     private String sourceUrl;
     private int calories;
     private int totalWeight;
+    private int yield;
     private String imgUrl;
 
     private Fat fat;
@@ -26,13 +27,14 @@ public class Recipe  implements Serializable{
     private boolean favorite;
 
 
-    public Recipe(String _id, String _title, ArrayList<String> _ingredients, String _sourceUrl, int _calories, int _totalWeight, String _imgUrl, Fat _fat, Carbs _carbs, Protein _protein, boolean _isFavorite)
+    public Recipe(String _id, String _title, ArrayList<String> _ingredients, String _sourceUrl, int _calories, int _totalWeight, int _yield, String _imgUrl, Fat _fat, Carbs _carbs, Protein _protein, boolean _isFavorite)
     {
         id = _id;
         title = _title;
         ingredients = _ingredients;
         sourceUrl = _sourceUrl;
         totalWeight = _totalWeight;
+        yield = _yield;
         imgUrl = _imgUrl;
 
         //double caloriesTemp = (double) _calories / (double) _totalWeight * 100;
@@ -62,7 +64,15 @@ public class Recipe  implements Serializable{
         int standartCalories = (int) Math.round(caloriesTemp);
         return standartCalories; }
 
+    public int getCaloriesProPerson(){
+        return calories / yield; }
+
+    public int getGrammProPerson(){
+        return totalWeight / yield; }
+
     public int getTotalWeight() { return totalWeight; }
+
+    public int getNumberOfPortion() { return yield; }
 
     public String getImgUrl() { return imgUrl; }
 

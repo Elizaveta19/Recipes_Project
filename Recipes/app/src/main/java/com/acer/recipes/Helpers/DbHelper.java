@@ -26,6 +26,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String SOURCE = "source";
     public static final String CAL = "cal";
     public static final String WEIGHT = "weight";
+    public static final String YIELD = "yield";
     public static final String IMG_URL = "img_url";
 
     private ArrayList<String> ingredients;
@@ -43,6 +44,7 @@ public class DbHelper extends SQLiteOpenHelper {
             + SOURCE + " TEXT, "
             + CAL + " INTEGER, "
             + WEIGHT + " INTEGER, "
+            + YIELD + " INTEGER, "
             + IMG_URL + " TEXT );";
 
     public static final String CREATE_INGREDIENTS_TABLE = "Create table "
@@ -85,6 +87,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values_1.put(SOURCE, recipe.getUrl());
         values_1.put(CAL, recipe.getCalories());
         values_1.put(WEIGHT, recipe.getTotalWeight());
+        values_1.put(YIELD, recipe.getNumberOfPortion());
         String a = recipe.getImgUrl();
         values_1.put(IMG_URL, a);
         db.insert(RECIPE_TABLE_NAME, null, values_1);
@@ -106,7 +109,6 @@ public class DbHelper extends SQLiteOpenHelper {
         String[] whereArgs = new String[] { String.valueOf(recipe.getId())};
         db.delete(RECIPE_TABLE_NAME, ID + "=?", whereArgs);
 
-        ContentValues values_2 = new ContentValues();
         db.delete(INGREDIENTS_TABLE_NAME, ID_RECIPE + "=?", whereArgs);
 
         db.close();
@@ -130,8 +132,7 @@ public class DbHelper extends SQLiteOpenHelper {
                         ingredientsList.add(ingredientCursor.getString(2));
                     } while (ingredientCursor.moveToNext());
                 }
-                int cal = recipeCursor.getInt(3);
-                Recipe recipe = new Recipe(recipeCursor.getString(0), recipeCursor.getString(1), ingredientsList, recipeCursor.getString(2), cal, recipeCursor.getInt(4), recipeCursor.getString(5), new Fat(), new Carbs(), new Protein(), true);
+                Recipe recipe = new Recipe(recipeCursor.getString(0), recipeCursor.getString(1), ingredientsList, recipeCursor.getString(2), recipeCursor.getInt(3), recipeCursor.getInt(4), recipeCursor.getInt(5), recipeCursor.getString(6), new Fat(), new Carbs(), new Protein(), true);
                 recipesList.add(recipe);
                 ingredientCursor.close();
             }while (recipeCursor.moveToNext());

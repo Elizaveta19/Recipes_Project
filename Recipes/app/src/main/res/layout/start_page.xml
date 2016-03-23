@@ -32,7 +32,7 @@
                 android:textSize="@dimen/title_font"/>
 
             <Button
-                android:id="@+id/spa_searchButton"
+                android:id="@+id/spa_search_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/am_search_button"
@@ -58,12 +58,12 @@
             android:layout_weight="1"
             />
         <TextView
-            android:id="@+id/spa_searchButton2"
+            android:id="@+id/spa_button_favorites"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/mainBackground"
             android:text="@string/asp_title_2"
-            android:textSize="25dp"
+            android:textSize="@dimen/title_button_font"
             android:textColor="@color/colorBlack"
             android:gravity="center"
             android:layout_weight="1"
@@ -80,7 +80,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/allRecipes"
+            android:id="@+id/spa_all_recipes_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/mainBackground"

@@ -25,7 +25,7 @@ public class NutritionFragment  extends Fragment {
         String measure = getString(R.string.measure);
 
         TextView tv_0 = (TextView) view.findViewById(R.id.recipe_fragment_calories);
-        tv_0.setText("Calories: "  + Integer.toString(recipe.getCalories()));
+        tv_0.setText("Calories: "  + Integer.toString(recipe.getStandartCalories()));
 
         //FAT-----------------------------
         TextView tv_1 = (TextView) view.findViewById(R.id.total_fat);

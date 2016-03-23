@@ -46,8 +46,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
 
         Picasso.with(currentContext).load(recipes.get(position).getImgUrl()).into(recipeViewHolder.recipePhoto);
         recipeViewHolder.recipeTitle.setText(recipes.get(position).getTitle());
-        recipeViewHolder.recipeTotalWeight.setText("Total Weight:" + Integer.toString(recipes.get(position).getTotalWeight()));
-        recipeViewHolder.recipeCcal.setText("Calories: " + Integer.toString(recipes.get(position).getStandartCalories()));
+        recipeViewHolder.recipeTotalWeight.setText("Total Weight:" + Integer.toString(recipes.get(position).getTotalWeight()) + "g (" + Integer.toString(recipes.get(position).getNumberOfPortion()) + " portions)");
+        recipeViewHolder.recipeCcal.setText("Calories pro 100g: " + Integer.toString(recipes.get(position).getStandartCalories()));
+        recipeViewHolder.recipeCcalProPerson.setText("Calories pro portion: " + Integer.toString(recipes.get(position).getCaloriesProPerson()) + " (" +Integer.toString(recipes.get(position).getGrammProPerson()) + " g)");
         recipeViewHolder.favorite.setChecked(recipes.get(position).isFavorite());
 
         recipeViewHolder.favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -117,6 +118,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
         TextView recipeTitle;
         TextView recipeTotalWeight;
         TextView recipeCcal;
+        TextView recipeCcalProPerson;
         ImageView recipePhoto;
         CheckBox favorite;
         RecipeViewHolder(View itemView) {
@@ -125,6 +127,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
             recipeTitle = (TextView)itemView.findViewById(R.id.recipe_title);
             recipeTotalWeight = (TextView)itemView.findViewById(R.id.recipe_total_weight);
             recipeCcal = (TextView)itemView.findViewById(R.id.recipe_ccal);
+            recipeCcalProPerson = (TextView)itemView.findViewById(R.id.recipe_ccal_pro_person);
             recipePhoto = (ImageView)itemView.findViewById(R.id.recipe_photo);
             favorite = (CheckBox) itemView.findViewById(R.id.favorite_button);
 

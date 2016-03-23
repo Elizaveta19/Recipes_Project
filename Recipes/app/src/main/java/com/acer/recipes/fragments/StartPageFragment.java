@@ -19,20 +19,20 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
     private static final int LAYOUT = R.layout.start_page;
     private View view;
 
-    Button spa_searchButton;
+    Button searchButton;
     TextView allRecipesButton;
-    TextView spa_searchButton2;
+    TextView favoritesButton;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
-        spa_searchButton = (Button) view.findViewById(R.id.spa_searchButton);
-        spa_searchButton.setOnClickListener(this);
-        allRecipesButton = (TextView) view.findViewById(R.id.allRecipes);
+        searchButton = (Button) view.findViewById(R.id.spa_search_button);
+        searchButton.setOnClickListener(this);
+        allRecipesButton = (TextView) view.findViewById(R.id.spa_all_recipes_button);
         allRecipesButton.setOnClickListener(this);
-        spa_searchButton2 = (TextView) view.findViewById(R.id.spa_searchButton2);
-        spa_searchButton2.setOnClickListener(this);
+        favoritesButton = (TextView) view.findViewById(R.id.spa_button_favorites);
+        favoritesButton.setOnClickListener(this);
 
         return view;
     }
@@ -50,7 +50,7 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         Fragment fragment = null;
         switch (v.getId()) {
-            case R.id.spa_searchButton:
+            case R.id.spa_search_button:
                 fragment = SearchRecipesFragment.getFragment();
                 if(fragment != null)
                 {
@@ -61,8 +61,20 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                     fragmentTransaction.commit();
                 }
                 break;
-            case R.id.allRecipes:
+            case R.id.spa_all_recipes_button:
                 fragment = AllRecipesFragment.getFragment();
+                if(fragment != null)
+                {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(CONTENT_FRAME_ID, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+                break;
+
+            case R.id.spa_button_favorites:
+                fragment = FavoritesFragment.getFragment();
                 if(fragment != null)
                 {
                     FragmentManager fragmentManager = getFragmentManager();

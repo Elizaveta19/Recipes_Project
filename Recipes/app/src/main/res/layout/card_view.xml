@@ -39,7 +39,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_gravity="right"/>
+                android:layout_gravity="right"
+                android:scaleX="1.2"
+                android:scaleY="1.2"/>
 
 
             <LinearLayout
@@ -53,7 +55,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/recipe_title"
-                    android:layout_toRightOf="@+id/recipe_photo"
                     android:layout_alignParentTop="true"
                     android:textSize="@dimen/main_font"
                     android:textColor="@color/colorWhite"
@@ -62,7 +63,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/recipe_total_weight"
-                    android:layout_toRightOf="@+id/recipe_photo"
                     android:layout_below="@+id/recipe_title"
                     android:textSize="@dimen/recipe_font"
                     android:textColor="@color/colorWhite"
@@ -71,8 +71,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/recipe_ccal"
-                    android:layout_toRightOf="@+id/recipe_photo"
                     android:layout_below="@+id/recipe_total_weight"
+                    android:textSize="@dimen/recipe_font"
+                    android:textColor="@color/colorWhite"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipe_ccal_pro_person"
+                    android:layout_below="@+id/recipe_ccal"
                     android:textSize="@dimen/recipe_font"
                     android:textColor="@color/colorWhite"
                     />
