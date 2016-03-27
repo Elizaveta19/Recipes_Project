@@ -29,7 +29,7 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
         view = inflater.inflate(LAYOUT, container, false);
         searchButton = (Button) view.findViewById(R.id.spa_search_button);
         searchButton.setOnClickListener(this);
-        allRecipesButton = (TextView) view.findViewById(R.id.spa_all_recipes_button);
+        allRecipesButton = (TextView) view.findViewById(R.id.spa_button_shopping_list);
         allRecipesButton.setOnClickListener(this);
         favoritesButton = (TextView) view.findViewById(R.id.spa_button_favorites);
         favoritesButton.setOnClickListener(this);
@@ -61,8 +61,8 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                     fragmentTransaction.commit();
                 }
                 break;
-            case R.id.spa_all_recipes_button:
-                fragment = AllRecipesFragment.getFragment();
+            case R.id.spa_button_shopping_list:
+                fragment = ShoppingListFragment.getFragment();
                 if(fragment != null)
                 {
                     FragmentManager fragmentManager = getFragmentManager();

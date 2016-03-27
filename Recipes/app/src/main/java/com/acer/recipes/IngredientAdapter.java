@@ -28,10 +28,16 @@ public class IngredientAdapter extends ArrayAdapter<String> {
         ((TextView) v.findViewById(R.id.ingredient_text)).setText(ingredient);
 
         CheckBox checkBox = (CheckBox) v.findViewById(R.id.check);
+        checkBox.setChecked(Constants.dbHelper.isInShoppingList(recipe, ingredient));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Constants.dbHelper.addIngredientToShoppingList(recipe, ingredient);
+                if (isChecked) {
+                    Constants.dbHelper.addIngredientToShoppingList(recipe, ingredient);
+                } else {
+                    Constants.dbHelper.deleteIngredientFromShoppingList(ingredient);
+                }
+
                 //Constants.SHOPPING_LIST.add(ingredient);
                 //BusStation.getBus().post(new Message(ingredient));
                 //Log.v("Отправлено сообщение==", ingredient);

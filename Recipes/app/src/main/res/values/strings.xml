@@ -17,7 +17,7 @@
     <string name="asr_add_to_list">Add</string>
     <string name="asr_cancel">Cancel</string>
 
-    <string name="asp_title_1">All recipes</string>
+    <string name="asp_title_1">Shopping List</string>
     <string name="asp_title_2">Favorites</string>
 
     <string name="arr_title">Recipes</string>
@@ -28,6 +28,7 @@
     <string name="drawer_close">Close</string>
 
     <string name="measure"> g</string>
+    <string name="select_all_checkbox"> Add all to shop list</string>
 
     <string name="error_message">Sorry, no recipe was found. Check your query and Internet connection and try again.</string>
 

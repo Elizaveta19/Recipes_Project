@@ -168,6 +168,24 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
+    public void deleteIngredientFromShoppingList(String ingredient)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "'" + ingredient + "'";
+        Cursor ingredientCursor = db.rawQuery(ingredientsSelectQuery, null);
+        if(ingredientCursor.moveToFirst()) {
+            do {
+                int ingredient_id = ingredientCursor.getInt(0);
+                String where = ID + "=" + ingredient_id;
+                db.delete(SHOPPING_LIST_TABLE_NAME, where, null);
+            } while (ingredientCursor.moveToNext());
+        }
+        ingredientCursor.close();
+        db.close();
+
+    }
+
     public void setBoughtIngredient(Ingredient ingredient)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -177,6 +195,30 @@ public class DbHelper extends SQLiteOpenHelper {
         db.update(SHOPPING_LIST_TABLE_NAME, values_1, where, null);
 
         db.close();
+
+    }
+
+    public boolean isInShoppingList(Recipe recipe, String ingredient)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "'" + ingredient + "' AND " + ID_RECIPE + "=" + "'" + recipe.getId() + "'";
+        Cursor ingredientCursor = db.rawQuery(ingredientsSelectQuery, null);
+        ArrayList<Ingredient> ingredientsList = new ArrayList<Ingredient>();
+        if(ingredientCursor.moveToFirst()) {
+            do {
+                int temp = ingredientCursor.getInt(3);
+                ingredientsList.add(new Ingredient(ingredientCursor.getInt(0), ingredientCursor.getString(2), ingredientCursor.getInt(3)));
+            } while (ingredientCursor.moveToNext());
+        }
+
+        ingredientCursor.close();
+        db.close();
+
+        if(ingredientsList.isEmpty())
+            return false;
+        else
+            return true;
+
 
     }
 

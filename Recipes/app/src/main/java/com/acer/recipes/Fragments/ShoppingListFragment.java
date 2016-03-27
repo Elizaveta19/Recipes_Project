@@ -3,9 +3,13 @@ package com.acer.recipes.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -19,10 +23,12 @@ import java.util.ArrayList;
 
 public class ShoppingListFragment extends Fragment{
     private static final int LAYOUT = R.layout.shopping_list;
+    private static final int C_MENU_DELETE = 101;
     private View view;
     ListView  listView;
     ArrayList<Ingredient> ingredients = new ArrayList<>();
     ArrayAdapter<Ingredient> adapter;
+    static Ingredient itemAtPosition;
 
     @Nullable
     @Override
@@ -33,8 +39,30 @@ public class ShoppingListFragment extends Fragment{
         ingredients = Constants.dbHelper.getShoppingList();
         adapter = new ShoppingListAdapter(getActivity(), ingredients);
         listView.setAdapter(adapter);
+        registerForContextMenu(listView);
 
         return view;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        itemAtPosition = (Ingredient) listView.getItemAtPosition(acmi.position);
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(Menu.NONE, C_MENU_DELETE, menu.NONE, "Delete");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case C_MENU_DELETE:
+                Constants.dbHelper.deleteIngredientFromShoppingList(itemAtPosition.getTitle());
+                ingredients.remove(itemAtPosition);
+                adapter.notifyDataSetChanged();
+                break;
+        }
+
+        return super.onContextItemSelected(item);
     }
 
     /*@Subscribe
