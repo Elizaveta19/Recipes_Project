@@ -126,7 +126,6 @@ public abstract class AbstractRecipesResultFragment extends Fragment implements 
         @Override
         protected void onPostExecute(Void result)
         {
-
             LinearLayout errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
             if (recipeArrayList.isEmpty()){
                 errorLayout.setVisibility(View.VISIBLE);

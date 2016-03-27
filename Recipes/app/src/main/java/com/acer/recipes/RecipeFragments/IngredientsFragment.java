@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.acer.recipes.IngredientAdapter;
 import com.acer.recipes.R;
 import com.acer.recipes.Recipe;
 
@@ -25,11 +26,9 @@ public class IngredientsFragment extends Fragment{
         ListView listView = (ListView)view.findViewById(R.id.ingredients_list);
 
         Recipe recipe = (Recipe) getActivity().getIntent().getSerializableExtra("recipe");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, recipe.getIngredients());
+        ArrayAdapter adapter = new IngredientAdapter(getActivity(), recipe);
         listView.setAdapter(adapter);
-
 
         return view;
     }
-
 }

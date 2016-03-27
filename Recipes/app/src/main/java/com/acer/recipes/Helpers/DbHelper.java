@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.acer.recipes.Product;
+import com.acer.recipes.RecipeNutrition.Ingredient;
 import com.acer.recipes.Recipe;
 import com.acer.recipes.RecipeNutrition.Carbs;
 import com.acer.recipes.RecipeNutrition.Fat;
@@ -29,10 +29,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String YIELD = "yield";
     public static final String IMG_URL = "img_url";
 
-    private ArrayList<String> ingredients;
     public static final String INGREDIENTS_TABLE_NAME = "ingredients";
-    public static final String ID_INGREDIENT = "_id";
     public static final String ID_RECIPE = "id_recipe";
+
+    public static final String SHOPPING_LIST_TABLE_NAME = "shopping_list";
+    public static final String IS_BOUGHT = "is_bought";
 
     private Fat fat;
     private Carbs carbs;
@@ -49,9 +50,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_INGREDIENTS_TABLE = "Create table "
             + INGREDIENTS_TABLE_NAME + " ( "
-            + ID_INGREDIENT + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + ID_RECIPE + " TEXT, "
             + TITLE + " TEXT, "
+            + " FOREIGN KEY (" + TITLE + ") REFERENCES " + RECIPE_TABLE_NAME+ "(" + ID + "));";
+
+    public static final String CREATE_SHOPPING_LIST_TABLE = "Create table "
+            + SHOPPING_LIST_TABLE_NAME + " ( "
+            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + ID_RECIPE + " TEXT, "
+            + TITLE + " TEXT, "
+            + IS_BOUGHT + " INTEGER, "
             + " FOREIGN KEY (" + TITLE + ") REFERENCES " + RECIPE_TABLE_NAME+ "(" + ID + "));";
 
     public DbHelper(Context context) {
@@ -67,6 +76,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_RECIPE_TABLE);
         db.execSQL(CREATE_INGREDIENTS_TABLE);
+        db.execSQL(CREATE_SHOPPING_LIST_TABLE);
     }
 
     @Override
@@ -74,6 +84,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Log.w("SQLite", "Обновляемся с версии " + oldVersion + " на версию " + newVersion);
         db.execSQL("DROP TABLE IF EXISTS " + RECIPE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + INGREDIENTS_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CREATE_SHOPPING_LIST_TABLE);
         onCreate(db);
     }
 
@@ -141,6 +152,63 @@ public class DbHelper extends SQLiteOpenHelper {
         recipeCursor.close();
 
         return recipesList;
+    }
+
+    public void addIngredientToShoppingList(Recipe recipe, String ingredient)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values_1 = new ContentValues();
+
+        values_1.put(ID_RECIPE, recipe.getId());
+        values_1.put(TITLE, ingredient);
+        values_1.put(IS_BOUGHT, 0);
+        db.insert(SHOPPING_LIST_TABLE_NAME, null, values_1);
+
+        db.close();
+
+    }
+
+    public void setBoughtIngredient(Ingredient ingredient)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values_1 = new ContentValues();
+        values_1.put(IS_BOUGHT, 1);
+        String where = ID + "=" + ingredient.getId();
+        db.update(SHOPPING_LIST_TABLE_NAME, values_1, where, null);
+
+        db.close();
+
+    }
+
+    public void unsetBoughtIngredient(Ingredient ingredient)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values_1 = new ContentValues();
+        values_1.put(IS_BOUGHT, 0);
+        String where = ID + "=" + ingredient.getId();
+        db.update(SHOPPING_LIST_TABLE_NAME, values_1, where, null);
+
+        db.close();
+
+    }
+
+    public ArrayList<Ingredient> getShoppingList()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME;
+        Cursor ingredientCursor = db.rawQuery(ingredientsSelectQuery, null);
+        ArrayList<Ingredient> ingredientsList = new ArrayList<Ingredient>();
+        if(ingredientCursor.moveToFirst()) {
+            do {
+                int temp = ingredientCursor.getInt(3);
+                ingredientsList.add(new Ingredient(ingredientCursor.getInt(0), ingredientCursor.getString(2), ingredientCursor.getInt(3)));
+            } while (ingredientCursor.moveToNext());
+        }
+
+        ingredientCursor.close();
+
+        return ingredientsList;
     }
 
     /*public Product getProductByName(String _name)

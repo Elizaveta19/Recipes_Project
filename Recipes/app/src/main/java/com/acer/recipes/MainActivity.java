@@ -22,6 +22,7 @@ import com.acer.recipes.Fragments.AllRecipesFragment;
 import com.acer.recipes.Fragments.FavoritesFragment;
 import com.acer.recipes.Fragments.RecipesResultFragment;
 import com.acer.recipes.Fragments.SearchRecipesFragment;
+import com.acer.recipes.Fragments.ShoppingListFragment;
 import com.acer.recipes.Fragments.StartPageFragment;
 import com.acer.recipes.Helpers.DbHelper;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int SEARCH_ITEM = 1;
     private static final int ALL_RECIPES_ITEM = 2;
     private static final int FAVORITES_RECIPES_ITEM = 3;
+    private static final int SHOPPING_LIST_ITEM = 4;
 
     private static final int LAYOUT = R.layout.activity_main;
     private static final int CONTENT_FRAME_ID = R.id.content_frame;
@@ -131,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case FAVORITES_RECIPES_ITEM:
                 fragment = FavoritesFragment.getFragment();
+                break;
+            case SHOPPING_LIST_ITEM:
+                fragment = ShoppingListFragment.getFragment();
                 break;
             default:
                 break;

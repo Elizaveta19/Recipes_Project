@@ -36,5 +36,6 @@
         <item>Search by calories</item>
         <item>All recipes</item>
         <item>Favorites</item>
+        <item>Shopping List</item>
     </string-array>
 </resources>

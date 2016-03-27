@@ -13,7 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.acer.recipes.BusStation;
 import com.acer.recipes.Constants;
+import com.acer.recipes.Message;
 import com.acer.recipes.R;
 import com.acer.recipes.Recipe;
 import com.acer.recipes.RecipeFragments.SlidingTabLayout;
