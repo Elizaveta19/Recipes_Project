@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_margin="8dp"
                 android:layout_gravity="right"
                 android:scaleX="1.2"
                 android:scaleY="1.2"/>
@@ -49,7 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:gravity="left"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5pt">
 
                 <TextView
                     android:layout_width="wrap_content"

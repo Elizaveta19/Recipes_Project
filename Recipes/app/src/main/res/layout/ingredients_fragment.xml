@@ -10,7 +10,8 @@
         android:text="@string/select_all_checkbox"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/title_font"
-        android:layout_marginLeft="4px"/>
+        android:layout_margin="4px"
+        />
 
     <ListView
         android:id="@+id/ingredients_list"

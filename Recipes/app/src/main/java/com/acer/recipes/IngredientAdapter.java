@@ -9,9 +9,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
-
 public class IngredientAdapter extends ArrayAdapter<String> {
     Recipe recipe;
 
@@ -25,9 +22,9 @@ public class IngredientAdapter extends ArrayAdapter<String> {
         final String ingredient = getItem(position);
 
         View v = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.ingredient_item, null);
-        ((TextView) v.findViewById(R.id.ingredient_text)).setText(ingredient);
 
-        CheckBox checkBox = (CheckBox) v.findViewById(R.id.check);
+        CheckBox checkBox = (CheckBox) v.findViewById(R.id.ingredient_fragment_check);
+        checkBox.setText(ingredient);
         checkBox.setChecked(Constants.dbHelper.isInShoppingList(recipe, ingredient));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
