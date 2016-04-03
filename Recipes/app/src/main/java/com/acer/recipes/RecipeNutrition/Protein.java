@@ -3,19 +3,29 @@ package com.acer.recipes.RecipeNutrition;
 import java.io.Serializable;
 
 public class Protein implements Serializable {
-    int total;
-    int daily;
+    private int totalWeight;
+    private int totalPerRecipe;
+    int dailyPerRecipe;
+
     public Protein() {}
 
     public Protein (int _totalWeight, int _total, int _daily)
     {
-        double totalTemp = (double) _total / (double) _totalWeight * 100;
-        total = (int) Math.round(totalTemp);
-
-        double dailyTemp = (double) _daily / (double) _totalWeight * 100;
-        daily = (int) Math.round(dailyTemp);
+        totalWeight = _totalWeight;
+        totalPerRecipe = _total;
+        dailyPerRecipe = _daily;
     }
 
-    public int getTotal () { return total;}
-    public int getDaily () {return daily; }
+    public int getTotalWeight() {return totalWeight;}
+    public int getTotalPerRecipe() {return totalPerRecipe;}
+    public int getDailyPerRecipe() {return dailyPerRecipe;}
+
+    public int getTotalPer100g() {
+        double totalTemp = (double) totalPerRecipe / (double) totalWeight * 100;
+        return (int) Math.round(totalTemp);
+    }
+    public int getDailyPer100g() {
+        double dailyTemp = (double) getDailyPerRecipe() / (double) totalWeight * 100;
+        return (int) Math.round(dailyTemp);
+    }
 }
