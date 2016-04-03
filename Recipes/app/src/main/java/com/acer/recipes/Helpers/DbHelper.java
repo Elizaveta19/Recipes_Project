@@ -192,8 +192,8 @@ public class DbHelper extends SQLiteOpenHelper {
         ContentValues values_5 = new ContentValues();
         values_5.put(ID_RECIPE, recipe.getId());
         values_5.put(TOTAL_WEIGHT, recipe.getProtein().getTotalWeight());
-        values_5.put(TOTAL, recipe.getCarbs().getTotalPerRecipe());
-        values_5.put(DAILY, recipe.getCarbs().getDailyPerRecipe());
+        values_5.put(TOTAL, recipe.getProtein().getTotalPerRecipe());
+        values_5.put(DAILY, recipe.getProtein().getDailyPerRecipe());
         db.insert(PROTEIN_TABLE_NAME, null, values_5);
 
         db.close();
@@ -256,7 +256,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 Carbs carbs;
                 Cursor carbsCursor = db.rawQuery(carbsSelectQuery, null);
                 if(carbsCursor.moveToFirst()) {
-                    carbs = new Carbs(fatCursor.getInt(2), fatCursor.getInt(3), fatCursor.getInt(4), fatCursor.getInt(5), fatCursor.getInt(6), fatCursor.getInt(7));
+                    carbs = new Carbs(carbsCursor.getInt(2), carbsCursor.getInt(3), carbsCursor.getInt(4), carbsCursor.getInt(5), carbsCursor.getInt(6), carbsCursor.getInt(7));
                 }
                 else{
                     carbs = new Carbs();
@@ -265,7 +265,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 Protein protein;
                 Cursor proteinCursor = db.rawQuery(proteinsSelectQuery, null);
                 if(proteinCursor.moveToFirst()) {
-                    protein = new Protein(fatCursor.getInt(2), fatCursor.getInt(3), fatCursor.getInt(4));
+                    protein = new Protein(proteinCursor.getInt(2), proteinCursor.getInt(3), proteinCursor.getInt(4));
                 }
                 else {
                     protein = new Protein();
