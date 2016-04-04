@@ -7,14 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.acer.recipes.RecipeNutrition.Ingredient;
 import com.acer.recipes.Recipe;
 import com.acer.recipes.RecipeNutrition.Carbs;
 import com.acer.recipes.RecipeNutrition.Fat;
+import com.acer.recipes.RecipeNutrition.Ingredient;
 import com.acer.recipes.RecipeNutrition.Protein;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 public class DbHelper extends SQLiteOpenHelper {
 
@@ -300,8 +299,14 @@ public class DbHelper extends SQLiteOpenHelper {
     public void deleteIngredientFromShoppingList(String ingredient)
     {
         SQLiteDatabase db = this.getWritableDatabase();
+        String ingredientsSelectQuery = "";
+        if (ingredient.contains("\"")){
+            ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "'" + ingredient + "'";
+        }
+        else {
+            ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "\"" + ingredient + "\"";
+        }
 
-        String ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "\"" + ingredient + "\"";
         Cursor ingredientCursor = db.rawQuery(ingredientsSelectQuery, null);
         if(ingredientCursor.moveToFirst()) {
             do {
@@ -330,8 +335,13 @@ public class DbHelper extends SQLiteOpenHelper {
     public boolean isInShoppingList(Recipe recipe, String ingredient)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "\"" + ingredient + "\" AND " + ID_RECIPE + "=" + "\"" + recipe.getId() + "\"";
+        String ingredientsSelectQuery = "";
+        if (ingredient.contains("\"")){
+            ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "'" + ingredient + "' AND " + ID_RECIPE + "=" + "'" + recipe.getId() + "'";
+        }
+        else {
+            ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "\"" + ingredient + "\" AND " + ID_RECIPE + "=" + "\"" + recipe.getId() + "\"";
+        }
         Cursor ingredientCursor = db.rawQuery(ingredientsSelectQuery, null);
         ArrayList<Ingredient> ingredientsList = new ArrayList<Ingredient>();
         if(ingredientCursor.moveToFirst()) {
@@ -372,7 +382,6 @@ public class DbHelper extends SQLiteOpenHelper {
         ArrayList<Ingredient> ingredientsList = new ArrayList<Ingredient>();
         if(ingredientCursor.moveToFirst()) {
             do {
-                int temp = ingredientCursor.getInt(3);
                 ingredientsList.add(new Ingredient(ingredientCursor.getInt(0), ingredientCursor.getString(2), ingredientCursor.getInt(3)));
             } while (ingredientCursor.moveToNext());
         }
@@ -381,19 +390,5 @@ public class DbHelper extends SQLiteOpenHelper {
 
         return ingredientsList;
     }
-
-    /*public Product getProductByName(String _name)
-    {
-        String selectQuery = "SELECT * FROM " + RECIPE_TABLE_NAME+ " WHERE name='" + _name + "'";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst())
-        {
-            Product product = new Product(cursor.getInt(0), cursor.getString(1), cursor.getFloat(2));
-            return product;
-        }
-
-        return null;
-    }*/
 
 }

@@ -94,25 +94,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void setRecipesList(ArrayList<Recipe> recipes){
-        this.recipes = recipes;
-        notifyDataSetChanged();
-    }
-
-    /*@Override
-    public void onClick(View v) {
-
-        Intent likeWindow = new Intent(currentContext, RecipeFragment.class);
-        Bundle bundle = new Bundle();
-        //bundle.putSerializable("user", fragment.user);
-        bundle.putString("url",recipes.get(position).getRecipeUrl());
-        likeWindow.putExtras(bundle);
-        currentContext.startActivity(likeWindow);
-
-        //int itemPosition = mRecyclerView.getChildPosition(view);
-        //String item = mList.get(itemPosition);
-    }*/
-
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView recipeTitle;

@@ -8,21 +8,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.acer.recipes.BusStation;
 import com.acer.recipes.Constants;
-import com.acer.recipes.Message;
 import com.acer.recipes.R;
 import com.acer.recipes.Recipe;
 import com.acer.recipes.RecipeFragments.SlidingTabLayout;
 import com.acer.recipes.RecipeFragments.TabsPagerAdapter;
 import com.squareup.picasso.Picasso;
-
-import java.util.zip.CheckedInputStream;
 
 
 public class RecipeFragment extends FragmentActivity implements View.OnClickListener, TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
@@ -62,6 +58,7 @@ public class RecipeFragment extends FragmentActivity implements View.OnClickList
         final Recipe recipe = (Recipe) getIntent().getSerializableExtra("recipe");
         TextView tv = (TextView) findViewById(R.id.recipe_title);
         ImageView recipeHeader = (ImageView) findViewById(R.id.recipe_header);
+        //ImageView recipeHeader2 = (ImageView) findViewById(R.id.recipe_header2);
         ImageView backButton = (ImageView) findViewById(R.id.back_to_results);
 
         tv.setText(recipe.getTitle());
@@ -90,6 +87,21 @@ public class RecipeFragment extends FragmentActivity implements View.OnClickList
                 }
             }
         });
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        ImageView recipeHeader = (ImageView) findViewById(R.id.recipe_header);
+        ImageView recipeHeader2 = (ImageView) findViewById(R.id.recipe_header2);
+
+        int width = findViewById(R.id.recipe_recipe_header).getMeasuredWidth();
+        int height = findViewById(R.id.recipe_title_layout).getMeasuredHeight();
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+        recipeHeader.setLayoutParams(params);
+        recipeHeader2.setLayoutParams(params);
+
     }
 
     @Override

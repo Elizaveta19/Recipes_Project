@@ -1,8 +1,5 @@
 package com.acer.recipes;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.acer.recipes.RecipeNutrition.Carbs;
 import com.acer.recipes.RecipeNutrition.Fat;
 import com.acer.recipes.RecipeNutrition.Protein;
@@ -37,8 +34,6 @@ public class Recipe  implements Serializable{
         yield = _yield;
         imgUrl = _imgUrl;
 
-        //double caloriesTemp = (double) _calories / (double) _totalWeight * 100;
-        //calories = (int) Math.round(caloriesTemp);
         calories = _calories;
 
         fat = _fat;

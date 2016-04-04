@@ -8,6 +8,7 @@
     android:background="@color/mainBackground"
     android:id="@+id/recipe_layout">
     <FrameLayout
+        android:id="@+id/recipe_recipe_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -15,7 +16,9 @@
             android:id="@+id/recipe_header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recipe_header"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"/>
         <ImageView
             android:id="@+id/recipe_header2"
             android:layout_width="match_parent"

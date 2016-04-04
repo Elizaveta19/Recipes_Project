@@ -35,9 +35,6 @@ public class IngredientAdapter extends ArrayAdapter<String> {
                     Constants.dbHelper.deleteIngredientFromShoppingList(ingredient);
                 }
 
-                //Constants.SHOPPING_LIST.add(ingredient);
-                //BusStation.getBus().post(new Message(ingredient));
-                //Log.v("Отправлено сообщение==", ingredient);
             }
         });
 

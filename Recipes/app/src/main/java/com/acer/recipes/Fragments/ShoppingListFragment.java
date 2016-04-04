@@ -13,10 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.acer.recipes.BusStation;
 import com.acer.recipes.Constants;
-import com.acer.recipes.RecipeNutrition.Ingredient;
 import com.acer.recipes.R;
+import com.acer.recipes.RecipeNutrition.Ingredient;
 import com.acer.recipes.ShoppingListAdapter;
 
 import java.util.ArrayList;
@@ -65,11 +64,6 @@ public class ShoppingListFragment extends Fragment{
         return super.onContextItemSelected(item);
     }
 
-    /*@Subscribe
-    public void onEvent(Message message){
-        Constants.SHOPPING_LIST.add(message.getMessage());
-    }*/
-
     public static ShoppingListFragment getFragment()  {
         Bundle args = new Bundle();
         ShoppingListFragment fragment = new ShoppingListFragment();
@@ -78,9 +72,4 @@ public class ShoppingListFragment extends Fragment{
         return fragment;
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        BusStation.getBus().register(this);
-    }
 }

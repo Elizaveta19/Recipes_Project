@@ -18,5 +18,5 @@
     <dimen name="table_padding">15dip</dimen>
     <dimen name="table_sub_item_padding">45dip</dimen>
 
-    <dimen name="recipe_header">100dp</dimen>
+    <dimen name="recipe_header">50dp</dimen>
 </resources>

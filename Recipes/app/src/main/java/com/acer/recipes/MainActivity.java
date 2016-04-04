@@ -41,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private String[] navigationItems;
     private ActionBarDrawerToggle drawerLitener;
 
-    private String comment = new String();
-    private String inputFromServer = new String();
-    private String outToServer = new String();
     public static final Constants myConst = new Constants();
     SearchView searchView;
 

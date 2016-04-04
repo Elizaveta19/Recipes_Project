@@ -11,8 +11,6 @@ public class Constants {
     public static final String GET_ALL_RECIPES = SERVER_ADDRESS + AppId_App_key + "&q=all";
     public static final String PREFIX_CCAL_ADDRESS = "&calories=gte%200,%20lte%20";
 
-    public static ArrayList<String> SHOPPING_LIST = new ArrayList<>();
-
     public static DbHelper dbHelper;
 
 }
