@@ -14,6 +14,7 @@ import com.acer.recipes.RecipeNutrition.Fat;
 import com.acer.recipes.RecipeNutrition.Protein;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class DbHelper extends SQLiteOpenHelper {
 
@@ -229,7 +230,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 String carbsSelectQuery = "SELECT * FROM " + CARBS_TABLE_NAME + " WHERE id_recipe='" + recipeCursor.getString(0) + "'";
                 String proteinsSelectQuery = "SELECT * FROM " + PROTEIN_TABLE_NAME + " WHERE id_recipe='" + recipeCursor.getString(0) + "'";
                 Cursor ingredientCursor = db.rawQuery(ingredientsSelectQuery, null);
-                ArrayList<String> ingredientsList = new ArrayList<String>();
+                ArrayList<String> ingredientsList = new ArrayList<>();
                 if(ingredientCursor.moveToFirst()) {
                     do {
                         ingredientsList.add(ingredientCursor.getString(2));
@@ -300,7 +301,7 @@ public class DbHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "'" + ingredient + "'";
+        String ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "\"" + ingredient + "\"";
         Cursor ingredientCursor = db.rawQuery(ingredientsSelectQuery, null);
         if(ingredientCursor.moveToFirst()) {
             do {
@@ -329,12 +330,12 @@ public class DbHelper extends SQLiteOpenHelper {
     public boolean isInShoppingList(Recipe recipe, String ingredient)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "'" + ingredient + "' AND " + ID_RECIPE + "=" + "'" + recipe.getId() + "'";
+
+        String ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME + " WHERE " + TITLE + "=" + "\"" + ingredient + "\" AND " + ID_RECIPE + "=" + "\"" + recipe.getId() + "\"";
         Cursor ingredientCursor = db.rawQuery(ingredientsSelectQuery, null);
         ArrayList<Ingredient> ingredientsList = new ArrayList<Ingredient>();
         if(ingredientCursor.moveToFirst()) {
             do {
-                int temp = ingredientCursor.getInt(3);
                 ingredientsList.add(new Ingredient(ingredientCursor.getInt(0), ingredientCursor.getString(2), ingredientCursor.getInt(3)));
             } while (ingredientCursor.moveToNext());
         }
