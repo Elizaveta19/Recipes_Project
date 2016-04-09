@@ -31,6 +31,7 @@ public abstract class AbstractRecipesResultFragment extends Fragment implements 
     String inputFromServer = new String();
     String outToServer = new String();
     String outToServerFromTo = new String();
+    String outToServerWithLabels = new String();
     RVAdapter adapter;
     RecyclerView rv;
     String query = "";
@@ -48,7 +49,9 @@ public abstract class AbstractRecipesResultFragment extends Fragment implements 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
         setFragmentFields();
-        outToServerFromTo = outToServer;
+        Log.v("Out to server=========", Constants.DIET_FILTER);
+        outToServerWithLabels = outToServer + Constants.DIET_FILTER + Constants.HEALTH_FILTER;
+        outToServerFromTo = outToServerWithLabels;
 
         rv = (RecyclerView) view.findViewById(R.id.rv);
 
@@ -71,7 +74,7 @@ public abstract class AbstractRecipesResultFragment extends Fragment implements 
                 int visibleCount = llm.getChildCount();
                 if((lastVisiblePosition == itemCount-1)&& (visibleCount < 3)){
                     try {
-                        outToServerFromTo = outToServer + "&from=" + (recipeArrayList.size()+1) + "&to=" + (recipeArrayList.size() + 11);
+                        outToServerFromTo = outToServerWithLabels + "&from=" + (recipeArrayList.size()+1) + "&to=" + (recipeArrayList.size() + 11);
                         positionStart = recipeArrayList.size();
                         myTask = new MyTask();
                         myTask.execute();
@@ -113,6 +116,7 @@ public abstract class AbstractRecipesResultFragment extends Fragment implements 
         protected Void doInBackground(Void... params) {
             JsonManager jsonManager = new JsonManager();
             try {
+                outToServerWithLabels = outToServer + Constants.DIET_FILTER + Constants.HEALTH_FILTER;
                 URL fullUrl = new URL(outToServerFromTo);
                 inputFromServer = jsonManager.getAllRecipes(fullUrl);
                 jsonManager.putRecipes(inputFromServer, recipeArrayList);

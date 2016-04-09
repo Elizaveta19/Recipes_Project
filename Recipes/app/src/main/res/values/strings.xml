@@ -39,4 +39,31 @@
         <item>Favorites</item>
         <item>Shopping List</item>
     </string-array>
+
+    <string-array name="dietLabels">
+        <item>High-Protein</item>
+        <item>Low-Carb</item>
+        <item>Low-Fat</item>
+        <item>Balanced</item>
+        <item>Low-Sodium</item>
+    </string-array>
+
+    <string-array name="healthLabels">
+        <item>Low-sugar</item>
+        <item>Sugar-conscious</item>
+        <item>Low-fat-abs</item>
+        <item>Gliten-free</item>
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>Paleo</item>
+        <item>Wheat-free</item>
+        <item>Dairy-free</item>
+        <item>Egg-free</item>
+        <item>Soy-free</item>
+        <item>Fish-free</item>
+        <item>Dhellfish-free</item>
+        <item>Tree-nut-free</item>
+        <item>No-oil-added</item>
+        <item>Alcohol-free</item>
+    </string-array>
 </resources>

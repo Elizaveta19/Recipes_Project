@@ -11,6 +11,9 @@ public class Constants {
     public static final String GET_ALL_RECIPES = SERVER_ADDRESS + AppId_App_key + "&q=all";
     public static final String PREFIX_CCAL_ADDRESS = "&calories=gte%200,%20lte%20";
 
+    public static String DIET_FILTER = "";
+    public static String HEALTH_FILTER = "";
+
     public static DbHelper dbHelper;
 
 }

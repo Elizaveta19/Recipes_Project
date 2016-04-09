@@ -1,6 +1,0 @@
-﻿trim - Удаляет пробелы из начала и конца строки
-	string trim ( string str [, string charlist] )
-	
-
-
-ALTER TABLE `<Таблица>` AUTO_INCREMENT=<Число>
