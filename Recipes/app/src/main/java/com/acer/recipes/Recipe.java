@@ -11,6 +11,8 @@ public class Recipe  implements Serializable{
     private String id;
     private String title;
     private ArrayList<String> ingredients;
+    private ArrayList<String> dietLabels;
+    private ArrayList<String> healthLabels;
     private String sourceUrl;
     private int calories;
     private int totalWeight;
@@ -24,7 +26,7 @@ public class Recipe  implements Serializable{
     private boolean favorite;
 
 
-    public Recipe(String _id, String _title, ArrayList<String> _ingredients, String _sourceUrl, int _calories, int _totalWeight, int _yield, String _imgUrl, Fat _fat, Carbs _carbs, Protein _protein, boolean _isFavorite)
+    public Recipe(String _id, String _title, ArrayList<String> _ingredients, String _sourceUrl, int _calories, int _totalWeight, int _yield, String _imgUrl, ArrayList<String> _dietLabels, ArrayList<String> _healthLabels,  Fat _fat, Carbs _carbs, Protein _protein, boolean _isFavorite)
     {
         id = _id;
         title = _title;
@@ -33,6 +35,9 @@ public class Recipe  implements Serializable{
         totalWeight = _totalWeight;
         yield = _yield;
         imgUrl = _imgUrl;
+
+        dietLabels = _dietLabels;
+        healthLabels = _healthLabels;
 
         calories = _calories;
 
@@ -44,11 +49,24 @@ public class Recipe  implements Serializable{
     }
 
     public String getId() { return id; }
-
     public String getTitle(){ return title; }
-
     public ArrayList<String> getIngredients() { return ingredients; }
-
+    public ArrayList<String> getDietLabels() { return dietLabels; }
+    public ArrayList<String> getHealthLabels() { return healthLabels; }
+    public String getStringDietLabels() {
+        String result = "";
+        for (String label : dietLabels){
+            result += label + ", ";
+        }
+        return result.substring(0, result.length()-2);
+    }
+    public String getStringHealthLabels() {
+        String result = "";
+        for (String label : healthLabels){
+            result += label + ", ";
+        }
+        return result.substring(0, result.length()-2);
+    }
     public String getUrl() { return sourceUrl;  }
 
     public int getCalories(){

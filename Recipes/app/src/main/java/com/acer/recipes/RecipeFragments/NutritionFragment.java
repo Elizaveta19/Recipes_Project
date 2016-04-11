@@ -24,6 +24,12 @@ public class NutritionFragment  extends Fragment {
         Recipe recipe = (Recipe) getActivity().getIntent().getSerializableExtra("recipe");
         String measure = getString(R.string.measure);
 
+        TextView diet_labels_text_view = (TextView) view.findViewById(R.id.diet_labels_text_view);
+        diet_labels_text_view.setText("Diet Labels: "  + recipe.getStringDietLabels());
+
+        TextView health_labels_text_view = (TextView) view.findViewById(R.id.health_labels_text_view);
+        health_labels_text_view.setText("Health Labels: "  + recipe.getStringHealthLabels());
+
         TextView tv_0 = (TextView) view.findViewById(R.id.recipe_fragment_calories);
         tv_0.setText("Calories: "  + Integer.toString(recipe.getStandartCalories()));
 

@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -145,11 +146,32 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
+        final MenuItem rightDrawerItem = menu.findItem(R.id.action_right_drawer);
+        rightDrawerItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (drawerLayout.isDrawerOpen(findViewById(R.id.health_labels_drawer_layout))){
+                    drawerLayout.closeDrawer(findViewById(R.id.health_labels_drawer_layout));
+                }
+                else{
+                    drawerLayout.openDrawer(findViewById(R.id.health_labels_drawer_layout));
+                }
+                return false;
+            }
+        });
+
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getString(R.string.action_search));
 
         //searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                drawerLayout.closeDrawer(findViewById(R.id.health_labels_drawer_layout));
+                drawerLayout.closeDrawer(findViewById(R.id.navigation));
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

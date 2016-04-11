@@ -93,6 +93,10 @@ public abstract class AbstractRecipesResultFragment extends Fragment implements 
 
     @Override
     public void onRefresh() {
+        outToServerWithLabels = outToServer + Constants.DIET_FILTER + Constants.HEALTH_FILTER;
+        outToServerFromTo = outToServerWithLabels;
+        recipeArrayList.clear();
+        adapter.notifyDataSetChanged();
         Toast.makeText(getContext(), "Обновление началось", Toast.LENGTH_SHORT).show();
         mSwipeRefreshLayout.setRefreshing(true);
         // ждем 3 секунды и прячем прогресс

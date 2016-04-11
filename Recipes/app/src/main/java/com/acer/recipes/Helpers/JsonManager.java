@@ -112,6 +112,20 @@ public class JsonManager {
                     ingredients.add(ingredientsJSON.getString(j));
                 }
 
+                JSONArray dietLabelsJSON = jsonRecipeObject.getJSONArray("dietLabels");
+                ArrayList<String> dietLabels = new ArrayList<>();
+                for(int j = 0; j < dietLabelsJSON.length(); j++)
+                {
+                    dietLabels.add(dietLabelsJSON.getString(j));
+                }
+
+                JSONArray healthLabelsJSON = jsonRecipeObject.getJSONArray("healthLabels");
+                ArrayList<String> healthLabels = new ArrayList<>();
+                for(int j = 0; j < healthLabelsJSON.length(); j++)
+                {
+                    healthLabels.add(healthLabelsJSON.getString(j));
+                }
+
                 String uri = jsonRecipeObject.getString("uri").toString();
                 String imgUrl = jsonRecipeObject.getString("image").toString();
                 String sourceUrl = jsonRecipeObject.getString("url").toString();
@@ -145,7 +159,7 @@ public class JsonManager {
                 int dailyProtein = proteinItemJSON.getInt("daily");
                 Protein protein = new Protein(totalWeight, totalProtein, dailyProtein);
 
-                recipeArrayList.add(new Recipe(uri, title, ingredients, sourceUrl, ccal, totalWeight, yield, imgUrl, fat, carbs, protein, false));
+                recipeArrayList.add(new Recipe(uri, title, ingredients, sourceUrl, ccal, totalWeight, yield, imgUrl, dietLabels, healthLabels, fat, carbs, protein, false));
             }
         }
         catch(JSONException e){

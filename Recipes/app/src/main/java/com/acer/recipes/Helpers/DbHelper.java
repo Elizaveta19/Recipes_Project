@@ -49,8 +49,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String POLY = "polyunsaturated";
 
     public static final String CARBS_NET = "carbs_net";
-    public static final String FILBER = "filber";
+    public static final String FIBER = "fiber";
     public static final String SUGARS = "sugars";
+
+    public static final String DIET_LABELS_TABLE_NAME = "diet_labels";
+    public static final String HEALTH_LABELS_TABLE_NAME = "health_labels";
 
     public static final String CREATE_RECIPE_TABLE = "Create table " + RECIPE_TABLE_NAME + " ( "
             + ID + " TEXT PRIMARY KEY, "
@@ -97,7 +100,7 @@ public class DbHelper extends SQLiteOpenHelper {
             + TOTAL + " INTEGER, "
             + DAILY + " INTEGER, "
             + CARBS_NET + " INTEGER, "
-            + FILBER + " INTEGER, "
+            + FIBER + " INTEGER, "
             + SUGARS + " INTEGER, "
             + " FOREIGN KEY (" + ID_RECIPE + ") REFERENCES " + RECIPE_TABLE_NAME+ "(" + ID + "));";
 
@@ -109,6 +112,21 @@ public class DbHelper extends SQLiteOpenHelper {
             + TOTAL + " INTEGER, "
             + DAILY + " INTEGER, "
             + " FOREIGN KEY (" + ID_RECIPE + ") REFERENCES " + RECIPE_TABLE_NAME+ "(" + ID + "));";
+
+    public static final String CREATE_DIET_LABELS_TABLE = "Create table "
+            + DIET_LABELS_TABLE_NAME + " ( "
+            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + ID_RECIPE + " TEXT, "
+            + TITLE + " TEXT, "
+            + " FOREIGN KEY (" + ID_RECIPE + ") REFERENCES " + RECIPE_TABLE_NAME+ "(" + ID + "));";
+
+    public static final String CREATE_HEALTH_LABELS_TABLE = "Create table "
+            + HEALTH_LABELS_TABLE_NAME + " ( "
+            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + ID_RECIPE + " TEXT, "
+            + TITLE + " TEXT, "
+            + " FOREIGN KEY (" + ID_RECIPE + ") REFERENCES " + RECIPE_TABLE_NAME+ "(" + ID + "));";
+
 
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -127,17 +145,21 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_FAT_TABLE);
         db.execSQL(CREATE_CARBS_TABLE);
         db.execSQL(CREATE_PROTEIN_TABLE);
+        db.execSQL(CREATE_DIET_LABELS_TABLE);
+        db.execSQL(CREATE_HEALTH_LABELS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w("SQLite", "Обновляемся с версии " + oldVersion + " на версию " + newVersion);
+        Log.w("SQLite", "Update from version " + oldVersion + " to version " + newVersion);
         db.execSQL("DROP TABLE IF EXISTS " + RECIPE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + INGREDIENTS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_SHOPPING_LIST_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_FAT_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_CARBS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_PROTEIN_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + CREATE_DIET_LABELS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + CREATE_HEALTH_LABELS_TABLE);
         onCreate(db);
     }
 
@@ -184,7 +206,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values_4.put(TOTAL, recipe.getCarbs().getTotalPerRecipe());
         values_4.put(DAILY, recipe.getCarbs().getDailyPerRecipe());
         values_4.put(CARBS_NET, recipe.getCarbs().getCarbsNetPerRecipe());
-        values_4.put(FILBER, recipe.getCarbs().getFilberPerRecipe());
+        values_4.put(FIBER, recipe.getCarbs().getFiberPerRecipe());
         values_4.put(SUGARS, recipe.getCarbs().getSugarsPerRecipe());
         db.insert(CARBS_TABLE_NAME, null, values_4);
 
@@ -195,6 +217,22 @@ public class DbHelper extends SQLiteOpenHelper {
         values_5.put(TOTAL, recipe.getProtein().getTotalPerRecipe());
         values_5.put(DAILY, recipe.getProtein().getDailyPerRecipe());
         db.insert(PROTEIN_TABLE_NAME, null, values_5);
+
+        //diet_labels
+        ContentValues values_6 = new ContentValues();
+        for(int i = 0; i < recipe.getDietLabels().size(); i++) {
+            values_6.put(ID_RECIPE, recipe.getId());
+            values_6.put(TITLE, recipe.getDietLabels().get(i));
+            db.insert(DIET_LABELS_TABLE_NAME, null, values_6);
+        }
+
+        //health_labels
+        ContentValues values_7 = new ContentValues();
+        for(int i = 0; i < recipe.getHealthLabels().size(); i++) {
+            values_7.put(ID_RECIPE, recipe.getId());
+            values_7.put(TITLE, recipe.getHealthLabels().get(i));
+            db.insert(HEALTH_LABELS_TABLE_NAME, null, values_7);
+        }
 
         db.close();
 
@@ -210,6 +248,8 @@ public class DbHelper extends SQLiteOpenHelper {
         db.delete(FAT_TABLE_NAME, ID_RECIPE + "=?", whereArgs);
         db.delete(CARBS_TABLE_NAME, ID_RECIPE + "=?", whereArgs);
         db.delete(PROTEIN_TABLE_NAME, ID_RECIPE + "=?", whereArgs);
+        db.delete(DIET_LABELS_TABLE_NAME, ID_RECIPE + "=?", whereArgs);
+        db.delete(HEALTH_LABELS_TABLE_NAME, ID_RECIPE + "=?", whereArgs);
 
         db.close();
 
@@ -234,6 +274,24 @@ public class DbHelper extends SQLiteOpenHelper {
                     do {
                         ingredientsList.add(ingredientCursor.getString(2));
                     } while (ingredientCursor.moveToNext());
+                }
+
+                String dietSelectQuery = "SELECT * FROM " + DIET_LABELS_TABLE_NAME + " WHERE id_recipe='" + recipeCursor.getString(0) + "'";
+                Cursor dietCursor = db.rawQuery(dietSelectQuery, null);
+                ArrayList<String> dietLabelsList = new ArrayList<>();
+                if(dietCursor.moveToFirst()) {
+                    do {
+                        dietLabelsList.add(dietCursor.getString(2));
+                    } while (dietCursor.moveToNext());
+                }
+
+                String healthSelectQuery = "SELECT * FROM " + HEALTH_LABELS_TABLE_NAME + " WHERE id_recipe='" + recipeCursor.getString(0) + "'";
+                Cursor healthCursor = db.rawQuery(healthSelectQuery, null);
+                ArrayList<String> healthLabelsList = new ArrayList<>();
+                if(healthCursor.moveToFirst()) {
+                    do {
+                        healthLabelsList.add(healthCursor.getString(2));
+                    } while (healthCursor.moveToNext());
                 }
 
                 Fat fat;
@@ -271,7 +329,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     protein = new Protein();
                 }
 
-                Recipe recipe = new Recipe(recipeCursor.getString(0), recipeCursor.getString(1), ingredientsList, recipeCursor.getString(2), recipeCursor.getInt(3), recipeCursor.getInt(4), recipeCursor.getInt(5), recipeCursor.getString(6), fat, carbs, protein, true);
+                Recipe recipe = new Recipe(recipeCursor.getString(0), recipeCursor.getString(1), ingredientsList, recipeCursor.getString(2), recipeCursor.getInt(3), recipeCursor.getInt(4), recipeCursor.getInt(5), recipeCursor.getString(6), dietLabelsList, healthLabelsList, fat, carbs, protein, true);
                 recipesList.add(recipe);
                 ingredientCursor.close();
             }while (recipeCursor.moveToNext());

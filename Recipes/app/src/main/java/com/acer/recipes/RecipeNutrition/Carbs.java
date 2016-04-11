@@ -7,18 +7,18 @@ public class Carbs implements Serializable {
     private int totalPerRecipe;
     private int dailyPerRecipe;
     private int carbsNetPerRecipe;
-    private int filberPerRecipe;
+    private int fiberPerRecipe;
     private int sugarsPerRecipe;
 
     public Carbs(){}
 
-    public Carbs (int _totalWeight, int _total, int _daily, int _carbsNet, int _filber, int _sugars)
+    public Carbs (int _totalWeight, int _total, int _daily, int _carbsNet, int _fiber, int _sugars)
     {
         totalWeight = _totalWeight;
         totalPerRecipe = _total;
         dailyPerRecipe = _daily;
         carbsNetPerRecipe = _carbsNet;
-        filberPerRecipe = _filber;
+        fiberPerRecipe = _fiber;
         sugarsPerRecipe = _sugars;
     }
 
@@ -26,7 +26,7 @@ public class Carbs implements Serializable {
     public int getTotalPerRecipe() {return totalPerRecipe;}
     public int getDailyPerRecipe() {return dailyPerRecipe;}
     public int getCarbsNetPerRecipe() {return carbsNetPerRecipe;}
-    public int getFilberPerRecipe() {return filberPerRecipe;}
+    public int getFiberPerRecipe() {return fiberPerRecipe;}
     public int getSugarsPerRecipe() {return sugarsPerRecipe;}
 
     public int getTotalPer100g() {
@@ -42,7 +42,7 @@ public class Carbs implements Serializable {
         return (int) Math.round(carbsNetTemp);
     }
     public int getFilberPer100g() {
-        double filberTemp = (double) filberPerRecipe / (double) totalWeight * 100;
+        double filberTemp = (double) fiberPerRecipe / (double) totalWeight * 100;
         return (int) Math.round(filberTemp);
     }
     public int getSugarsPer100g() {

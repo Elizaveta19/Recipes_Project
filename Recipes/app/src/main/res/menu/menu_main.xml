@@ -9,4 +9,10 @@
         android:icon="@drawable/ic_magnify"
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"/>
+
+    <item android:id="@+id/action_right_drawer"
+        android:title="@string/action_right_drawer"
+        android:orderInCategory="200"
+        android:icon="@drawable/ic_filter_outline"
+        app:showAsAction="always|collapseActionView"/>
 </menu>
