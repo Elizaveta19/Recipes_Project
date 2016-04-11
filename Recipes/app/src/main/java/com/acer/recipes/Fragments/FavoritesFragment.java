@@ -19,13 +19,11 @@ import java.util.ArrayList;
 
 public class FavoritesFragment extends Fragment {
 
-    private static final int CONTENT_FRAME_ID = R.id.content_frame;
     private static final int LAYOUT = R.layout.recipes_result;
     private View view;
 
     RVAdapter adapter;
     RecyclerView rv;
-    String query = "";
 
     public static final Constants myConst = new Constants();
 
@@ -49,8 +47,6 @@ public class FavoritesFragment extends Fragment {
 
         return view;
     }
-
-
 
     public static FavoritesFragment getFragment() {
         Bundle args = new Bundle();

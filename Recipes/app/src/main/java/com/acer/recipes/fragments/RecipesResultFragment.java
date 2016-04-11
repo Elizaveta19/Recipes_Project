@@ -5,7 +5,7 @@ import android.os.Bundle;
 public class RecipesResultFragment extends AbstractRecipesResultFragment {
 
     @Override
-    public void setFragmentFields() {
+    public void initializeFragmentFields() {
         Bundle bundle = getArguments();
         query = bundle.getString("query");
         outToServer = myConst.GET_RECIPES_ADDRESS + query;

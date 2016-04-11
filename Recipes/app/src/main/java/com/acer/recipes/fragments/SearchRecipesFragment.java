@@ -68,7 +68,7 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
                     args.putInt("maxCalories", Integer.parseInt(et_max_calories.getText().toString()));
                 }
                 else {
-                    noCCalMessage();
+                    noCaloriesMessage();
                 }
                 fragment.setArguments(args);
 
@@ -98,7 +98,7 @@ public class SearchRecipesFragment extends Fragment implements View.OnClickListe
         toast.show();
     }
 
-    private void noCCalMessage(){
+    private void noCaloriesMessage(){
         String noCCalMessage = "You have not entered max calories.";
         Toast toast = Toast.makeText(getContext(), noCCalMessage, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);

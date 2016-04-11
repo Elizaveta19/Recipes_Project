@@ -5,7 +5,7 @@ import android.os.Bundle;
 public class AllRecipesFragment extends AbstractRecipesResultFragment {
 
     @Override
-    public void setFragmentFields() {
+    public void initializeFragmentFields() {
         outToServer = myConst.GET_ALL_RECIPES;
     }
 

@@ -1,8 +1,6 @@
 package com.acer.recipes;
 
-import android.app.Activity;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,17 +11,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.CheckedTextView;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 
 import com.acer.recipes.Fragments.AllRecipesFragment;
@@ -33,8 +26,6 @@ import com.acer.recipes.Fragments.SearchRecipesFragment;
 import com.acer.recipes.Fragments.ShoppingListFragment;
 import com.acer.recipes.Fragments.StartPageFragment;
 import com.acer.recipes.Helpers.DbHelper;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 

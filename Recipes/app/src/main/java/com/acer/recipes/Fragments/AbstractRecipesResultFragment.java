@@ -48,7 +48,7 @@ public abstract class AbstractRecipesResultFragment extends Fragment implements 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
-        setFragmentFields();
+        initializeFragmentFields();
         Log.v("Out to server=========", Constants.DIET_FILTER);
         outToServerWithLabels = outToServer + Constants.DIET_FILTER + Constants.HEALTH_FILTER;
         outToServerFromTo = outToServerWithLabels;
@@ -111,7 +111,7 @@ public abstract class AbstractRecipesResultFragment extends Fragment implements 
         }, 3000);
     }
 
-    public abstract void setFragmentFields();
+    public abstract void initializeFragmentFields();
 
     class MyTask extends AsyncTask<Void, Void, Void> {
         String title;

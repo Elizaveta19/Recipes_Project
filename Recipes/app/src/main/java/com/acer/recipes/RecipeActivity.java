@@ -1,4 +1,4 @@
-package com.acer.recipes.Fragments;
+package com.acer.recipes;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,10 +21,9 @@ import com.acer.recipes.RecipeFragments.TabsPagerAdapter;
 import com.squareup.picasso.Picasso;
 
 
-public class RecipeFragment extends FragmentActivity implements View.OnClickListener, TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
+public class RecipeActivity extends FragmentActivity implements View.OnClickListener, TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 
     private static final int LAYOUT = R.layout.recipe_fragment;
-    private View view;
 
     ViewPager mViewPager;
     private TabHost mTabHost;
@@ -58,7 +57,6 @@ public class RecipeFragment extends FragmentActivity implements View.OnClickList
         final Recipe recipe = (Recipe) getIntent().getSerializableExtra("recipe");
         TextView tv = (TextView) findViewById(R.id.recipe_title);
         ImageView recipeHeader = (ImageView) findViewById(R.id.recipe_header);
-        //ImageView recipeHeader2 = (ImageView) findViewById(R.id.recipe_header2);
         ImageView backButton = (ImageView) findViewById(R.id.back_to_results);
 
         tv.setText(recipe.getTitle());

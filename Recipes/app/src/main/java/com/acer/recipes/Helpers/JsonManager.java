@@ -21,41 +21,6 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 public class JsonManager {
-    final String LOG_TAG = "myLogs";
-    public String getAllProducts(URL fullUrl) {
-        try {
-            StringBuffer result = new StringBuffer();
-            try {
-                HttpsURLConnection urlConnection = (HttpsURLConnection) fullUrl.openConnection();
-                try {
-                    BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    String st = "";
-                    while ((st = br.readLine()) != null) {
-                        result.append(st);
-                    }
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                    Log.d("my1", e.getMessage());
-                }
-                finally {
-                    urlConnection.disconnect();
-                }
-            }catch (MalformedURLException e)
-            {
-                Log.d("my2", e.getMessage());
-                e.printStackTrace();
-            }
-            return result.toString();
-        }
-        catch (IOException e)
-        {
-            Log.d("my3", e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     public String getAllRecipes(URL fullUrl) {
         try {

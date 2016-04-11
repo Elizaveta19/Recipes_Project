@@ -7,7 +7,7 @@ public class RecipesWithCaloriesResultFragment extends AbstractRecipesResultFrag
     String maxCalories = "";
 
     @Override
-    public void setFragmentFields() {
+    public void initializeFragmentFields() {
         Bundle bundle = getArguments();
         query = bundle.getString("query");
         maxCalories = String.valueOf(bundle.getInt("maxCalories"));

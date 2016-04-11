@@ -190,8 +190,8 @@ public class DbHelper extends SQLiteOpenHelper {
         //fats
         ContentValues values_3 = new ContentValues();
         values_3.put(ID_RECIPE, recipe.getId());
-        values_3.put(TOTAL_WEIGHT, recipe.getFat().getTotalWeight());
-        values_3.put(TOTAL, recipe.getFat().getTotalPerRecipe());
+        values_3.put(TOTAL_WEIGHT, recipe.getFat().getTotalRecipeWeight());
+        values_3.put(TOTAL, recipe.getFat().getTotalFatPerRecipe());
         values_3.put(DAILY, recipe.getFat().getDailyPerRecipe());
         values_3.put(SATURATED, recipe.getFat().getSaturatedPerRecipe());
         values_3.put(TRANS, recipe.getFat().getTransPerRecipe());
@@ -202,8 +202,8 @@ public class DbHelper extends SQLiteOpenHelper {
         //carbs
         ContentValues values_4 = new ContentValues();
         values_4.put(ID_RECIPE, recipe.getId());
-        values_4.put(TOTAL_WEIGHT, recipe.getCarbs().getTotalWeight());
-        values_4.put(TOTAL, recipe.getCarbs().getTotalPerRecipe());
+        values_4.put(TOTAL_WEIGHT, recipe.getCarbs().getTotalRecipeWeight());
+        values_4.put(TOTAL, recipe.getCarbs().getTotalCarbsPerRecipe());
         values_4.put(DAILY, recipe.getCarbs().getDailyPerRecipe());
         values_4.put(CARBS_NET, recipe.getCarbs().getCarbsNetPerRecipe());
         values_4.put(FIBER, recipe.getCarbs().getFiberPerRecipe());
@@ -213,8 +213,8 @@ public class DbHelper extends SQLiteOpenHelper {
         //proteins
         ContentValues values_5 = new ContentValues();
         values_5.put(ID_RECIPE, recipe.getId());
-        values_5.put(TOTAL_WEIGHT, recipe.getProtein().getTotalWeight());
-        values_5.put(TOTAL, recipe.getProtein().getTotalPerRecipe());
+        values_5.put(TOTAL_WEIGHT, recipe.getProtein().getTotalRecipeWeight());
+        values_5.put(TOTAL, recipe.getProtein().getTotalProteinsPerRecipe());
         values_5.put(DAILY, recipe.getProtein().getDailyPerRecipe());
         db.insert(PROTEIN_TABLE_NAME, null, values_5);
 

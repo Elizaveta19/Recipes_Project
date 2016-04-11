@@ -14,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.acer.recipes.Fragments.RecipeFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -77,7 +76,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
         recipeViewHolder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity, RecipeFragment.class);
+                Intent intent = new Intent(mActivity, RecipeActivity.class);
                 intent.putExtra("recipe", recipes.get(position));
                 mActivity.startActivity(intent);
             }
