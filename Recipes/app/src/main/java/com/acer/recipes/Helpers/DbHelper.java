@@ -163,8 +163,7 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addRecipe(Recipe recipe)
-    {
+    public void addRecipe(Recipe recipe)    {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values_1 = new ContentValues();
 
@@ -174,7 +173,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values_1.put(SOURCE, recipe.getUrl());
         values_1.put(CAL, recipe.getCalories());
         values_1.put(WEIGHT, recipe.getTotalWeight());
-        values_1.put(YIELD, recipe.getNumberOfPortion());
+        values_1.put(YIELD, recipe.getNumberOfPortions());
         String a = recipe.getImgUrl();
         values_1.put(IMG_URL, a);
         db.insert(RECIPE_TABLE_NAME, null, values_1);
@@ -238,8 +237,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    public void deleteRecipe(Recipe recipe)
-    {
+    public void deleteRecipe(Recipe recipe)    {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] whereArgs = new String[] { String.valueOf(recipe.getId())};
 
@@ -255,8 +253,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<Recipe> getAllRecipes()
-    {
+    public ArrayList<Recipe> getAllRecipes()    {
         ArrayList<Recipe> recipesList = new ArrayList<Recipe>();
         String recipeSelectQuery = "SELECT * FROM " + RECIPE_TABLE_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -340,8 +337,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return recipesList;
     }
 
-    public void addIngredientToShoppingList(Recipe recipe, String ingredient)
-    {
+    public void addIngredientToShoppingList(Recipe recipe, String ingredient)    {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values_1 = new ContentValues();
 
@@ -354,8 +350,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    public void deleteIngredientFromShoppingList(String ingredient)
-    {
+    public void deleteIngredientFromShoppingList(String ingredient)    {
         SQLiteDatabase db = this.getWritableDatabase();
         String ingredientsSelectQuery = "";
         if (ingredient.contains("\"")){
@@ -378,8 +373,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    public void setBoughtIngredient(Ingredient ingredient)
-    {
+    public void setBoughtIngredient(Ingredient ingredient)    {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values_1 = new ContentValues();
         values_1.put(IS_BOUGHT, 1);
@@ -390,8 +384,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean isInShoppingList(Recipe recipe, String ingredient)
-    {
+    public boolean isInShoppingList(Recipe recipe, String ingredient)    {
         SQLiteDatabase db = this.getWritableDatabase();
         String ingredientsSelectQuery = "";
         if (ingredient.contains("\"")){
@@ -419,8 +412,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    public void unsetBoughtIngredient(Ingredient ingredient)
-    {
+    public void unsetBoughtIngredient(Ingredient ingredient)    {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values_1 = new ContentValues();
         values_1.put(IS_BOUGHT, 0);
@@ -431,8 +423,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<Ingredient> getShoppingList()
-    {
+    public ArrayList<Ingredient> getShoppingList()    {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String ingredientsSelectQuery = "SELECT * FROM " + SHOPPING_LIST_TABLE_NAME;

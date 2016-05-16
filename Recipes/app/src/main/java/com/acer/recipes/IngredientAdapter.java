@@ -10,7 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 public class IngredientAdapter extends ArrayAdapter<String> {
-    Recipe recipe;
+    private Recipe recipe;
 
     public IngredientAdapter(Context context, Recipe _recipe) {
         super(context, R.layout.ingredient_item, _recipe.getIngredients());

@@ -45,9 +45,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecipeViewHolder> 
 
         Picasso.with(currentContext).load(recipes.get(position).getImgUrl()).into(recipeViewHolder.recipePhoto);
         recipeViewHolder.recipeTitle.setText(recipes.get(position).getTitle());
-        recipeViewHolder.recipeTotalWeight.setText("Total Weight:" + Integer.toString(recipes.get(position).getTotalWeight()) + "g (" + Integer.toString(recipes.get(position).getNumberOfPortion()) + " portions)");
+        recipeViewHolder.recipeTotalWeight.setText("Total Weight:" + Integer.toString(recipes.get(position).getTotalWeight()) + "g (" + Integer.toString(recipes.get(position).getNumberOfPortions()) + " portions)");
         recipeViewHolder.recipeCcal.setText("Calories pro 100g: " + Integer.toString(recipes.get(position).getStandartCalories()));
-        recipeViewHolder.recipeCcalProPerson.setText("Calories pro portion: " + Integer.toString(recipes.get(position).getCaloriesProPerson()) + " (" +Integer.toString(recipes.get(position).getGrammProPerson()) + " g)");
+        recipeViewHolder.recipeCcalProPerson.setText("Calories pro portion: " + Integer.toString(recipes.get(position).getCaloriesPerPerson()) + " (" +Integer.toString(recipes.get(position).getGramPerPerson()) + " g)");
         recipeViewHolder.favorite.setChecked(recipes.get(position).isFavorite());
 
         recipeViewHolder.favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Protein implements Serializable {
     private int totalRecipeWeight;
     private int totalProteinsPerRecipe;
-    int dailyPerRecipe;
+    private int dailyPerRecipe;
 
     public Protein() {}
 

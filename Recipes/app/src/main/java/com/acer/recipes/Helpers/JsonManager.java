@@ -58,8 +58,7 @@ public class JsonManager {
         }
     }
 
-    public void putRecipes(String inputFromServer, ArrayList<Recipe> recipeArrayList)
-    {
+    public void putRecipes(String inputFromServer, ArrayList<Recipe> recipeArrayList)    {
         try
         {
             JSONObject reader = new JSONObject(inputFromServer);

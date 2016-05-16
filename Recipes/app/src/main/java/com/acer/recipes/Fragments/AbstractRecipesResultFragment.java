@@ -114,7 +114,6 @@ public abstract class AbstractRecipesResultFragment extends Fragment implements 
     public abstract void initializeFragmentFields();
 
     class MyTask extends AsyncTask<Void, Void, Void> {
-        String title;
 
         @Override
         protected Void doInBackground(Void... params) {

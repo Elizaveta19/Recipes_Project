@@ -77,15 +77,15 @@ public class Recipe  implements Serializable{
         int standartCalories = (int) Math.round(caloriesTemp);
         return standartCalories; }
 
-    public int getCaloriesProPerson(){
+    public int getCaloriesPerPerson(){
         return calories / yield; }
 
-    public int getGrammProPerson(){
+    public int getGramPerPerson(){
         return totalWeight / yield; }
 
     public int getTotalWeight() { return totalWeight; }
 
-    public int getNumberOfPortion() { return yield; }
+    public int getNumberOfPortions() { return yield; }
 
     public String getImgUrl() { return imgUrl; }
 
